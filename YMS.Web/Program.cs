@@ -1,3 +1,4 @@
+using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -11,60 +12,46 @@ using YMS.Core.Services.UserServices;
 using YMS.Migrations.Data;
 using YMS.Migrations.Repositories.Users;
 using YMS.Migrations.UnitOfWorks;
+using YMS.Web.Filters;
+using YMS.Web.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-// Add services to the container.
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<AppConfigurations>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddControllers();
-
-var jwtIssuer = Environment.GetEnvironmentVariable(EnvironmentVariablesEnum.JWT_ISSUER.ToString()) ?? builder.Configuration["Jwt:Issuer"];
-var jwtAudience = Environment.GetEnvironmentVariable(EnvironmentVariablesEnum.JWT_AUDIENCE.ToString()) ?? builder.Configuration["Jwt:Audience"];
-var jwtSigningKey = Environment.GetEnvironmentVariable(EnvironmentVariablesEnum.JWT_KEY.ToString()) ?? builder.Configuration["Jwt:Key"];
-builder.Services.AddAuthentication(options =>
+builder.Services.AddControllers(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
- {
-     options.SaveToken = true;
-     options.TokenValidationParameters = new TokenValidationParameters
-     {
-         ValidateIssuer = true,
-         ValidateAudience = true,
-         ValidateLifetime = true,
-         ValidateIssuerSigningKey = true,
-         ClockSkew = TimeSpan.FromMinutes(0),
-         ValidIssuer = jwtIssuer,
-         ValidAudience = jwtAudience,
-         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSigningKey))
-     };
- });
+    options.Filters.Add<UnifyResponseFilter>();
+});
+await builder.Services.AddApiServices(builder.Configuration);
 
-builder.Services.AddAuthorization();
+
+//builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
-
+var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 // Configure the HTTP request pipeline.
+app.UseSwaggerPipeline(provider);
+app.UseCors();
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapGet("/", async context =>
+    {
+        context.Response.Redirect("/swagger");
+    });
+});
+
 
 app.Run();

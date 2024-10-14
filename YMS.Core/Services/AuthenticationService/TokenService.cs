@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -11,6 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using YMS.Core.Configurations;
+using YMS.Core.Exceptions;
 using YMS.Core.Models;
 using YMS.Core.Models.AuthenticationModels;
 using YMS.Core.Models.Authentications;
@@ -32,18 +34,19 @@ namespace YMS.Core.Services.AuthenticationService
             _refreshTokenService = refreshTokenService;
         }
 
-        public async Task<ApiResponse<LoginResponseModel>> Authenticate([FromBody] LoginModel model)
+        public async Task<LoginResponseModel> Authenticate([FromBody] LoginModel model)
         {
-            var apiResponse = new ApiResponse<LoginResponseModel>();
+            var response = new LoginResponseModel();
             try
             {
                 var user = await _userService.GetUserByUsername(model.Username);
 
                 if (user == null || model.Password != user.Password)
                 {
-                    apiResponse.StatusCode = HttpStatusCode.NotFound;
-                    apiResponse.Errors = "Invalid username or password";
-                    return apiResponse;
+                    throw new NotFoundException("Invalid username or password");
+                    //response.StatusCode = HttpStatusCode.NotFound;
+                    //response.Errors = "Invalid username or password";
+                    //return response;
                 }
 
                 // Create claims for the JWT token
@@ -64,21 +67,18 @@ namespace YMS.Core.Services.AuthenticationService
                     ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays))
                 });
 
-                apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = new LoginResponseModel { AccessToken = accessToken, RefreshToken = refreshToken };
+              
+              return new LoginResponseModel { AccessToken = accessToken, RefreshToken = refreshToken };
             }
             catch (Exception ex)
             {
-                apiResponse.StatusCode = HttpStatusCode.BadRequest;
-                apiResponse.Errors = ex.Message;
+                throw new Exception(ex.Message);
             }
-
-            return apiResponse;
         }
 
-        public async Task<ApiResponse<LoginResponseModel>> GenerateToken(TokenRequestModel request)
+        public async Task<LoginResponseModel> GenerateToken(TokenRequestModel request)
         {
-            var apiResponse = new ApiResponse<LoginResponseModel>();
+            var response = new LoginResponseModel();
             try
             {
                 // Validate the refresh token (retrieve the stored refresh token from the database)
@@ -86,9 +86,10 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (storedRefreshToken == null || storedRefreshToken.ExpirationDate < DateTime.Now)
                 {
-                    apiResponse.StatusCode = HttpStatusCode.NotFound;
-                    apiResponse.Errors = "Invalid or expired refresh token.";
-                    return apiResponse;
+                    throw new UnauthorizedAccessException("Invalid or expired refresh token.");
+                   //apiResponse.StatusCode = HttpStatusCode.NotFound;
+                   // apiResponse.Errors = "Invalid or expired refresh token.";
+                   // return apiResponse;
                 }
 
                 var user = await _userService.GetUserByUsername(storedRefreshToken.Username);
@@ -107,21 +108,18 @@ namespace YMS.Core.Services.AuthenticationService
                 storedRefreshToken.ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays));
                 await _refreshTokenService.SaveRefreshToken(storedRefreshToken);
 
-                apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = new LoginResponseModel { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+                
+                return new LoginResponseModel { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
             }
             catch (Exception ex)
             {
-                apiResponse.StatusCode = HttpStatusCode.BadRequest;
-                apiResponse.Errors = ex.Message;
+                throw new Exception(ex.Message);
             }
-
-            return apiResponse;
         }
 
-        public async Task<ApiResponse<bool>> Logout(TokenRequestModel model)
+        public async Task<bool> Logout(TokenRequestModel model)
         {
-            var apiResponse = new ApiResponse<bool>();
+            var response = new bool();
 
             try
             {
@@ -129,21 +127,15 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (!isDeleted)
                 {
-                    apiResponse.StatusCode = HttpStatusCode.BadRequest;
-                    apiResponse.Errors = "RefreshToken is invalid or something went wrong during process.";
-                    return apiResponse;
+                    throw new UnauthorizedAccessException("RefreshToken is invalid or something went wrong during process.");  
                 }
 
-                apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = true;
+              return true;
             }
             catch (Exception ex)
             {
-                apiResponse.StatusCode = HttpStatusCode.BadRequest;
-                apiResponse.Errors = ex.Message;
+                throw new Exception(ex.Message);
             }
-
-            return apiResponse;
         }
 
         #region Private methoeds

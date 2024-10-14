@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace YMS.Migrations.Entities
 {
-    public class Customer
+    public class Customer : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

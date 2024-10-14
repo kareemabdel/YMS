@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

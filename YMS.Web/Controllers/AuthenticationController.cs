@@ -16,8 +16,8 @@ using YMS.Migrations.Entities;
 namespace YMS.Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class AuthenticationController : BaseController
+    [Route("api/v1/[controller]")]
+    public class AuthenticationController : ControllerBase
     {
         private readonly ITokenService _tokenService;
         private readonly IUserService _userService;
@@ -36,14 +36,14 @@ namespace YMS.Web.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var response = await _tokenService.Authenticate(model);
-            return GetAPIResponse(response);
+            return Ok(response);
         }
 
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh([FromBody] TokenRequestModel model)
         {
             var response = await _tokenService.GenerateToken(model);
-            return GetAPIResponse(response);
+            return Ok(response);
         }
 
         [Authorize]
@@ -51,7 +51,7 @@ namespace YMS.Web.Controllers
         public async Task<IActionResult> Logout([FromBody] TokenRequestModel model)
         {
             var response = await _tokenService.Logout(model);
-            return GetAPIResponse(response);
+            return Ok(response);
         }
     }
 }
