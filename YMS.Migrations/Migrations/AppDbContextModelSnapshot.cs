@@ -55,8 +55,20 @@ namespace YMS.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Fax")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
@@ -74,6 +86,9 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Phone2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Zip")
                         .HasColumnType("nvarchar(max)");
 
@@ -86,16 +101,20 @@ namespace YMS.Migrations.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ec6e37c9-ddce-4c5b-ac08-2182af2468be"),
+                            Id = new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"),
                             CityId = 1,
                             Code = "JEDDAH",
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(967), new TimeSpan(0, 3, 0, 0, 0)),
+                            IsDeleted = false,
                             Name = "JEDDAH"
                         },
                         new
                         {
-                            Id = new Guid("51b206b3-fe83-43c7-bc91-f1abebb80c07"),
+                            Id = new Guid("fb517db9-2aab-4ae7-b094-b2d1685d8ffc"),
                             CityId = 2,
                             Code = "DAMMAM",
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(975), new TimeSpan(0, 3, 0, 0, 0)),
+                            IsDeleted = false,
                             Name = "DAMMAM"
                         });
                 });
@@ -115,9 +134,24 @@ namespace YMS.Migrations.Migrations
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
 
@@ -131,6 +165,8 @@ namespace YMS.Migrations.Migrations
                             Id = 1,
                             Code = "JEDDA",
                             CountryId = 1,
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(881), new TimeSpan(0, 3, 0, 0, 0)),
+                            IsDeleted = false,
                             Name = "JEDDAH PLANT"
                         },
                         new
@@ -138,6 +174,8 @@ namespace YMS.Migrations.Migrations
                             Id = 2,
                             Code = "JUBAI",
                             CountryId = 1,
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(896), new TimeSpan(0, 3, 0, 0, 0)),
+                            IsDeleted = false,
                             Name = "JUBAIL PLANT"
                         });
                 });
@@ -154,6 +192,18 @@ namespace YMS.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("NameAr")
                         .HasColumnType("nvarchar(max)");
 
@@ -164,6 +214,9 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.HasKey("Id");
 
                     b.ToTable("Countries", (string)null);
@@ -173,6 +226,8 @@ namespace YMS.Migrations.Migrations
                         {
                             Id = 1,
                             Code = "SA",
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 3, 0, 0, 0)),
+                            IsDeleted = false,
                             NameAr = "المملكة العربية السعودية",
                             NameEn = "SAUDI ARABIA"
                         });
@@ -243,8 +298,17 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("ContactPersonDetails")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -253,6 +317,9 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HasVat")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
@@ -295,6 +362,9 @@ namespace YMS.Migrations.Migrations
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime>("ValidTo")
                         .HasColumnType("datetime2");
@@ -677,6 +747,15 @@ namespace YMS.Migrations.Migrations
                     b.Property<Guid?>("BranchId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Department")
                         .HasColumnType("int");
 
@@ -684,6 +763,9 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Inactive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
@@ -705,6 +787,9 @@ namespace YMS.Migrations.Migrations
 
                     b.Property<string>("Phone2")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -731,10 +816,12 @@ namespace YMS.Migrations.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("63417a82-045b-4561-932a-c789451837bc"),
-                            BranchId = new Guid("ec6e37c9-ddce-4c5b-ac08-2182af2468be"),
+                            Id = new Guid("d280a4e3-a1c9-4ba4-a2c8-132bf5b0f1b0"),
+                            BranchId = new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(1036), new TimeSpan(0, 3, 0, 0, 0)),
                             Department = 0,
                             Inactive = false,
+                            IsDeleted = false,
                             Name = "test",
                             Password = "123456",
                             Username = "test"
