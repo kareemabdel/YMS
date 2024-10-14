@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMS.Web", "YMS.Web\YMS.Web.csproj", "{46CE7E3D-E936-40AD-BC3E-C9D521808229}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMS.Migrations", "YMS.Migrations\YMS.Migrations.csproj", "{9CF53551-7759-4D49-8226-87688C3AAB48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMS.Core", "YMS.Core\YMS.Core.csproj", "{76B828C7-DB53-4A41-A6AE-4DD4B4850E60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46CE7E3D-E936-40AD-BC3E-C9D521808229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46CE7E3D-E936-40AD-BC3E-C9D521808229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46CE7E3D-E936-40AD-BC3E-C9D521808229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46CE7E3D-E936-40AD-BC3E-C9D521808229}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF53551-7759-4D49-8226-87688C3AAB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CF53551-7759-4D49-8226-87688C3AAB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CF53551-7759-4D49-8226-87688C3AAB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CF53551-7759-4D49-8226-87688C3AAB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B828C7-DB53-4A41-A6AE-4DD4B4850E60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B828C7-DB53-4A41-A6AE-4DD4B4850E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B828C7-DB53-4A41-A6AE-4DD4B4850E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B828C7-DB53-4A41-A6AE-4DD4B4850E60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36410EEE-0344-447E-9F6E-CE1B919454BD}
+	EndGlobalSection
+EndGlobal
