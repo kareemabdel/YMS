@@ -2,18 +2,11 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using YMS.Core.Configurations;
-using YMS.Core.Exceptions;
-using YMS.Core.Models;
 using YMS.Core.Models.AuthenticationModels;
 using YMS.Core.Models.Authentications;
 using YMS.Core.Services.UserServices;
@@ -43,10 +36,9 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (user == null || model.Password != user.Password)
                 {
-                    throw new NotFoundException("Invalid username or password");
-                    //response.StatusCode = HttpStatusCode.NotFound;
-                    //response.Errors = "Invalid username or password";
-                    //return response;
+                    response.IsSuccess = false;
+                    response.Msg = "Invalid username or password";
+                    return response;
                 }
 
                 // Create claims for the JWT token
@@ -68,7 +60,7 @@ namespace YMS.Core.Services.AuthenticationService
                 });
 
               
-              return new LoginResponseModel { AccessToken = accessToken, RefreshToken = refreshToken };
+              return new LoginResponseModel { IsSuccess=true,Msg="Loged in successfuly", AccessToken = accessToken, RefreshToken = refreshToken };
             }
             catch (Exception ex)
             {
@@ -86,10 +78,10 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (storedRefreshToken == null || storedRefreshToken.ExpirationDate < DateTime.Now)
                 {
-                    throw new UnauthorizedAccessException("Invalid or expired refresh token.");
-                   //apiResponse.StatusCode = HttpStatusCode.NotFound;
-                   // apiResponse.Errors = "Invalid or expired refresh token.";
-                   // return apiResponse;
+                    response.IsSuccess = false;
+                    response.Msg = "Invalid or expired refresh token.";
+                    return response;
+                   
                 }
 
                 var user = await _userService.GetUserByUsername(storedRefreshToken.Username);
@@ -108,8 +100,9 @@ namespace YMS.Core.Services.AuthenticationService
                 storedRefreshToken.ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays));
                 await _refreshTokenService.SaveRefreshToken(storedRefreshToken);
 
-                
-                return new LoginResponseModel { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+
+                return new LoginResponseModel { IsSuccess = true, Msg = "Refresh token successfuly", AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+
             }
             catch (Exception ex)
             {
@@ -127,7 +120,7 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (!isDeleted)
                 {
-                    throw new UnauthorizedAccessException("RefreshToken is invalid or something went wrong during process.");  
+                    throw new Exception("RefreshToken is invalid or something went wrong during process.");  
                 }
 
               return true;

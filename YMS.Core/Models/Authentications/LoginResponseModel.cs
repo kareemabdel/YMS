@@ -8,7 +8,9 @@ namespace YMS.Core.Models.Authentications
 {
     public class LoginResponseModel
     {
-        public string AccessToken { get; set; }
-        public string RefreshToken { get; set; }
+        public bool IsSuccess { get; set; }
+        public string? Msg { get; set; }
+        public string? AccessToken { get; set; }
+        public string? RefreshToken { get; set; }
     }
 }
