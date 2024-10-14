@@ -66,7 +66,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
 
                     b.HasData(
                         new
@@ -108,7 +108,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
 
                     b.HasData(
                         new
@@ -151,7 +151,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
 
                     b.HasData(
                         new
@@ -243,7 +243,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.RefreshToken", b =>
@@ -267,7 +267,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.User", b =>
@@ -324,7 +324,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users", t =>
+                    b.ToTable("Users", null, t =>
                         {
                             t.HasCheckConstraint("CHK_Email", "(Email IS NULL OR Email LIKE '%_@__%.__%')");
 
