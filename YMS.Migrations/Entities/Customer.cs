@@ -7,7 +7,7 @@ namespace YMS.Migrations.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string? NameAr { get; set; }
 
         [Required]
@@ -39,11 +39,23 @@ namespace YMS.Migrations.Entities
         public int PaymentType { get; set; }
 
         [Required]
+        public int CurrencyId { get; set; }
+        public Currency Currency { get; set; }
+
+        [Required]
         public int CityId { get; set; }
         public City City { get; set; }
 
         [Required]
-        public int BranchId { get; set; }
+        public Guid BranchId { get; set; }
         public Branch Branch { get; set; }
+
+        [Required]
+        public DateTime ValidTo { get; set; }
+
+        public EmptyStorageTariff EmptyStorageTariff { get; set; }
+        public FullStorageTariff FullStorageTariff { get; set; }
+        public ServicesTariff ServicesTariff { get; set; }
+        public PackageServicesTariff PackageServicesTariff { get; set; }
     }
 }

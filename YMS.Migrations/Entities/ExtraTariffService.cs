@@ -8,19 +8,12 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities
 {
-    public class RefreshToken
+    public class ExtraTariffService
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-
-        [Required]
-        public string Token { get; set; }
-
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public DateTime ExpirationDate { get; set; }
+        public bool Active { get; set; }
+        public string? Remarks { get; set; }
     }
 }

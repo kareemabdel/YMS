@@ -42,14 +42,14 @@ namespace YMS.Migrations.UnitOfWorks
             }
         }
 
-        //private IRepository _CustomersRepo;
-        //public IRefreshTokenRepository CustomersRepo
-        //{
-        //    get
-        //    {
-        //        return this._CustomersRepo = this._CustomersRepo ?? new RefreshTokenRepository(context);
-        //    }
-        //}
+        private IRepository<Customer> _CustomersRepo;
+        public IRepository<Customer> CustomersRepo
+        {
+            get
+            {
+                return this._CustomersRepo = this._CustomersRepo ?? new Repository<Customer>(context);
+            }
+        }
 
         private IRepository<Country> _CountriesRepo;
         public IRepository<Country> CountriesRepo
@@ -75,6 +75,87 @@ namespace YMS.Migrations.UnitOfWorks
             get
             {
                 return this._BranchesRepo = this._BranchesRepo ?? new Repository<Branch>(context);
+            }
+        }
+
+        private IRepository<Currency> _CurrenciesRepo;
+        public IRepository<Currency> CurrenciesRepo
+        {
+            get
+            {
+                return this._CurrenciesRepo = this._CurrenciesRepo ?? new Repository<Currency>(context);
+            }
+        }
+
+        private IRepository<EmptyStorageTariff> _EmptyStorageTariffsRepo;
+        public IRepository<EmptyStorageTariff> EmptyStorageTariffsRepo
+        {
+            get
+            {
+                return this._EmptyStorageTariffsRepo = this._EmptyStorageTariffsRepo ?? new Repository<EmptyStorageTariff>(context);
+            }
+        }
+
+        private IRepository<EmptyStorageTariffData> _EmptyStorageTariffDataListRepo;
+        public IRepository<EmptyStorageTariffData> EmptyStorageTariffDataListRepo
+        {
+            get
+            {
+                return this._EmptyStorageTariffDataListRepo = this._EmptyStorageTariffDataListRepo ?? new Repository<EmptyStorageTariffData>(context);
+            }
+        }
+
+        private IRepository<FullStorageTariff> _FullStorageTariffsRepo;
+        public IRepository<FullStorageTariff> FullStorageTariffsRepo
+        {
+            get
+            {
+                return this._FullStorageTariffsRepo = this._FullStorageTariffsRepo ?? new Repository<FullStorageTariff>(context);
+            }
+        }
+
+        private IRepository<FullStorageTariffData> _FullStorageTariffDataListRepo;
+        public IRepository<FullStorageTariffData> FullStorageTariffDataListRepo
+        {
+            get
+            {
+                return this._FullStorageTariffDataListRepo = this._FullStorageTariffDataListRepo ?? new Repository<FullStorageTariffData>(context);
+            }
+        }
+
+        private IRepository<ServicesTariff> _ServicesTariffsRepo;
+        public IRepository<ServicesTariff> ServicesTariffsRepo
+        {
+            get
+            {
+                return this._ServicesTariffsRepo = this._ServicesTariffsRepo ?? new Repository<ServicesTariff>(context);
+            }
+        }
+
+        private IRepository<ServiceTariffData> _ServicesTariffDataListRepo;
+        public IRepository<ServiceTariffData> ServicesTariffDataListRepo
+        {
+            get
+            {
+                return this._ServicesTariffDataListRepo = this._ServicesTariffDataListRepo ?? new Repository<ServiceTariffData>(context);
+            }
+        }
+
+        private IRepository<PackageServicesTariff> _PackageServicesTariffsRepo;
+        public IRepository<PackageServicesTariff> PackageServicesTariffsRepo
+        {
+            get
+            {
+                return this._PackageServicesTariffsRepo = this._PackageServicesTariffsRepo ?? new Repository<PackageServicesTariff>(context);
+            }
+        }
+
+        private IRepository<PackageServiceTariffData> _PackageServiceTariffDataListRepo;
+        public IRepository<PackageServiceTariffData> PackageServiceTariffDataListRepo
+        {
+            get
+            {
+                return this._PackageServiceTariffDataListRepo = this._PackageServiceTariffDataListRepo ?? new Repository<PackageServiceTariffData>(context);
             }
         }
 

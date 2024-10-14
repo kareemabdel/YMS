@@ -14,6 +14,18 @@ namespace YMS.Migrations.UnitOfWorks
         IRepository<Country> CountriesRepo { get; }
         IRepository<City> CitiesRepo { get; }
         IRepository<Branch> BranchesRepo { get; }
+        IRepository<Currency> CurrenciesRepo { get; }
+        IRepository<Customer> CustomersRepo { get; }
+        IRepository<EmptyStorageTariff> EmptyStorageTariffsRepo { get; }
+        IRepository<EmptyStorageTariffData> EmptyStorageTariffDataListRepo { get; }
+        IRepository<FullStorageTariff> FullStorageTariffsRepo { get; }
+        IRepository<FullStorageTariffData> FullStorageTariffDataListRepo { get; }
+
+        IRepository<ServicesTariff> ServicesTariffsRepo { get; }
+        IRepository<ServiceTariffData> ServicesTariffDataListRepo { get; }
+
+        IRepository<PackageServicesTariff> PackageServicesTariffsRepo { get; }
+        IRepository<PackageServiceTariffData> PackageServiceTariffDataListRepo { get; }
 
         DbContext contextForTransaction { get; }
 

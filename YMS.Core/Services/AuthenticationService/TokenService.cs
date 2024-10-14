@@ -45,8 +45,12 @@ namespace YMS.Core.Services.AuthenticationService
                 var claims = new List<Claim>
                 {
                 new Claim(JwtRegisteredClaimNames.Sub, model.Username),
-                new Claim("BranchId", @$"{user.BranchId}")
                 };
+
+                if (user.BranchId != null)
+                {
+                    claims.Add(new Claim("BranchId", @$"{user.BranchId}"));
+                }
 
                 var accessToken = GenerateAccessToken(claims);
                 var refreshToken = GenerateRefreshToken();

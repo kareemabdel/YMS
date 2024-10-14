@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities
 {
-    public class RefreshToken
+    public class Currency
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string Token { get; set; }
+        public string Code { get; set; }
 
         [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public DateTime ExpirationDate { get; set; }
+        public string NameEn { get; set; }
+        public string? NameAr { get; set; }
+        public string? Remarks { get; set; }
+        public double? ExchangeRate { get; set; }
     }
 }
