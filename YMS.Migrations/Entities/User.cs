@@ -12,7 +12,7 @@ namespace YMS.Migrations.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -24,7 +24,7 @@ namespace YMS.Migrations.Entities
         [MinLength(6)]
         public string Password { get; set; }
 
-        public int? BranchId { get; set; }
+        public Guid? BranchId { get; set; }
         public Branch Branch { get; set; }
 
         [Required]

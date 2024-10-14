@@ -25,7 +25,7 @@ namespace YMS.Core.Services.AuthenticationService
 
         public async Task<bool> SaveRefreshToken(RefreshToken refreshToken)
         {
-            if (refreshToken.Id == 0)
+            if (refreshToken.Id == Guid.Empty)
             {
                 await _unitOfWork.RefreshTokensRepo.Insert(refreshToken);
             }

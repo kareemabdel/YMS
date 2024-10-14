@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities
 {
-    public class Tariff
+    public class StorageTariff
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
-        public int Type { get; set; }
-        public DateTime? ValidTo { get; set; }
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
 
         //true by default
         public bool Active { get; set; }
@@ -28,6 +28,5 @@ namespace YMS.Migrations.Entities
         public decimal? Off40 { get; set; }
         public decimal? On40 { get; set; }
         public int DailyCount { get; set; }
-
     }
 }

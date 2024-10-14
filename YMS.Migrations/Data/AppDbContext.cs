@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,15 @@ namespace YMS.Migrations.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<EmptyStorageTariff> EmptyStorageTariffs { get; set; }
+        public DbSet<EmptyStorageTariffData> EmptyStorageTariffDataList { get; set; }
+        public DbSet<FullStorageTariff> FullStorageTariffs { get; set; }
+        public DbSet<FullStorageTariffData> FullStorageTariffDataList { get; set; }
+        public DbSet<PackageType> PackageTypes { get; set; }
+        public DbSet<Basis> Basises { get; set; }
+        public DbSet<FullStorageDataType> FullStorageDataTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +54,11 @@ namespace YMS.Migrations.Data
             .WithMany()
             .HasForeignKey(c => c.CityId)
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
+
+            modelBuilder.Entity<EmptyStorageTariff>().Property(x => x.Active).HasDefaultValue(true);
+            modelBuilder.Entity<FullStorageTariff>().Property(x => x.Active).HasDefaultValue(true);
+            modelBuilder.Entity<ServicesTariff>().Property(x => x.Active).HasDefaultValue(true);
+            modelBuilder.Entity<PackageServicesTariff>().Property(x => x.Active).HasDefaultValue(true);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();

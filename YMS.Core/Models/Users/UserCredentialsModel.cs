@@ -11,6 +11,6 @@ namespace YMS.Core.Models.Users
         public string Username { get; set; }
 
         public string Password { get; set; }
-        public int? BranchId { get; set; }
+        public Guid? BranchId { get; set; }
     }
 }

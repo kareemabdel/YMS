@@ -15,6 +15,10 @@ namespace YMS.Migrations.Data
             // Seed data for Countries
             modelBuilder.Entity<Country>().HasData(
                 new Country { Id = 1, Code = "SA", NameAr = "المملكة العربية السعودية", NameEn = "SAUDI ARABIA" }
+            ); 
+            
+            modelBuilder.Entity<Currency>().HasData(
+                new Currency { Id = 1, Code = "SAR", NameAr = "ريال سعودي", NameEn = "Saudi Riyal", ExchangeRate = 3.75 }
             );
 
             // Seed data for Cities
@@ -23,13 +27,21 @@ namespace YMS.Migrations.Data
                 new City { Id = 2, Code = "JUBAI", Name = "JUBAIL PLANT", CountryId = 1 }
             );
 
+            var branchId1 = Guid.NewGuid();
+            var branchId2 = Guid.NewGuid();
+
             modelBuilder.Entity<Branch>().HasData(
-                new Branch { Id = 1, Code = "JEDDAH", Name = "JEDDAH", CityId = 1 },
-                new Branch { Id = 2, Code = "DAMMAM", Name = "DAMMAM", CityId = 2 }
+                new Branch { Id = branchId1, Code = "JEDDAH", Name = "JEDDAH", CityId = 1 },
+                new Branch { Id = branchId2, Code = "DAMMAM", Name = "DAMMAM", CityId = 2 }
             );
-            
+
+            modelBuilder.Entity<Service>().HasData(
+                new Service { Id = 1, Name = "Clean Unit"},
+                new Service { Id = 2, Name = "Cleaning" }
+            );
+
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Name = "test", Username = "test", Password = "123456", BranchId = 1 }
+                new User { Id = Guid.NewGuid(), Name = "test", Username = "test", Password = "123456", BranchId = branchId1 }
             );
         }
     }
