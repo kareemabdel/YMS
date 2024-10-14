@@ -36,7 +36,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Basises");
+                    b.ToTable("Basises", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Branch", b =>
@@ -55,20 +55,8 @@ namespace YMS.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Fax")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
@@ -86,9 +74,6 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Phone2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset?>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<string>("Zip")
                         .HasColumnType("nvarchar(max)");
 
@@ -96,7 +81,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
 
                     b.HasData(
                         new
@@ -104,8 +89,6 @@ namespace YMS.Migrations.Migrations
                             Id = new Guid("ec6e37c9-ddce-4c5b-ac08-2182af2468be"),
                             CityId = 1,
                             Code = "JEDDAH",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 14, 22, 21, 37, 553, DateTimeKind.Unspecified).AddTicks(3251), new TimeSpan(0, 3, 0, 0, 0)),
-                            IsDeleted = false,
                             Name = "JEDDAH"
                         },
                         new
@@ -113,8 +96,6 @@ namespace YMS.Migrations.Migrations
                             Id = new Guid("51b206b3-fe83-43c7-bc91-f1abebb80c07"),
                             CityId = 2,
                             Code = "DAMMAM",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 14, 22, 21, 37, 553, DateTimeKind.Unspecified).AddTicks(3257), new TimeSpan(0, 3, 0, 0, 0)),
-                            IsDeleted = false,
                             Name = "DAMMAM"
                         });
                 });
@@ -134,30 +115,15 @@ namespace YMS.Migrations.Migrations
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
 
                     b.HasData(
                         new
@@ -165,8 +131,6 @@ namespace YMS.Migrations.Migrations
                             Id = 1,
                             Code = "JEDDA",
                             CountryId = 1,
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 14, 22, 21, 37, 553, DateTimeKind.Unspecified).AddTicks(3220), new TimeSpan(0, 3, 0, 0, 0)),
-                            IsDeleted = false,
                             Name = "JEDDAH PLANT"
                         },
                         new
@@ -174,8 +138,6 @@ namespace YMS.Migrations.Migrations
                             Id = 2,
                             Code = "JUBAI",
                             CountryId = 1,
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 14, 22, 21, 37, 553, DateTimeKind.Unspecified).AddTicks(3229), new TimeSpan(0, 3, 0, 0, 0)),
-                            IsDeleted = false,
                             Name = "JUBAIL PLANT"
                         });
                 });
@@ -192,18 +154,6 @@ namespace YMS.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("NameAr")
                         .HasColumnType("nvarchar(max)");
 
@@ -214,20 +164,15 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset?>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Code = "SA",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 14, 22, 21, 37, 553, DateTimeKind.Unspecified).AddTicks(3023), new TimeSpan(0, 3, 0, 0, 0)),
-                            IsDeleted = false,
                             NameAr = "المملكة العربية السعودية",
                             NameEn = "SAUDI ARABIA"
                         });
@@ -260,7 +205,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Currencies");
+                    b.ToTable("Currencies", (string)null);
 
                     b.HasData(
                         new
@@ -301,15 +246,6 @@ namespace YMS.Migrations.Migrations
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -317,9 +253,6 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HasVat")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
@@ -366,9 +299,6 @@ namespace YMS.Migrations.Migrations
                     b.Property<DateTime>("ValidTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTimeOffset?>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
@@ -384,7 +314,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServicesTariffId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariff", b =>
@@ -430,7 +360,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("EmptyStorageTariffs");
+                    b.ToTable("EmptyStorageTariffs", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariffData", b =>
@@ -452,7 +382,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("EmptyStorageTariffId");
 
-                    b.ToTable("EmptyStorageTariffDataList");
+                    b.ToTable("EmptyStorageTariffDataList", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageDataType", b =>
@@ -469,7 +399,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FullStorageDataTypes");
+                    b.ToTable("FullStorageDataTypes", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariff", b =>
@@ -515,7 +445,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("FullStorageTariffs");
+                    b.ToTable("FullStorageTariffs", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariffData", b =>
@@ -542,7 +472,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("FulllStorageDataTypeId");
 
-                    b.ToTable("FullStorageTariffDataList");
+                    b.ToTable("FullStorageTariffDataList", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageServiceTariffData", b =>
@@ -579,7 +509,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("PackageServiceTariffData");
+                    b.ToTable("PackageServiceTariffData", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageServicesTariff", b =>
@@ -601,7 +531,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageServicesTariff");
+                    b.ToTable("PackageServicesTariff", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageType", b =>
@@ -618,7 +548,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageTypes");
+                    b.ToTable("PackageTypes", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.RefreshToken", b =>
@@ -640,7 +570,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Service", b =>
@@ -657,7 +587,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
 
                     b.HasData(
                         new
@@ -713,7 +643,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServicesTariffId");
 
-                    b.ToTable("ServiceTariffData");
+                    b.ToTable("ServiceTariffData", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.ServicesTariff", b =>
@@ -732,7 +662,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicesTariff");
+                    b.ToTable("ServicesTariff", (string)null);
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.User", b =>
@@ -747,15 +677,6 @@ namespace YMS.Migrations.Migrations
                     b.Property<Guid?>("BranchId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Department")
                         .HasColumnType("int");
 
@@ -763,9 +684,6 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Inactive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
@@ -788,9 +706,6 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Phone2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset?>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -802,7 +717,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users", t =>
+                    b.ToTable("Users", null, t =>
                         {
                             t.HasCheckConstraint("CHK_Email", "(Email IS NULL OR Email LIKE '%_@__%.__%')");
 
@@ -820,7 +735,6 @@ namespace YMS.Migrations.Migrations
                             BranchId = new Guid("ec6e37c9-ddce-4c5b-ac08-2182af2468be"),
                             Department = 0,
                             Inactive = false,
-                            IsDeleted = false,
                             Name = "test",
                             Password = "123456",
                             Username = "test"
