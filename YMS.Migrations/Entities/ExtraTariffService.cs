@@ -15,5 +15,9 @@ namespace YMS.Migrations.Entities
         public Guid Id { get; set; }
         public bool Active { get; set; }
         public string? Remarks { get; set; }
+
+        [Required]
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 }

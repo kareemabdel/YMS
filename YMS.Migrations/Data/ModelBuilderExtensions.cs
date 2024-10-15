@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,21 @@ namespace YMS.Migrations.Data
             modelBuilder.Entity<Service>().HasData(
                 new Service { Id = 1, Name = "Clean Unit"},
                 new Service { Id = 2, Name = "Cleaning" }
+            );
+
+            modelBuilder.Entity<FullStorageDataType>().HasData(
+                new FullStorageDataType { Id = 1, Name = "FullStorageDataType1" },
+                new FullStorageDataType { Id = 2, Name = "FullStorageDataType2" }
+            );
+
+            modelBuilder.Entity<Basis>().HasData(
+                new Basis { Id = 1, Name = "Per Size" },
+                new Basis { Id = 2, Name = "Per Unit" }
+            );
+
+            modelBuilder.Entity<PackageType>().HasData(
+                new PackageType { Id = 1, Name = "Box" },
+                new PackageType { Id = 2, Name = "Bags" }
             );
 
             modelBuilder.Entity<User>().HasData(

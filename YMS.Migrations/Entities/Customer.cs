@@ -53,9 +53,9 @@ namespace YMS.Migrations.Entities
         [Required]
         public DateTime ValidTo { get; set; }
 
-        public EmptyStorageTariff EmptyStorageTariff { get; set; }
-        public FullStorageTariff FullStorageTariff { get; set; }
-        public ServicesTariff ServicesTariff { get; set; }
-        public PackageServicesTariff PackageServicesTariff { get; set; }
+        public EmptyStorageTariff? EmptyStorageTariff { get; set; }
+        public FullStorageTariff? FullStorageTariff { get; set; }
+        public ServicesTariff? ServicesTariff { get; set; }
+        public PackageServicesTariff? PackageServicesTariff { get; set; }
     }
 }

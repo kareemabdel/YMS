@@ -10,6 +10,6 @@ namespace YMS.Migrations.Entities
 {
     public class EmptyStorageTariff : StorageTariff
     {
-        List<EmptyStorageTariffData> EmptyStorageTariffDataList { get; set; }
+        public List<EmptyStorageTariffData> EmptyStorageTariffDataList { get; set; }
     }
 }

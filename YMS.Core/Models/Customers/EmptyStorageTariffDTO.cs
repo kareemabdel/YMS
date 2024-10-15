@@ -10,6 +10,6 @@ namespace YMS.Core.Models.Customers
 {
     public class EmptyStorageTariffDTO : StorageTariffDTO
     {
-        List<EmptyStorageTariffDataDTO> EmptyStorageTariffDataList { get; set; }
+        public List<EmptyStorageTariffDataDTO> EmptyStorageTariffDataList { get; set; }
     }
 }

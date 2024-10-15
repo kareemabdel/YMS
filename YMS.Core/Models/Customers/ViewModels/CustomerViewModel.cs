@@ -4,13 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YMS.Migrations.Entities;
 
-namespace YMS.Core.Models.Customers
+namespace YMS.Core.Models.Customers.ViewModels
 {
-    public class CustomerDTO
+    public class CustomerViewModel
     {
-        public Guid? Id { get; set; }
         public string? NameAr { get; set; }
 
         [Required]
@@ -25,9 +23,18 @@ namespace YMS.Core.Models.Customers
         public string? Remarks { get; set; }
 
         [Required]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Phone1 must contain only numbers.")]
         public string Phone1 { get; set; }
+
+        [RegularExpression(@"^\d+$", ErrorMessage = "Phone2 must contain only numbers.")]
         public string? Phone2 { get; set; }
+
+        [RegularExpression(@"^\+[0-9]{9,14}$", ErrorMessage = "Mobile must start with a '+' followed by 9 to 14 digits.")]
+        [MinLength(10, ErrorMessage = "Mobile must be at least 10 characters long.")]
+        [MaxLength(15, ErrorMessage = "Mobile cannot be more than 15 characters long.")]
         public string? Mobile { get; set; }
+
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Invalid email format.")]
         public string? Email { get; set; }
         public string? Fax { get; set; }
         public string? Website { get; set; }
@@ -43,22 +50,18 @@ namespace YMS.Core.Models.Customers
 
         [Required]
         public int CurrencyId { get; set; }
-        public CurrencyDTO Currency { get; set; }
 
         [Required]
         public int CityId { get; set; }
-        public CityDTO City { get; set; }
 
-        [Required]
         public Guid? BranchId { get; set; }
-        public BranchDTO Branch { get; set; }
 
         [Required]
         public DateTime ValidTo { get; set; }
 
-        public EmptyStorageTariffDTO? EmptyStorageTariff { get; set; }
-        public FullStorageTariffDTO? FullStorageTariff { get; set; }
-        public ServicesTariffDTO? ServicesTariff { get; set; }
-        public PackageServicesTariffDTO? PackageServicesTariff { get; set; }
+        public EmptyStorageTariffViewModel? EmptyStorageTariffViewModel { get; set; }
+        public FullStorageTariffViewModel? FullStorageTariffViewModel { get; set; }
+        public ServicesTariffViewModel? ServicesTariffViewModel { get; set; }
+        public PackageServicesTariffViewModel? PackageServicesTariffViewModel { get; set; }
     }
 }

@@ -8,11 +8,14 @@ using YMS.Core.Models.Customers;
 using YMS.Core.Models.Filters;
 using YMS.Core.Models;
 using YMS.Core.Models.Users;
+using YMS.Core.Models.Customers.ViewModels;
 
 namespace YMS.Core.Services.UserServices
 {
     public interface ICustomerService
     {
         Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter, int page , int size);
+
+        Task<ApiResponse<bool>> CreateCustomer(CustomerViewModel model);
     }
 }

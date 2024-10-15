@@ -10,7 +10,7 @@ namespace YMS.Core.Models.Customers
 {
     public class ExtraTariffServiceDataDTO
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Required]
         public int ServiceId { get; set; }
@@ -20,7 +20,7 @@ namespace YMS.Core.Models.Customers
         public int BasisId { get; set; }
         public BasisDTO Basis { get; set; }
         public string? Remarks { get; set; }
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
 
     }
 }
