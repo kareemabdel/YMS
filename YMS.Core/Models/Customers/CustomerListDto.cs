@@ -13,7 +13,7 @@ namespace YMS.Core.Models.Customers
         public string NameEn { get; set; }
         public string Code { get; set; }
         public string? TaxNumber { get; set; }
-        public bool HasVat { get; set; }
+        public string HasVat { get; set; }
         public string Phone1 { get; set; }
         public string? Email { get; set; }
         public int PaymentType { get; set; }

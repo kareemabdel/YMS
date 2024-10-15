@@ -36,7 +36,7 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (user == null || DTO.Password != user.Password)
                 {
-                    apiResponse.StatusCode = HttpStatusCode.NotFound;
+                    apiResponse.StatusCode = HttpStatusCode.BadRequest;
                     apiResponse.Errors = "Invalid username or password";
                     return apiResponse;
                 }

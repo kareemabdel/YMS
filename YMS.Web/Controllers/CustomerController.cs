@@ -21,7 +21,7 @@ namespace YMS.Web.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ApiResponse<PaginatedList<CustomerListDTO>>>> GetAll([FromQuery] CustomerFilter? filter)
+        public async Task<ActionResult<PaginatedList<CustomerListDTO>>> GetAll([FromQuery] CustomerFilter? filter)
         {
             var branchIdClaim = User.Claims.FirstOrDefault(c => c.Type == "BranchId");
             if (branchIdClaim is not null)

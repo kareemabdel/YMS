@@ -8,8 +8,6 @@ namespace YMS.Core.Models.Authentications
 {
     public class LoginResponseDTO
     {
-        public bool IsSuccess { get; set; }
-        public string? Msg { get; set; }
         public string? AccessToken { get; set; }
         public string? RefreshToken { get; set; }
     }

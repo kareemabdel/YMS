@@ -12,7 +12,9 @@ namespace YMS.Core.Mapping
             // Create your mappings here
             CreateMap<Customer, CustomerDTO>();
             CreateMap<CustomerDTO, Customer>();
-            CreateMap<CustomerListDTO, Customer>().ReverseMap();
+            CreateMap<Customer, CustomerListDTO>()
+                  .ForMember(e => e.HasVat, e => e.MapFrom(e => e.HasVat ? "Yes" : "No"))
+                .ReverseMap();
             
             CreateMap<User, UserCredentialsDTO>();
             CreateMap<UserCredentialsDTO, User>();
