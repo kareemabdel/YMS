@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Customers
 {
-    public class CustomerListDto
+    public class CustomerListDTO
     {
     }
 }

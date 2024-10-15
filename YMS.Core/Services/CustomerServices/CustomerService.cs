@@ -24,7 +24,7 @@ namespace YMS.Core.Services.UserServices
             _mapper = mapper;
         }
 
-        public Task<ApiResponse<PaginatedList<CustomerListDto>>> GetAll(CustomerFilter? filter, int page, int size)
+        public Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter, int page, int size)
         {
             throw new NotImplementedException();
         }
