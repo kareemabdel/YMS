@@ -182,7 +182,7 @@ namespace YMS.Migrations.UnitOfWorks
                     context.Dispose();
                 }
             }
-            this.disposed = true;
+            this.disposed = true; ; ; ;
         }
 
         public void Dispose()
