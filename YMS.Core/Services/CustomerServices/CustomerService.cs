@@ -33,13 +33,14 @@ namespace YMS.Core.Services.UserServices
 
         public async Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter)
         {
-            var res =await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId,filter!.SearchKey);
+            var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey);
             var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
             return new ApiResponse<PaginatedList<CustomerListDTO>>
             {
                 StatusCode = HttpStatusCode.OK,
                 Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems, filter.Page, filter.Size)
             };
+        }
         public async Task<ApiResponse<bool>> CreateCustomer(CustomerViewModel model)
         {
             var apiResponse = new ApiResponse<bool>();
