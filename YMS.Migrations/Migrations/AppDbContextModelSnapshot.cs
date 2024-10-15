@@ -243,7 +243,7 @@ namespace YMS.Migrations.Migrations
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedDate")
+                    b.Property<DateTimeOffset?>("CreatedDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("DeletedDate")
@@ -277,7 +277,6 @@ namespace YMS.Migrations.Migrations
                         {
                             Id = 1,
                             Code = "SAR",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9046), new TimeSpan(0, 3, 0, 0, 0)),
                             ExchangeRate = 3.75,
                             IsDeleted = false,
                             NameAr = "ريال سعودي",

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YMS.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class addinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,7 @@ namespace YMS.Migrations.Migrations
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -60,7 +60,7 @@ namespace YMS.Migrations.Migrations
                     ExchangeRate = table.Column<double>(type: "float", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -160,7 +160,7 @@ namespace YMS.Migrations.Migrations
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -271,7 +271,7 @@ namespace YMS.Migrations.Migrations
                     Zip = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -318,7 +318,7 @@ namespace YMS.Migrations.Migrations
                     PackageServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -376,7 +376,7 @@ namespace YMS.Migrations.Migrations
                     Inactive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -498,12 +498,12 @@ namespace YMS.Migrations.Migrations
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "Id", "Code", "CreatedById", "CreatedDate", "DeletedDate", "IsDeleted", "NameAr", "NameEn", "Remarks", "UpdatedDate" },
-                values: new object[] { 1, "SA", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(8620), new TimeSpan(0, 3, 0, 0, 0)), null, false, "المملكة العربية السعودية", "SAUDI ARABIA", null, null });
+                values: new object[] { 1, "SA", null, null, null, false, "المملكة العربية السعودية", "SAUDI ARABIA", null, null });
 
             migrationBuilder.InsertData(
                 table: "Currencies",
                 columns: new[] { "Id", "Code", "CreatedById", "CreatedDate", "DeletedDate", "ExchangeRate", "IsDeleted", "NameAr", "NameEn", "Remarks", "UpdatedDate" },
-                values: new object[] { 1, "SAR", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9046), new TimeSpan(0, 3, 0, 0, 0)), null, 3.75, false, "ريال سعودي", "Saudi Riyal", null, null });
+                values: new object[] { 1, "SAR", null, null, null, 3.75, false, "ريال سعودي", "Saudi Riyal", null, null });
 
             migrationBuilder.InsertData(
                 table: "Services",
@@ -519,8 +519,8 @@ namespace YMS.Migrations.Migrations
                 columns: new[] { "Id", "Code", "CountryId", "CreatedById", "CreatedDate", "DeletedDate", "IsDeleted", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "JEDDA", 1, null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9108), new TimeSpan(0, 3, 0, 0, 0)), null, false, "JEDDAH PLANT", null },
-                    { 2, "JUBAI", 1, null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9131), new TimeSpan(0, 3, 0, 0, 0)), null, false, "JUBAIL PLANT", null }
+                    { 1, "JEDDA", 1, null, null, null, false, "JEDDAH PLANT", null },
+                    { 2, "JUBAI", 1, null, null, null, false, "JUBAIL PLANT", null }
                 });
 
             migrationBuilder.InsertData(
@@ -528,14 +528,14 @@ namespace YMS.Migrations.Migrations
                 columns: new[] { "Id", "Address", "CityId", "Code", "CreatedById", "CreatedDate", "DeletedDate", "Fax", "IsDeleted", "Mobile", "Name", "Notes", "Phone1", "Phone2", "UpdatedDate", "Zip" },
                 values: new object[,]
                 {
-                    { new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"), null, 1, "JEDDAH", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9215), new TimeSpan(0, 3, 0, 0, 0)), null, null, false, null, "JEDDAH", null, null, null, null, null },
-                    { new Guid("b8d4e402-cbb7-421f-97c0-1bd3e388d9b3"), null, 2, "DAMMAM", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9236), new TimeSpan(0, 3, 0, 0, 0)), null, null, false, null, "DAMMAM", null, null, null, null, null }
+                    { new Guid("0a534cad-cce7-422b-b79b-b38f3ea1a918"), null, 1, "JEDDAH", null, null, null, null, false, null, "JEDDAH", null, null, null, null, null },
+                    { new Guid("1dffb2d6-88ac-4ecd-901e-f9e3cd44633c"), null, 2, "DAMMAM", null, null, null, null, false, null, "DAMMAM", null, null, null, null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Address", "BranchId", "CreatedById", "CreatedDate", "DeletedDate", "Department", "Email", "Inactive", "IsDeleted", "Mobile", "Name", "Notes", "Password", "Phone1", "Phone2", "UpdatedDate", "Username" },
-                values: new object[] { new Guid("8fc53904-313c-4cbb-ae20-816131ad63ef"), null, new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"), null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9350), new TimeSpan(0, 3, 0, 0, 0)), null, 0, null, false, false, null, "test", null, "123456", null, null, null, "test" });
+                values: new object[] { new Guid("3b362655-5ade-4978-826e-0ec0edbfc31b"), null, new Guid("0a534cad-cce7-422b-b79b-b38f3ea1a918"), null, null, null, 0, null, false, false, null, "test", null, "123456", null, null, null, "test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Branches_CityId",

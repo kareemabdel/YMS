@@ -1,15 +1,10 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using YMS.Core.Configurations;
 using YMS.Core.Models;
 using YMS.Core.Models.AuthenticationModels;
@@ -32,18 +27,16 @@ namespace YMS.Core.Services.AuthenticationService
             _refreshTokenService = refreshTokenService;
         }
 
-        public async Task<LoginResponseDTO> Authenticate([FromBody] LoginDTO model)
-        public async Task<ApiResponse<LoginResponseModel>> Authenticate([FromBody] LoginModel model)
+        public async Task<ApiResponse<LoginResponseDTO>> Authenticate([FromBody] LoginDTO DTO)
         {
-            var response = new LoginResponseDTO();
-            var apiResponse = new ApiResponse<LoginResponseModel>();
+            var apiResponse = new ApiResponse<LoginResponseDTO>();
             try
             {
-                var user = await _userService.GetUserByUsername(model.Username);
+                var user = await _userService.GetUserByUsername(DTO.Username);
 
-                if (user == null || model.Password != user.Password)
+                if (user == null || DTO.Password != user.Password)
                 {
-                    apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                    apiResponse.StatusCode = HttpStatusCode.NotFound;
                     apiResponse.Errors = "Invalid username or password";
                     return apiResponse;
                 }
@@ -51,7 +44,7 @@ namespace YMS.Core.Services.AuthenticationService
                 // Create claims for the JWT token
                 var claims = new List<Claim>
                 {
-                new Claim(JwtRegisteredClaimNames.Sub, model.Username),
+                new Claim(JwtRegisteredClaimNames.Sub, DTO.Username),
                 new Claim("BranchId", @$"{user.BranchId}")
                 };
 
@@ -62,14 +55,12 @@ namespace YMS.Core.Services.AuthenticationService
                 await _refreshTokenService.SaveRefreshToken(new RefreshToken
                 {
                     Token = refreshToken,
-                    Username = model.Username,
+                    Username = DTO.Username,
                     ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays))
                 });
 
-              
-              return new LoginResponseDTO { IsSuccess=true,Msg="Loged in successfuly", AccessToken = accessToken, RefreshToken = refreshToken };
                 apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = new LoginResponseModel { AccessToken = accessToken, RefreshToken = refreshToken };
+                apiResponse.Data = new LoginResponseDTO { AccessToken = accessToken, RefreshToken = refreshToken };
             }
             catch (Exception ex)
             {
@@ -80,11 +71,9 @@ namespace YMS.Core.Services.AuthenticationService
             return apiResponse;
         }
 
-        public async Task<LoginResponseDTO> GenerateToken(TokenRequestDTO request)
-        public async Task<ApiResponse<LoginResponseModel>> GenerateToken(TokenRequestModel request)
+        public async Task<ApiResponse<LoginResponseDTO>> GenerateToken(TokenRequestDTO request)
         {
-            var response = new LoginResponseDTO();
-            var apiResponse = new ApiResponse<LoginResponseModel>();
+            var apiResponse = new ApiResponse<LoginResponseDTO>();
             try
             {
                 // Validate the refresh token (retrieve the stored refresh token from the database)
@@ -98,11 +87,11 @@ namespace YMS.Core.Services.AuthenticationService
                 }
 
                 var user = await _userService.GetUserByUsername(storedRefreshToken.Username);
-                
+
                 var claims = new[]
                    {
                 new Claim(JwtRegisteredClaimNames.Sub, storedRefreshToken.Username),
-                new Claim("BranchId", @$"{user.BranchId}")        
+                new Claim("BranchId", @$"{user.BranchId}")
                 };
 
                 var newAccessToken = GenerateAccessToken(claims);
@@ -113,11 +102,8 @@ namespace YMS.Core.Services.AuthenticationService
                 storedRefreshToken.ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays));
                 await _refreshTokenService.SaveRefreshToken(storedRefreshToken);
 
-
-                return new LoginResponseDTO { IsSuccess = true, Msg = "Refresh token successfuly", AccessToken = newAccessToken, RefreshToken = newRefreshToken };
-
                 apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = new LoginResponseModel { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+                apiResponse.Data = new LoginResponseDTO { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
             }
             catch (Exception ex)
             {
@@ -128,14 +114,13 @@ namespace YMS.Core.Services.AuthenticationService
             return apiResponse;
         }
 
-        public async Task<bool> Logout(TokenRequestDTO model)
-        public async Task<ApiResponse<bool>> Logout(TokenRequestModel model)
+        public async Task<ApiResponse<bool>> Logout(TokenRequestDTO DTO)
         {
             var apiResponse = new ApiResponse<bool>();
 
             try
             {
-                var isDeleted = await _refreshTokenService.RemoveRefreshToken(model.RefreshToken);
+                var isDeleted = await _refreshTokenService.RemoveRefreshToken(DTO.RefreshToken);
 
                 if (!isDeleted)
                 {
