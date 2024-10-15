@@ -1,9 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YMS.Core.Models.Users;
+using YMS.Migrations.Entities;
 using YMS.Migrations.UnitOfWorks;
 
 namespace YMS.Core.Services.UserServices
@@ -11,13 +13,15 @@ namespace YMS.Core.Services.UserServices
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<UserCredentialsModel> GetUserByUsername(string username)
+        public async Task<UserCredentialsDTO> GetUserByUsername(string username)
         {
             try
             {
@@ -28,7 +32,9 @@ namespace YMS.Core.Services.UserServices
                     return null;
                 }
 
-                return new UserCredentialsModel { Username = user.Username, Password = user.Password, BranchId = user.BranchId };
+                return _mapper.Map<UserCredentialsDTO>(user);
+
+                //return new UserCredentialsDTO { Username = user.Username, Password = user.Password, BranchId = user.BranchId };
             }
             catch (Exception ex) 
             {

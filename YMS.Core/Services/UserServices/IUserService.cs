@@ -9,6 +9,6 @@ namespace YMS.Core.Services.UserServices
 {
     public interface IUserService
     {
-        Task<UserCredentialsModel> GetUserByUsername(string username);
+        Task<UserCredentialsDTO> GetUserByUsername(string username);
     }
 }

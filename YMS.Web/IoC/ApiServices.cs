@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using YMS.Core.Configurations;
+using YMS.Core.Mapping;
 using YMS.Core.Services.AuthenticationService;
 using YMS.Core.Services.UserServices;
 using YMS.Migrations.Repositories.Users;
@@ -23,6 +24,7 @@ namespace YMS.Web.IoC
                                .AllowCredentials());// Add this line
             });
 
+            services.AddAutoMapper(typeof(MappingProfile)); 
             services.AddAuthServices(configuration);
 
             // Add services to the container.

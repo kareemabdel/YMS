@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YMS.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class addinit : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,7 +57,12 @@ namespace YMS.Migrations.Migrations
                     NameEn = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExchangeRate = table.Column<double>(type: "float", nullable: true)
+                    ExchangeRate = table.Column<double>(type: "float", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -493,12 +498,12 @@ namespace YMS.Migrations.Migrations
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "Id", "Code", "CreatedById", "CreatedDate", "DeletedDate", "IsDeleted", "NameAr", "NameEn", "Remarks", "UpdatedDate" },
-                values: new object[] { 1, "SA", null, new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 3, 0, 0, 0)), null, false, "المملكة العربية السعودية", "SAUDI ARABIA", null, null });
+                values: new object[] { 1, "SA", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(8620), new TimeSpan(0, 3, 0, 0, 0)), null, false, "المملكة العربية السعودية", "SAUDI ARABIA", null, null });
 
             migrationBuilder.InsertData(
                 table: "Currencies",
-                columns: new[] { "Id", "Code", "ExchangeRate", "NameAr", "NameEn", "Remarks" },
-                values: new object[] { 1, "SAR", 3.75, "ريال سعودي", "Saudi Riyal", null });
+                columns: new[] { "Id", "Code", "CreatedById", "CreatedDate", "DeletedDate", "ExchangeRate", "IsDeleted", "NameAr", "NameEn", "Remarks", "UpdatedDate" },
+                values: new object[] { 1, "SAR", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9046), new TimeSpan(0, 3, 0, 0, 0)), null, 3.75, false, "ريال سعودي", "Saudi Riyal", null, null });
 
             migrationBuilder.InsertData(
                 table: "Services",
@@ -514,8 +519,8 @@ namespace YMS.Migrations.Migrations
                 columns: new[] { "Id", "Code", "CountryId", "CreatedById", "CreatedDate", "DeletedDate", "IsDeleted", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "JEDDA", 1, null, new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(881), new TimeSpan(0, 3, 0, 0, 0)), null, false, "JEDDAH PLANT", null },
-                    { 2, "JUBAI", 1, null, new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(896), new TimeSpan(0, 3, 0, 0, 0)), null, false, "JUBAIL PLANT", null }
+                    { 1, "JEDDA", 1, null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9108), new TimeSpan(0, 3, 0, 0, 0)), null, false, "JEDDAH PLANT", null },
+                    { 2, "JUBAI", 1, null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9131), new TimeSpan(0, 3, 0, 0, 0)), null, false, "JUBAIL PLANT", null }
                 });
 
             migrationBuilder.InsertData(
@@ -523,14 +528,14 @@ namespace YMS.Migrations.Migrations
                 columns: new[] { "Id", "Address", "CityId", "Code", "CreatedById", "CreatedDate", "DeletedDate", "Fax", "IsDeleted", "Mobile", "Name", "Notes", "Phone1", "Phone2", "UpdatedDate", "Zip" },
                 values: new object[,]
                 {
-                    { new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"), null, 1, "JEDDAH", null, new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(967), new TimeSpan(0, 3, 0, 0, 0)), null, null, false, null, "JEDDAH", null, null, null, null, null },
-                    { new Guid("fb517db9-2aab-4ae7-b094-b2d1685d8ffc"), null, 2, "DAMMAM", null, new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(975), new TimeSpan(0, 3, 0, 0, 0)), null, null, false, null, "DAMMAM", null, null, null, null, null }
+                    { new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"), null, 1, "JEDDAH", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9215), new TimeSpan(0, 3, 0, 0, 0)), null, null, false, null, "JEDDAH", null, null, null, null, null },
+                    { new Guid("b8d4e402-cbb7-421f-97c0-1bd3e388d9b3"), null, 2, "DAMMAM", null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9236), new TimeSpan(0, 3, 0, 0, 0)), null, null, false, null, "DAMMAM", null, null, null, null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Address", "BranchId", "CreatedById", "CreatedDate", "DeletedDate", "Department", "Email", "Inactive", "IsDeleted", "Mobile", "Name", "Notes", "Password", "Phone1", "Phone2", "UpdatedDate", "Username" },
-                values: new object[] { new Guid("d280a4e3-a1c9-4ba4-a2c8-132bf5b0f1b0"), null, new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"), null, new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(1036), new TimeSpan(0, 3, 0, 0, 0)), null, 0, null, false, false, null, "test", null, "123456", null, null, null, "test" });
+                values: new object[] { new Guid("8fc53904-313c-4cbb-ae20-816131ad63ef"), null, new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"), null, new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9350), new TimeSpan(0, 3, 0, 0, 0)), null, 0, null, false, false, null, "test", null, "123456", null, null, null, "test" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Branches_CityId",

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Core.Models.AuthenticationModels
+namespace YMS.Core.Models.Users
 {
-    public class LoginModel
+    public class UserCredentialsDTO
     {
-        [Required]
         public string Username { get; set; }
 
-        [Required]
         public string Password { get; set; }
+        public Guid? BranchId { get; set; }
     }
 }

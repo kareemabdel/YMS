@@ -32,8 +32,10 @@ namespace YMS.Core.Services.AuthenticationService
             _refreshTokenService = refreshTokenService;
         }
 
+        public async Task<LoginResponseDTO> Authenticate([FromBody] LoginDTO model)
         public async Task<ApiResponse<LoginResponseModel>> Authenticate([FromBody] LoginModel model)
         {
+            var response = new LoginResponseDTO();
             var apiResponse = new ApiResponse<LoginResponseModel>();
             try
             {
@@ -64,6 +66,8 @@ namespace YMS.Core.Services.AuthenticationService
                     ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays))
                 });
 
+              
+              return new LoginResponseDTO { IsSuccess=true,Msg="Loged in successfuly", AccessToken = accessToken, RefreshToken = refreshToken };
                 apiResponse.StatusCode = HttpStatusCode.OK;
                 apiResponse.Data = new LoginResponseModel { AccessToken = accessToken, RefreshToken = refreshToken };
             }
@@ -76,8 +80,10 @@ namespace YMS.Core.Services.AuthenticationService
             return apiResponse;
         }
 
+        public async Task<LoginResponseDTO> GenerateToken(TokenRequestDTO request)
         public async Task<ApiResponse<LoginResponseModel>> GenerateToken(TokenRequestModel request)
         {
+            var response = new LoginResponseDTO();
             var apiResponse = new ApiResponse<LoginResponseModel>();
             try
             {
@@ -107,6 +113,9 @@ namespace YMS.Core.Services.AuthenticationService
                 storedRefreshToken.ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays));
                 await _refreshTokenService.SaveRefreshToken(storedRefreshToken);
 
+
+                return new LoginResponseDTO { IsSuccess = true, Msg = "Refresh token successfuly", AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+
                 apiResponse.StatusCode = HttpStatusCode.OK;
                 apiResponse.Data = new LoginResponseModel { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
             }
@@ -119,6 +128,7 @@ namespace YMS.Core.Services.AuthenticationService
             return apiResponse;
         }
 
+        public async Task<bool> Logout(TokenRequestDTO model)
         public async Task<ApiResponse<bool>> Logout(TokenRequestModel model)
         {
             var apiResponse = new ApiResponse<bool>();
