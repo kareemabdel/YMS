@@ -4,7 +4,7 @@ using YMS.Core.Models;
 
 namespace YMS.Web.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : ControllerBase
     {
         protected IActionResult GetAPIResponse<T>(ApiResponse<T> apiResponse)
         {
