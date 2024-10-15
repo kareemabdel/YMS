@@ -3,6 +3,7 @@ using System;
 using YMS.Migrations.Data;
 using YMS.Migrations.Entities;
 using YMS.Migrations.Repositories;
+using YMS.Migrations.Repositories.Customers;
 using YMS.Migrations.Repositories.Users;
 
 namespace YMS.Migrations.UnitOfWorks
@@ -32,6 +33,15 @@ namespace YMS.Migrations.UnitOfWorks
             }
         }
 
+        private ICustomerRepository _CustomersRepo;
+        public ICustomerRepository CustomersRepo
+        {
+            get
+            {
+                return this._CustomersRepo = this._CustomersRepo ?? new CustomerRepository(context);
+            }
+        }
+
 
         private IRefreshTokenRepository _RefreshTokensRepo;
         public IRefreshTokenRepository RefreshTokensRepo
@@ -39,15 +49,6 @@ namespace YMS.Migrations.UnitOfWorks
             get
             {
                 return this._RefreshTokensRepo = this._RefreshTokensRepo ?? new RefreshTokenRepository(context);
-            }
-        }
-
-        private IRepository<Customer> _CustomersRepo;
-        public IRepository<Customer> CustomersRepo
-        {
-            get
-            {
-                return this._CustomersRepo = this._CustomersRepo ?? new Repository<Customer>(context);
             }
         }
 
