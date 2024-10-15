@@ -4,6 +4,7 @@ using YMS.Core.Configurations;
 using YMS.Core.Mapping;
 using YMS.Core.Services.AuthenticationService;
 using YMS.Core.Services.UserServices;
+using YMS.Migrations.Repositories.Customers;
 using YMS.Migrations.Repositories.Users;
 using YMS.Migrations.UnitOfWorks;
 
@@ -30,11 +31,13 @@ namespace YMS.Web.IoC
             // Add services to the container.
            services.AddScoped<IUnitOfWork, UnitOfWork>();
            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+           services.AddScoped<ICustomerRepository, CustomerRepository>();
            services.AddScoped<IUserRepository, UserRepository>();
            services.AddScoped<AppConfigurations>();
            services.AddScoped<ITokenService, TokenService>();
            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
            services.AddScoped<IUserService, UserService>();
+           services.AddScoped<ICustomerService, CustomerService>();
 
             services.AddHttpContextAccessor();
            // services.AddApplicationInsightsTelemetry();

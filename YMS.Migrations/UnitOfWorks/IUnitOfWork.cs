@@ -2,6 +2,7 @@
 using System;
 using YMS.Migrations.Entities;
 using YMS.Migrations.Repositories;
+using YMS.Migrations.Repositories.Customers;
 using YMS.Migrations.Repositories.Users;
 
 namespace YMS.Migrations.UnitOfWorks
@@ -15,7 +16,7 @@ namespace YMS.Migrations.UnitOfWorks
         IRepository<City> CitiesRepo { get; }
         IRepository<Branch> BranchesRepo { get; }
         IRepository<Currency> CurrenciesRepo { get; }
-        IRepository<Customer> CustomersRepo { get; }
+        ICustomerRepository CustomersRepo { get; }
         IRepository<EmptyStorageTariff> EmptyStorageTariffsRepo { get; }
         IRepository<EmptyStorageTariffData> EmptyStorageTariffDataListRepo { get; }
         IRepository<FullStorageTariff> FullStorageTariffsRepo { get; }
