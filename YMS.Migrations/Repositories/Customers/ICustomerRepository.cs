@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Repositories.Customers
 {
-    public interface ICustomerRepository
+    public interface ICustomerRepository : IRepository<Entities.Customer>
     {
+        Task<IQueryable<Entities.Customer>> GetAllCustomersByBranchId(Guid? branchId,string? searchKey);
     }
 }

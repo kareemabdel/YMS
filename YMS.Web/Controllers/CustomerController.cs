@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using YMS.Core.Models;
 using YMS.Core.Models.AuthenticationModels;
 using YMS.Core.Models.Customers;
@@ -10,6 +11,7 @@ namespace YMS.Web.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class CustomerController : BaseController
     {
         private readonly ICustomerService _customerervice;
@@ -18,10 +20,13 @@ namespace YMS.Web.Controllers
             _customerervice = customerervice;
         }
 
-        [HttpPost("GetAll")]
-        public async Task<IActionResult> GetAll([FromQuery] CustomerFilter? filter, int page = 1, int size = 10)
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<ApiResponse<PaginatedList<CustomerListDTO>>>> GetAll([FromQuery] CustomerFilter? filter)
         {
-            var response = await _customerervice.GetAll(filter,page,size);
+            var branchIdClaim = User.Claims.FirstOrDefault(c => c.Type == "BranchId");
+            if (branchIdClaim is not null)
+                filter!.BranchId = new Guid(branchIdClaim.Value);
+            var response = await _customerervice.GetAll(filter);
             return GetAPIResponse(response);
         }     
     }

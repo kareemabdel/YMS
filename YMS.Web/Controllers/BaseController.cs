@@ -6,7 +6,7 @@ namespace YMS.Web.Controllers
 {
     public class BaseController : ControllerBase
     {
-        protected IActionResult GetAPIResponse<T>(ApiResponse<T> apiResponse)
+        protected ActionResult GetAPIResponse<T>(ApiResponse<T> apiResponse)
         {
             if (apiResponse == null)
                 return StatusCode(500);

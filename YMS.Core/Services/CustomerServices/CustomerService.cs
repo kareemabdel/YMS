@@ -10,6 +10,9 @@ using YMS.Core.Models.Users;
 using YMS.Migrations.Entities;
 using YMS.Migrations.UnitOfWorks;
 using YMS.Core.Models.Filters;
+using Azure.Core;
+using AutoMapper.QueryableExtensions;
+using System.Net;
 
 namespace YMS.Core.Services.UserServices
 {
@@ -24,9 +27,15 @@ namespace YMS.Core.Services.UserServices
             _mapper = mapper;
         }
 
-        public Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter, int page, int size)
+        public async Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter)
         {
-            throw new NotImplementedException();
+            var res =await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId,filter!.SearchKey);
+            var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
+            return new ApiResponse<PaginatedList<CustomerListDTO>>
+            {
+                StatusCode = HttpStatusCode.OK,
+                Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems, filter.Page, filter.Size)
+            };
         }
     }
 }

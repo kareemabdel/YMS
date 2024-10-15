@@ -13,6 +13,6 @@ namespace YMS.Core.Services.UserServices
 {
     public interface ICustomerService
     {
-        Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter, int page , int size);
+        Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter);
     }
 }
