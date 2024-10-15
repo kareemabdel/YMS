@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Authentications
 {
-    public class LoginResponseModel
+    public class LoginResponseDTO
     {
         public bool IsSuccess { get; set; }
         public string? Msg { get; set; }

@@ -17,7 +17,7 @@ namespace YMS.Core.Services.UserServices
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UserCredentialsModel> GetUserByUsername(string username)
+        public async Task<UserCredentialsDTO> GetUserByUsername(string username)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace YMS.Core.Services.UserServices
                     return null;
                 }
 
-                return new UserCredentialsModel { Username = user.Username, Password = user.Password, BranchId = user.BranchId };
+                return new UserCredentialsDTO { Username = user.Username, Password = user.Password, BranchId = user.BranchId };
             }
             catch (Exception ex) 
             {

@@ -33,14 +33,14 @@ namespace YMS.Web.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             var response = await _tokenService.Authenticate(model);
             return Ok(response);
         }
 
         [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh([FromBody] TokenRequestModel model)
+        public async Task<IActionResult> Refresh([FromBody] TokenRequestDTO model)
         {
             var response = await _tokenService.GenerateToken(model);
             return Ok(response);
@@ -48,7 +48,7 @@ namespace YMS.Web.Controllers
 
         [Authorize]
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout([FromBody] TokenRequestModel model)
+        public async Task<IActionResult> Logout([FromBody] TokenRequestDTO model)
         {
             var response = await _tokenService.Logout(model);
             return Ok(response);

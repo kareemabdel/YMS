@@ -12,8 +12,8 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241014231647_add-init")]
-    partial class addinit
+    [Migration("20241015062920_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,19 +104,19 @@ namespace YMS.Migrations.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"),
+                            Id = new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"),
                             CityId = 1,
                             Code = "JEDDAH",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(967), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9215), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "JEDDAH"
                         },
                         new
                         {
-                            Id = new Guid("fb517db9-2aab-4ae7-b094-b2d1685d8ffc"),
+                            Id = new Guid("b8d4e402-cbb7-421f-97c0-1bd3e388d9b3"),
                             CityId = 2,
                             Code = "DAMMAM",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(975), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9236), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "DAMMAM"
                         });
@@ -168,7 +168,7 @@ namespace YMS.Migrations.Migrations
                             Id = 1,
                             Code = "JEDDA",
                             CountryId = 1,
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(881), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9108), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "JEDDAH PLANT"
                         },
@@ -177,7 +177,7 @@ namespace YMS.Migrations.Migrations
                             Id = 2,
                             Code = "JUBAI",
                             CountryId = 1,
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(896), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9131), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "JUBAIL PLANT"
                         });
@@ -229,7 +229,7 @@ namespace YMS.Migrations.Migrations
                         {
                             Id = 1,
                             Code = "SA",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(8620), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             NameAr = "المملكة العربية السعودية",
                             NameEn = "SAUDI ARABIA"
@@ -248,8 +248,20 @@ namespace YMS.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<double?>("ExchangeRate")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("NameAr")
                         .HasColumnType("nvarchar(max)");
@@ -261,6 +273,9 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.HasKey("Id");
 
                     b.ToTable("Currencies");
@@ -270,7 +285,9 @@ namespace YMS.Migrations.Migrations
                         {
                             Id = 1,
                             Code = "SAR",
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9046), new TimeSpan(0, 3, 0, 0, 0)),
                             ExchangeRate = 3.75,
+                            IsDeleted = false,
                             NameAr = "ريال سعودي",
                             NameEn = "Saudi Riyal"
                         });
@@ -819,9 +836,9 @@ namespace YMS.Migrations.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d280a4e3-a1c9-4ba4-a2c8-132bf5b0f1b0"),
-                            BranchId = new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"),
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(1036), new TimeSpan(0, 3, 0, 0, 0)),
+                            Id = new Guid("8fc53904-313c-4cbb-ae20-816131ad63ef"),
+                            BranchId = new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9350), new TimeSpan(0, 3, 0, 0, 0)),
                             Department = 0,
                             Inactive = false,
                             IsDeleted = false,

@@ -13,10 +13,10 @@ namespace YMS.Core.Services.AuthenticationService
 {
     public interface ITokenService
     {
-        Task<LoginResponseModel> Authenticate([FromBody] LoginModel login);
+        Task<LoginResponseDTO> Authenticate([FromBody] LoginDTO login);
 
-        Task<LoginResponseModel> GenerateToken(TokenRequestModel request);
+        Task<LoginResponseDTO> GenerateToken(TokenRequestDTO request);
 
-        Task<bool> Logout(TokenRequestModel model);
+        Task<bool> Logout(TokenRequestDTO model);
     }
 }

@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Core.Models.Authentications
+namespace YMS.Core.Models.AuthenticationModels
 {
-    public class TokenRequestModel
+    public class LoginDTO
     {
         [Required]
-        public string RefreshToken { get; set; }
+        public string Username { get; set; }
+
+        [Required]
+        public string Password { get; set; }
     }
 }

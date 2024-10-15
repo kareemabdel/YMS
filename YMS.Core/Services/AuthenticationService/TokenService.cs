@@ -27,9 +27,9 @@ namespace YMS.Core.Services.AuthenticationService
             _refreshTokenService = refreshTokenService;
         }
 
-        public async Task<LoginResponseModel> Authenticate([FromBody] LoginModel model)
+        public async Task<LoginResponseDTO> Authenticate([FromBody] LoginDTO model)
         {
-            var response = new LoginResponseModel();
+            var response = new LoginResponseDTO();
             try
             {
                 var user = await _userService.GetUserByUsername(model.Username);
@@ -64,7 +64,7 @@ namespace YMS.Core.Services.AuthenticationService
                 });
 
               
-              return new LoginResponseModel { IsSuccess=true,Msg="Loged in successfuly", AccessToken = accessToken, RefreshToken = refreshToken };
+              return new LoginResponseDTO { IsSuccess=true,Msg="Loged in successfuly", AccessToken = accessToken, RefreshToken = refreshToken };
             }
             catch (Exception ex)
             {
@@ -72,9 +72,9 @@ namespace YMS.Core.Services.AuthenticationService
             }
         }
 
-        public async Task<LoginResponseModel> GenerateToken(TokenRequestModel request)
+        public async Task<LoginResponseDTO> GenerateToken(TokenRequestDTO request)
         {
-            var response = new LoginResponseModel();
+            var response = new LoginResponseDTO();
             try
             {
                 // Validate the refresh token (retrieve the stored refresh token from the database)
@@ -105,7 +105,7 @@ namespace YMS.Core.Services.AuthenticationService
                 await _refreshTokenService.SaveRefreshToken(storedRefreshToken);
 
 
-                return new LoginResponseModel { IsSuccess = true, Msg = "Refresh token successfuly", AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+                return new LoginResponseDTO { IsSuccess = true, Msg = "Refresh token successfuly", AccessToken = newAccessToken, RefreshToken = newRefreshToken };
 
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace YMS.Core.Services.AuthenticationService
             }
         }
 
-        public async Task<bool> Logout(TokenRequestModel model)
+        public async Task<bool> Logout(TokenRequestDTO model)
         {
             var response = new bool();
 

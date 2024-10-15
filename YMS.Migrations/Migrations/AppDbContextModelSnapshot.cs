@@ -36,7 +36,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Basises", (string)null);
+                    b.ToTable("Basises");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Branch", b =>
@@ -96,24 +96,24 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Branches", (string)null);
+                    b.ToTable("Branches");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"),
+                            Id = new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"),
                             CityId = 1,
                             Code = "JEDDAH",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(967), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9215), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "JEDDAH"
                         },
                         new
                         {
-                            Id = new Guid("fb517db9-2aab-4ae7-b094-b2d1685d8ffc"),
+                            Id = new Guid("b8d4e402-cbb7-421f-97c0-1bd3e388d9b3"),
                             CityId = 2,
                             Code = "DAMMAM",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(975), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9236), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "DAMMAM"
                         });
@@ -157,7 +157,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
@@ -165,7 +165,7 @@ namespace YMS.Migrations.Migrations
                             Id = 1,
                             Code = "JEDDA",
                             CountryId = 1,
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(881), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9108), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "JEDDAH PLANT"
                         },
@@ -174,7 +174,7 @@ namespace YMS.Migrations.Migrations
                             Id = 2,
                             Code = "JUBAI",
                             CountryId = 1,
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(896), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9131), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "JUBAIL PLANT"
                         });
@@ -219,14 +219,14 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Code = "SA",
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 3, 0, 0, 0)),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(8620), new TimeSpan(0, 3, 0, 0, 0)),
                             IsDeleted = false,
                             NameAr = "المملكة العربية السعودية",
                             NameEn = "SAUDI ARABIA"
@@ -245,8 +245,20 @@ namespace YMS.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<double?>("ExchangeRate")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("NameAr")
                         .HasColumnType("nvarchar(max)");
@@ -258,16 +270,21 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Currencies", (string)null);
+                    b.ToTable("Currencies");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Code = "SAR",
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9046), new TimeSpan(0, 3, 0, 0, 0)),
                             ExchangeRate = 3.75,
+                            IsDeleted = false,
                             NameAr = "ريال سعودي",
                             NameEn = "Saudi Riyal"
                         });
@@ -384,7 +401,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServicesTariffId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariff", b =>
@@ -430,7 +447,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("EmptyStorageTariffs", (string)null);
+                    b.ToTable("EmptyStorageTariffs");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariffData", b =>
@@ -452,7 +469,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("EmptyStorageTariffId");
 
-                    b.ToTable("EmptyStorageTariffDataList", (string)null);
+                    b.ToTable("EmptyStorageTariffDataList");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageDataType", b =>
@@ -469,7 +486,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FullStorageDataTypes", (string)null);
+                    b.ToTable("FullStorageDataTypes");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariff", b =>
@@ -515,7 +532,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("FullStorageTariffs", (string)null);
+                    b.ToTable("FullStorageTariffs");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariffData", b =>
@@ -542,7 +559,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("FulllStorageDataTypeId");
 
-                    b.ToTable("FullStorageTariffDataList", (string)null);
+                    b.ToTable("FullStorageTariffDataList");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageServiceTariffData", b =>
@@ -579,7 +596,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("PackageServiceTariffData", (string)null);
+                    b.ToTable("PackageServiceTariffData");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageServicesTariff", b =>
@@ -601,7 +618,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageServicesTariff", (string)null);
+                    b.ToTable("PackageServicesTariff");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageType", b =>
@@ -618,7 +635,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageTypes", (string)null);
+                    b.ToTable("PackageTypes");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.RefreshToken", b =>
@@ -640,7 +657,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Service", b =>
@@ -657,7 +674,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
 
                     b.HasData(
                         new
@@ -713,7 +730,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServicesTariffId");
 
-                    b.ToTable("ServiceTariffData", (string)null);
+                    b.ToTable("ServiceTariffData");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.ServicesTariff", b =>
@@ -732,7 +749,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicesTariff", (string)null);
+                    b.ToTable("ServicesTariff");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.User", b =>
@@ -802,7 +819,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users", null, t =>
+                    b.ToTable("Users", t =>
                         {
                             t.HasCheckConstraint("CHK_Email", "(Email IS NULL OR Email LIKE '%_@__%.__%')");
 
@@ -816,9 +833,9 @@ namespace YMS.Migrations.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d280a4e3-a1c9-4ba4-a2c8-132bf5b0f1b0"),
-                            BranchId = new Guid("188c5ac3-b1a4-4906-8c2a-35db604c366b"),
-                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 2, 16, 45, 513, DateTimeKind.Unspecified).AddTicks(1036), new TimeSpan(0, 3, 0, 0, 0)),
+                            Id = new Guid("8fc53904-313c-4cbb-ae20-816131ad63ef"),
+                            BranchId = new Guid("66718f68-c910-42a9-adb2-ed25fe370f1d"),
+                            CreatedDate = new DateTimeOffset(new DateTime(2024, 10, 15, 9, 29, 18, 76, DateTimeKind.Unspecified).AddTicks(9350), new TimeSpan(0, 3, 0, 0, 0)),
                             Department = 0,
                             Inactive = false,
                             IsDeleted = false,

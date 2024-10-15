@@ -1,7 +1,7 @@
 ﻿
 namespace YMS.Core.Models.Users
 {
-    public class UserModel
+    public class UserDTO
     {
         public int Id { get; set; }
 
