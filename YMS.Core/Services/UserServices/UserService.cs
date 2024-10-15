@@ -33,8 +33,6 @@ namespace YMS.Core.Services.UserServices
                 }
 
                 return _mapper.Map<UserCredentialsDTO>(user);
-
-                //return new UserCredentialsDTO { Username = user.Username, Password = user.Password, BranchId = user.BranchId };
             }
             catch (Exception ex) 
             {

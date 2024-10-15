@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Migrations.Entities
-{
-    public class Country : BaseEntity
+namespace YMS.Core.Models.Customers
+{ 
+    public class CountryDTO : BaseDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -22,6 +20,6 @@ namespace YMS.Migrations.Entities
         public string? NameAr { get; set; }
         public string? Remarks { get; set; }
 
-        public List<City> Cities { get; set; }
+        public List<CityDTO> Cities { get; set; }
     }
 }
