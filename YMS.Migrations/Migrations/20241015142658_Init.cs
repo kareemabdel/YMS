@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YMS.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class addinit : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -314,8 +314,8 @@ namespace YMS.Migrations.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false),
                     BranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PackageServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    PackageServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -347,14 +347,12 @@ namespace YMS.Migrations.Migrations
                         name: "FK_Customers_PackageServicesTariff_PackageServicesTariffId",
                         column: x => x.PackageServicesTariffId,
                         principalTable: "PackageServicesTariff",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Customers_ServicesTariff_ServicesTariffId",
                         column: x => x.ServicesTariffId,
                         principalTable: "ServicesTariff",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

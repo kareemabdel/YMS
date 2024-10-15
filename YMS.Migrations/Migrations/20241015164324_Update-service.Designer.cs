@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YMS.Migrations.Data;
 
@@ -11,9 +12,11 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241015164324_Update-service")]
+    partial class Updateservice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,18 +40,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Basises");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Per Size"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Per Unit"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Branch", b =>
@@ -483,18 +474,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FullStorageDataTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "FullStorageDataType1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "FullStorageDataType2"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariff", b =>
@@ -576,7 +555,7 @@ namespace YMS.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal?>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BasisId")
@@ -650,18 +629,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PackageTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Box"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Bags"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.RefreshToken", b =>
@@ -721,13 +688,13 @@ namespace YMS.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal?>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("Amount20")
+                    b.Property<decimal>("Amount20")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("Amount40")
+                    b.Property<decimal>("Amount40")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BasisId")

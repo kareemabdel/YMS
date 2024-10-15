@@ -7,6 +7,7 @@ using YMS.Core.Services.UserServices;
 using YMS.Migrations.Repositories.Customers;
 using YMS.Migrations.Repositories.Users;
 using YMS.Migrations.UnitOfWorks;
+using YMS.Web.Filters;
 
 namespace YMS.Web.IoC
 {
@@ -25,22 +26,23 @@ namespace YMS.Web.IoC
                                .AllowCredentials());// Add this line
             });
 
-            services.AddAutoMapper(typeof(MappingProfile)); 
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddAuthServices(configuration);
 
             // Add services to the container.
-           services.AddScoped<IUnitOfWork, UnitOfWork>();
-           services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-           services.AddScoped<ICustomerRepository, CustomerRepository>();
-           services.AddScoped<IUserRepository, UserRepository>();
-           services.AddScoped<AppConfigurations>();
-           services.AddScoped<ITokenService, TokenService>();
-           services.AddScoped<IRefreshTokenService, RefreshTokenService>();
-           services.AddScoped<IUserService, UserService>();
-           services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ValidateBranchIdFilter>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<AppConfigurations>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             services.AddHttpContextAccessor();
-           // services.AddApplicationInsightsTelemetry();
+            // services.AddApplicationInsightsTelemetry();
 
             services.AddSwaggerService();
 

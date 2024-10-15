@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YMS.Migrations.Data;
 
@@ -11,9 +12,11 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241015142658_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,18 +40,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Basises");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Per Size"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Per Unit"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Branch", b =>
@@ -355,6 +346,9 @@ namespace YMS.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PackageServicesTariffId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("PaymentType")
                         .HasColumnType("int");
 
@@ -373,6 +367,9 @@ namespace YMS.Migrations.Migrations
 
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ServicesTariffId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TaxNumber")
                         .HasColumnType("nvarchar(max)");
@@ -396,6 +393,10 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("CityId");
 
                     b.HasIndex("CurrencyId");
+
+                    b.HasIndex("PackageServicesTariffId");
+
+                    b.HasIndex("ServicesTariffId");
 
                     b.ToTable("Customers");
                 });
@@ -483,18 +484,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FullStorageDataTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "FullStorageDataType1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "FullStorageDataType2"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariff", b =>
@@ -576,7 +565,7 @@ namespace YMS.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal?>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BasisId")
@@ -618,9 +607,6 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
@@ -628,9 +614,6 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
 
                     b.ToTable("PackageServicesTariff");
                 });
@@ -650,18 +633,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PackageTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Box"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Bags"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.RefreshToken", b =>
@@ -721,13 +692,13 @@ namespace YMS.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal?>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("Amount20")
+                    b.Property<decimal>("Amount20")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("Amount40")
+                    b.Property<decimal>("Amount40")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BasisId")
@@ -770,16 +741,10 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
 
                     b.ToTable("ServicesTariff");
                 });
@@ -918,11 +883,23 @@ namespace YMS.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("YMS.Migrations.Entities.PackageServicesTariff", "PackageServicesTariff")
+                        .WithMany()
+                        .HasForeignKey("PackageServicesTariffId");
+
+                    b.HasOne("YMS.Migrations.Entities.ServicesTariff", "ServicesTariff")
+                        .WithMany()
+                        .HasForeignKey("ServicesTariffId");
+
                     b.Navigation("Branch");
 
                     b.Navigation("City");
 
                     b.Navigation("Currency");
+
+                    b.Navigation("PackageServicesTariff");
+
+                    b.Navigation("ServicesTariff");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariff", b =>
@@ -1012,17 +989,6 @@ namespace YMS.Migrations.Migrations
                     b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("YMS.Migrations.Entities.PackageServicesTariff", b =>
-                {
-                    b.HasOne("YMS.Migrations.Entities.Customer", "Customer")
-                        .WithOne("PackageServicesTariff")
-                        .HasForeignKey("YMS.Migrations.Entities.PackageServicesTariff", "CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("YMS.Migrations.Entities.ServiceTariffData", b =>
                 {
                     b.HasOne("YMS.Migrations.Entities.Basis", "Basis")
@@ -1050,17 +1016,6 @@ namespace YMS.Migrations.Migrations
                     b.Navigation("ServicesTariff");
                 });
 
-            modelBuilder.Entity("YMS.Migrations.Entities.ServicesTariff", b =>
-                {
-                    b.HasOne("YMS.Migrations.Entities.Customer", "Customer")
-                        .WithOne("ServicesTariff")
-                        .HasForeignKey("YMS.Migrations.Entities.ServicesTariff", "CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("YMS.Migrations.Entities.User", b =>
                 {
                     b.HasOne("YMS.Migrations.Entities.Branch", "Branch")
@@ -1080,10 +1035,6 @@ namespace YMS.Migrations.Migrations
                     b.Navigation("EmptyStorageTariff");
 
                     b.Navigation("FullStorageTariff");
-
-                    b.Navigation("PackageServicesTariff");
-
-                    b.Navigation("ServicesTariff");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariff", b =>

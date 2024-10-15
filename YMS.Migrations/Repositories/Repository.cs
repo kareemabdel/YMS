@@ -56,6 +56,11 @@ namespace YMS.Migrations.Repositories
             return await dbSet.FindAsync(id);
         }
 
+        public async Task<TEntity> GetById(Guid id)
+        {
+            return await dbSet.FindAsync(id);
+        }
+
         public async Task Insert(TEntity entity)
         {
             await dbSet.AddAsync(entity);

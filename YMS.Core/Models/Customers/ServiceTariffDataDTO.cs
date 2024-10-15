@@ -12,8 +12,8 @@ namespace YMS.Core.Models.Customers
         [Required]
         public Guid ServicesTariffId { get; set; }
         public ServicesTariffDTO ServicesTariff { get; set; }
-        public decimal Amount20 { get; set; }
-        public decimal Amount40 { get; set; }
+        public decimal? Amount20 { get; set; }
+        public decimal? Amount40 { get; set; }
         public bool Full { get; set; }
         public bool Empty { get; set; }
     }

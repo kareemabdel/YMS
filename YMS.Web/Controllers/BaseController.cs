@@ -28,5 +28,17 @@ namespace YMS.Web.Controllers
 
             return StatusCode(500, apiResponse.Errors);
         }
+
+        protected Guid? GetBranchId()
+        {
+            var branchId = User.FindFirst("BranchId")?.Value;
+
+            if(branchId == null)
+            {
+                return null;
+            }
+
+            return new Guid(branchId);
+        }
     }
 }

@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Core.Models.Customers
+namespace YMS.Core.Models.Customers.ViewModels
 {
-    public class StorageTariffDTO
+    public class StorageTariffViewModel
     {
-        public Guid? Id { get; set; }
-
-        [Required]
-        public Guid CustomerId { get; set; }
-        public CustomerDTO Customer { get; set; }
-
-        //true by default
         public bool Active { get; set; }
         public string? Remarks { get; set; }
         public int? FreeTeus { get; set; }
