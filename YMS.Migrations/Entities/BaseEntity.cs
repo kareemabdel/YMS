@@ -4,7 +4,7 @@
     {
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }= DateTime.Now;
+        public DateTimeOffset? CreatedDate { get; set; }
         public DateTimeOffset? UpdatedDate { get; set; }
          public Guid? CreatedById  { get; set; }
 

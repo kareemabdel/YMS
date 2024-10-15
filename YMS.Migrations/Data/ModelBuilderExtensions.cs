@@ -27,8 +27,8 @@ namespace YMS.Migrations.Data
                 new City { Id = 2, Code = "JUBAI", Name = "JUBAIL PLANT", CountryId = 1 }
             );
 
-            var branchId1 = Guid.NewGuid();
-            var branchId2 = Guid.NewGuid();
+            var branchId1 = new Guid("0a534cad-cce7-422b-b79b-b38f3ea1a918");
+            var branchId2 = new Guid("1dffb2d6-88ac-4ecd-901e-f9e3cd44633c");
 
             modelBuilder.Entity<Branch>().HasData(
                 new Branch { Id = branchId1, Code = "JEDDAH", Name = "JEDDAH", CityId = 1 },
@@ -41,7 +41,7 @@ namespace YMS.Migrations.Data
             );
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = Guid.NewGuid(), Name = "test", Username = "test", Password = "123456", BranchId = branchId1 }
+                new User { Id = new Guid("3b362655-5ade-4978-826e-0ec0edbfc31b"), Name = "test", Username = "test", Password = "123456", BranchId = branchId1 }
             );
         }
     }

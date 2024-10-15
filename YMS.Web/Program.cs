@@ -20,10 +20,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<UnifyResponseFilter>();
-});
+
+builder.Services.AddControllers();
+//builder.Services.AddControllers(options =>
+//{
+//    options.Filters.Add<UnifyResponseFilter>();
+//});
 await builder.Services.AddApiServices(builder.Configuration);
 
 

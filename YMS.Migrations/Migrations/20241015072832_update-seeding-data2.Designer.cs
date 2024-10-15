@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YMS.Migrations.Data;
 
@@ -11,9 +12,11 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241015072832_update-seeding-data2")]
+    partial class updateseedingdata2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Basises", (string)null);
+                    b.ToTable("Basises");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Branch", b =>
@@ -96,7 +99,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Branches", (string)null);
+                    b.ToTable("Branches");
 
                     b.HasData(
                         new
@@ -155,7 +158,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
@@ -215,7 +218,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new
@@ -255,7 +258,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Currencies", (string)null);
+                    b.ToTable("Currencies");
 
                     b.HasData(
                         new
@@ -379,7 +382,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServicesTariffId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariff", b =>
@@ -425,7 +428,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("EmptyStorageTariffs", (string)null);
+                    b.ToTable("EmptyStorageTariffs");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.EmptyStorageTariffData", b =>
@@ -447,7 +450,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("EmptyStorageTariffId");
 
-                    b.ToTable("EmptyStorageTariffDataList", (string)null);
+                    b.ToTable("EmptyStorageTariffDataList");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageDataType", b =>
@@ -464,7 +467,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FullStorageDataTypes", (string)null);
+                    b.ToTable("FullStorageDataTypes");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariff", b =>
@@ -510,7 +513,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("FullStorageTariffs", (string)null);
+                    b.ToTable("FullStorageTariffs");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.FullStorageTariffData", b =>
@@ -537,7 +540,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("FulllStorageDataTypeId");
 
-                    b.ToTable("FullStorageTariffDataList", (string)null);
+                    b.ToTable("FullStorageTariffDataList");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageServiceTariffData", b =>
@@ -574,7 +577,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("PackageServiceTariffData", (string)null);
+                    b.ToTable("PackageServiceTariffData");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageServicesTariff", b =>
@@ -596,7 +599,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageServicesTariff", (string)null);
+                    b.ToTable("PackageServicesTariff");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.PackageType", b =>
@@ -613,7 +616,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageTypes", (string)null);
+                    b.ToTable("PackageTypes");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.RefreshToken", b =>
@@ -635,7 +638,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Service", b =>
@@ -652,7 +655,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
 
                     b.HasData(
                         new
@@ -708,7 +711,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ServicesTariffId");
 
-                    b.ToTable("ServiceTariffData", (string)null);
+                    b.ToTable("ServiceTariffData");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.ServicesTariff", b =>
@@ -727,7 +730,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicesTariff", (string)null);
+                    b.ToTable("ServicesTariff");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.User", b =>
@@ -797,7 +800,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users", null, t =>
+                    b.ToTable("Users", t =>
                         {
                             t.HasCheckConstraint("CHK_Email", "(Email IS NULL OR Email LIKE '%_@__%.__%')");
 

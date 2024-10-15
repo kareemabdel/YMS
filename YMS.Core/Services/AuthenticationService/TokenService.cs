@@ -1,12 +1,17 @@
 ﻿using Azure.Core;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using YMS.Core.Configurations;
+using YMS.Core.Models;
 using YMS.Core.Models.AuthenticationModels;
 using YMS.Core.Models.Authentications;
 using YMS.Core.Services.UserServices;
@@ -27,30 +32,26 @@ namespace YMS.Core.Services.AuthenticationService
             _refreshTokenService = refreshTokenService;
         }
 
-        public async Task<LoginResponseModel> Authenticate([FromBody] LoginModel model)
+        public async Task<ApiResponse<LoginResponseModel>> Authenticate([FromBody] LoginModel model)
         {
-            var response = new LoginResponseModel();
+            var apiResponse = new ApiResponse<LoginResponseModel>();
             try
             {
                 var user = await _userService.GetUserByUsername(model.Username);
 
                 if (user == null || model.Password != user.Password)
                 {
-                    response.IsSuccess = false;
-                    response.Msg = "Invalid username or password";
-                    return response;
+                    apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                    apiResponse.Errors = "Invalid username or password";
+                    return apiResponse;
                 }
 
                 // Create claims for the JWT token
                 var claims = new List<Claim>
                 {
                 new Claim(JwtRegisteredClaimNames.Sub, model.Username),
+                new Claim("BranchId", @$"{user.BranchId}")
                 };
-
-                if (user.BranchId != null)
-                {
-                    claims.Add(new Claim("BranchId", @$"{user.BranchId}"));
-                }
 
                 var accessToken = GenerateAccessToken(claims);
                 var refreshToken = GenerateRefreshToken();
@@ -63,18 +64,21 @@ namespace YMS.Core.Services.AuthenticationService
                     ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays))
                 });
 
-              
-              return new LoginResponseModel { IsSuccess=true,Msg="Loged in successfuly", AccessToken = accessToken, RefreshToken = refreshToken };
+                apiResponse.StatusCode = HttpStatusCode.OK;
+                apiResponse.Data = new LoginResponseModel { AccessToken = accessToken, RefreshToken = refreshToken };
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                apiResponse.Errors = ex.Message;
             }
+
+            return apiResponse;
         }
 
-        public async Task<LoginResponseModel> GenerateToken(TokenRequestModel request)
+        public async Task<ApiResponse<LoginResponseModel>> GenerateToken(TokenRequestModel request)
         {
-            var response = new LoginResponseModel();
+            var apiResponse = new ApiResponse<LoginResponseModel>();
             try
             {
                 // Validate the refresh token (retrieve the stored refresh token from the database)
@@ -82,10 +86,9 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (storedRefreshToken == null || storedRefreshToken.ExpirationDate < DateTime.Now)
                 {
-                    response.IsSuccess = false;
-                    response.Msg = "Invalid or expired refresh token.";
-                    return response;
-                   
+                    apiResponse.StatusCode = HttpStatusCode.NotFound;
+                    apiResponse.Errors = "Invalid or expired refresh token.";
+                    return apiResponse;
                 }
 
                 var user = await _userService.GetUserByUsername(storedRefreshToken.Username);
@@ -104,19 +107,21 @@ namespace YMS.Core.Services.AuthenticationService
                 storedRefreshToken.ExpirationDate = DateTime.Now.AddDays(Convert.ToInt32(_configurations.JwtKeyRefreshTokenExpirationDays));
                 await _refreshTokenService.SaveRefreshToken(storedRefreshToken);
 
-
-                return new LoginResponseModel { IsSuccess = true, Msg = "Refresh token successfuly", AccessToken = newAccessToken, RefreshToken = newRefreshToken };
-
+                apiResponse.StatusCode = HttpStatusCode.OK;
+                apiResponse.Data = new LoginResponseModel { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                apiResponse.Errors = ex.Message;
             }
+
+            return apiResponse;
         }
 
-        public async Task<bool> Logout(TokenRequestModel model)
+        public async Task<ApiResponse<bool>> Logout(TokenRequestModel model)
         {
-            var response = new bool();
+            var apiResponse = new ApiResponse<bool>();
 
             try
             {
@@ -124,15 +129,21 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (!isDeleted)
                 {
-                    throw new Exception("RefreshToken is invalid or something went wrong during process.");  
+                    apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                    apiResponse.Errors = "RefreshToken is invalid or something went wrong during process.";
+                    return apiResponse;
                 }
 
-              return true;
+                apiResponse.StatusCode = HttpStatusCode.OK;
+                apiResponse.Data = true;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                apiResponse.Errors = ex.Message;
             }
+
+            return apiResponse;
         }
 
         #region Private methoeds
