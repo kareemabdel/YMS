@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Migrations.Entities
+namespace YMS.Core.Models.Customers
 {
-    public class Country : BaseEntity
+    public class CurrencyDTO : BaseDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -21,7 +19,6 @@ namespace YMS.Migrations.Entities
         public string NameEn { get; set; }
         public string? NameAr { get; set; }
         public string? Remarks { get; set; }
-
-        public List<City> Cities { get; set; }
+        public double? ExchangeRate { get; set; }
     }
 }
