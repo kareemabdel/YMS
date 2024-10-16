@@ -10,8 +10,5 @@ namespace YMS.Core.Models.Customers
 {
     public class EmptyStorageTariffDataDTO : StorageTariffDataDTO
     {
-        [Required]
-        public Guid EmptyStorageTariffId { get; set; }
-        public EmptyStorageTariffDTO EmptyStorageTariff { get; set; }
     }
 }

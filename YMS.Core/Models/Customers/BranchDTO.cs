@@ -9,28 +9,8 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Customers
 {
-    public class BranchDTO: BaseDTO
+    public class BranchDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string Code { get; set; }
-
-        [Required]
         public string Name { get; set; }
-
-        [Required]
-        public int CityId { get; set; }
-        public CityDTO City { get; set; }
-
-        public string? Mobile { get; set; }
-        public string? Phone1 { get; set; }
-        public string? Phone2 { get; set; }
-        public string? Address { get; set; }
-        public string? Notes { get; set; }
-        public string? Fax { get; set; }
-        public string? Zip { get; set; }
     }
 }

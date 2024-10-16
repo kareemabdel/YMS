@@ -26,6 +26,52 @@ namespace YMS.Core.Mapping
             CreateMap<EmptyStorageTariff, EmptyStorageTariffDTO>();
             CreateMap<EmptyStorageTariffDTO, EmptyStorageTariff>();
 
+            CreateMap<EmptyStorageTariffData, EmptyStorageTariffDataDTO>();
+            CreateMap<EmptyStorageTariffDataDTO, EmptyStorageTariffData>();
+
+            CreateMap<FullStorageTariff, FullStorageTariffDTO>();
+            CreateMap<FullStorageTariffDTO, FullStorageTariff>();
+
+            CreateMap<FullStorageTariffData, FullStorageTariffDataDTO>();
+            CreateMap<FullStorageTariffDataDTO, FullStorageTariffData>();
+
+            CreateMap<ServicesTariff, ServicesTariffDTO>();
+            CreateMap<ServicesTariffDTO, ServicesTariff>();
+
+            CreateMap<ServiceTariffData, ServiceTariffDataDTO>();
+            CreateMap<ServiceTariffDataDTO, ServiceTariffData>();
+
+            CreateMap<PackageServicesTariff, PackageServicesTariffDTO>();
+            CreateMap<PackageServicesTariffDTO, PackageServicesTariff>();
+
+            CreateMap<PackageServiceTariffData, PackageServiceTariffDataDTO>();
+            CreateMap<PackageServiceTariffDataDTO, PackageServiceTariffData>();
+
+            CreateMap<Currency, CurrencyDTO>();
+            CreateMap<CurrencyDTO, Currency>();
+
+            CreateMap<City, CityDTO>();
+            CreateMap<CityDTO, City>();
+
+            CreateMap<Country, CountryDTO>();
+            CreateMap<CountryDTO, Country>();
+
+            CreateMap<Branch, BranchDTO>();
+            CreateMap<BranchDTO, Branch>();
+            
+            CreateMap<FullStorageDataType, FullStorageDataTypeDTO>();
+            CreateMap<FullStorageDataTypeDTO, FullStorageDataType>(); 
+            
+            CreateMap<PackageType, PackageTypeDTO>();
+            CreateMap<PackageTypeDTO, PackageType>(); 
+            
+            CreateMap<Service, ServiceDTO>();
+            CreateMap<ServiceDTO, Service>();
+
+            CreateMap<Basis, BasisDTO>();
+            CreateMap<BasisDTO, Basis>();
+
+            ////////////
             CreateMap<EmptyStorageTariff, EmptyStorageTariffViewModel>();
             CreateMap<EmptyStorageTariffViewModel, EmptyStorageTariff>();
 

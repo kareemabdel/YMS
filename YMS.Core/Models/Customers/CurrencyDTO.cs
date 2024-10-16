@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Customers
 {
-    public class CurrencyDTO : BaseDTO
+    public class CurrencyDTO
     {
-        public int Id { get; set; }
-
-        [Required]
         public string Code { get; set; }
-
-        [Required]
         public string NameEn { get; set; }
         public string? NameAr { get; set; }
-        public string? Remarks { get; set; }
-        public double? ExchangeRate { get; set; }
     }
 }

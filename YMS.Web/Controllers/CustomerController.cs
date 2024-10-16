@@ -36,7 +36,6 @@ namespace YMS.Web.Controllers
             return GetAPIResponse(response);
         }
 
-        [Authorize]
         [HttpPost("create-customer")]
         public async Task<ActionResult<bool>> CreateCustomer([FromBody] CustomerViewModel model)
         {
@@ -48,6 +47,22 @@ namespace YMS.Web.Controllers
             }
 
             var response = await _customerervice.CreateCustomer(model);
+            return GetAPIResponse(response);
+        }
+
+        [HttpGet("get-customer-by-id/{id}")]
+        public async Task<ActionResult<CustomerDTO>> GetCustomerById(Guid id)
+        {
+            var model = new GetCustomerRequestModel { CustomerId = id };
+
+            var branchId = GetBranchId();
+
+            if (branchId != null)
+            {
+                model.BranchId = branchId;
+            }
+
+            var response = await _customerervice.GetCustomerById(model);
             return GetAPIResponse(response);
         }
     }

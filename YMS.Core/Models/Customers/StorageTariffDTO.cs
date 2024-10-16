@@ -12,10 +12,6 @@ namespace YMS.Core.Models.Customers
     {
         public Guid? Id { get; set; }
 
-        [Required]
-        public Guid CustomerId { get; set; }
-        public CustomerDTO Customer { get; set; }
-
         //true by default
         public bool Active { get; set; }
         public string? Remarks { get; set; }

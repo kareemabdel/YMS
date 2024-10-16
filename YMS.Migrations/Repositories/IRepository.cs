@@ -14,8 +14,8 @@ namespace YMS.Migrations.Repositories
            string includeProperties = "",
            int? take = null);
 
-        Task<TEntity> GetById(int id);
-        Task<TEntity> GetById(Guid id);
+        Task<TEntity> GetById(int id, string includeProperties = "");
+        Task<TEntity> GetById(Guid id, string includeProperties = "");
         Task Insert(TEntity entity);
         Task Update(TEntity entity);
         Task Delete(TEntity entity);
