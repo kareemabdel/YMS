@@ -128,5 +128,56 @@ namespace YMS.Core.Services.UserServices
 
             return apiResponse;
         }
+
+        public async Task<ApiResponse<CustomerDTO>> GetCustomerById(GetCustomerRequestModel model)
+        {
+            var apiResponse = new ApiResponse<CustomerDTO>();
+
+            try
+            {
+                var customer = await _unitOfWork.CustomersRepo.GetById(model.CustomerId, "Branch,City,City.Country," +
+                    "Currency,EmptyStorageTariff,EmptyStorageTariff.EmptyStorageTariffDataList," +
+                    "FullStorageTariff,FullStorageTariff.FullStorageTariffDataList,FullStorageTariff.FullStorageTariffDataList.FulllStorageDataType," +
+                    "ServicesTariff,ServicesTariff.ServiceTariffDataList,ServicesTariff.ServiceTariffDataList.Services," +
+                    "ServicesTariff.ServiceTariffDataList.Basis,PackageServicesTariff," +
+                    "PackageServicesTariff.PackageServiceTariffDataList,PackageServicesTariff.PackageServiceTariffDataList.PackageType," +
+                    "PackageServicesTariff.PackageServiceTariffDataList.Services,PackageServicesTariff.PackageServiceTariffDataList.Basis");
+
+                if (customer == null) 
+                { 
+                    apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                    apiResponse.Errors = "Invalid CustomerId. The customer does not exist.";
+
+                    return apiResponse;
+                }
+
+                if (model.BranchId != null && customer.BranchId != model.BranchId)
+                {
+                    apiResponse.StatusCode = HttpStatusCode.Unauthorized;
+                    apiResponse.Errors = "Invalid Branch. You are not allowed to see this customer.";
+
+                    return apiResponse;
+                }
+
+                var response = _mapper.Map<CustomerDTO>(customer);
+                response.City = customer.City.Name;
+                response.Country = customer.City.Country.NameEn;
+                response.Currency = customer.Currency.NameEn;
+                response.Branch = customer.Branch.Name;
+                response.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), customer.PaymentType);
+
+                apiResponse.StatusCode = HttpStatusCode.OK;
+                apiResponse.Data = response;
+
+                return apiResponse;
+            }
+            catch (Exception ex)
+            {
+                apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                apiResponse.Errors = ex.Message;
+            }
+
+            return apiResponse;
+        }
     }
 }

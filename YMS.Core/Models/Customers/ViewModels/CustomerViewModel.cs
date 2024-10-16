@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YMS.Migrations.Entities;
 
 namespace YMS.Core.Models.Customers.ViewModels
 {
@@ -41,7 +42,7 @@ namespace YMS.Core.Models.Customers.ViewModels
         public string? ContactInformation { get; set; }
 
         [Required]
-        public int Type { get; set; }
+        public bool IsShippingLine { get; set; }
         public string? ContactPerson { get; set; }
         public string? ContactPersonDetails { get; set; }
 

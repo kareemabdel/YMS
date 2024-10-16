@@ -31,7 +31,7 @@ namespace YMS.Migrations.Entities
         public string? ContactInformation { get; set; }
 
         [Required]
-        public int Type { get; set; }
+        public bool IsShippingLine { get; set; }
         public string? ContactPerson { get; set; }
         public string? ContactPersonDetails { get; set; }
 

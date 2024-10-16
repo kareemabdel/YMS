@@ -13,9 +13,5 @@ namespace YMS.Core.Models.Customers
         [Required]
         public int FulllStorageDataTypeId { get; set; }
         public FullStorageDataTypeDTO FulllStorageDataType { get; set; }
-
-        [Required]
-        public Guid FullStorageTariffId { get; set; }
-        public required FullStorageTariffDTO FullStorageTariff { get; set; }
     }
 }

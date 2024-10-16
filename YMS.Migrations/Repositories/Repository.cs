@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using YMS.Migrations.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace YMS.Migrations.Repositories
 {
@@ -51,14 +52,34 @@ namespace YMS.Migrations.Repositories
             }
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(int id, string includeProperties = "")
         {
-            return await dbSet.FindAsync(id);
+            IQueryable<TEntity> query = dbSet;
+
+            query = query.Where(e => EF.Property<int>(e, "Id") == id);
+
+            foreach (var includeProperty in includeProperties.
+                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.SingleOrDefaultAsync();
         }
 
-        public async Task<TEntity> GetById(Guid id)
+        public async Task<TEntity> GetById(Guid id, string includeProperties = "")
         {
-            return await dbSet.FindAsync(id);
+            IQueryable<TEntity> query = dbSet;
+
+            query = query.Where(e => EF.Property<Guid>(e, "Id") == id);
+
+            foreach (var includeProperty in includeProperties.
+                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.SingleOrDefaultAsync();
         }
 
         public async Task Insert(TEntity entity)

@@ -16,5 +16,7 @@ namespace YMS.Core.Services.UserServices
     {
         Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter);
         Task<ApiResponse<bool>> CreateCustomer(CustomerViewModel model);
+
+        Task<ApiResponse<CustomerDTO>> GetCustomerById(GetCustomerRequestModel model);
     }
 }

@@ -8,18 +8,9 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Customers
 { 
-    public class CountryDTO : BaseDTO
+    public class CountryDTO
     {
-        public int Id { get; set; }
-
-        [Required]
-        public string Code { get; set; }
-
-        [Required]
         public string NameEn { get; set; }
         public string? NameAr { get; set; }
-        public string? Remarks { get; set; }
-
-        public List<CityDTO> Cities { get; set; }
     }
 }
