@@ -25,16 +25,20 @@ namespace YMS.Web.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<PaginatedList<CustomerListDTO>>> GetAll([FromQuery] CustomerFilter? filter)
         {
-            var branchIdClaim = User.Claims.FirstOrDefault(c => c.Type == "BranchId");
-            if (branchIdClaim is not null)
-                filter!.BranchId = new Guid(branchIdClaim.Value);
+            var branchId = GetBranchId();
+
+            if (branchId != null)
+            {
+                filter.BranchId = branchId;
+            }
+
             var response = await _customerervice.GetAll(filter);
             return GetAPIResponse(response);
         }
 
         [Authorize]
         [HttpPost("create-customer")]
-        public async Task<IActionResult> CreateCustomer([FromBody] CustomerViewModel model)
+        public async Task<ActionResult<bool>> CreateCustomer([FromBody] CustomerViewModel model)
         {
             var branchId = GetBranchId();
 

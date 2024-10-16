@@ -33,7 +33,7 @@ namespace YMS.Web.Controllers
         {
             var branchId = User.FindFirst("BranchId")?.Value;
 
-            if(branchId == null)
+            if(string.IsNullOrEmpty(branchId))
             {
                 return null;
             }
