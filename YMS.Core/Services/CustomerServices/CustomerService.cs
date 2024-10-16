@@ -17,6 +17,8 @@ using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using YMS.Core.Models.Authentications;
 using YMS.Core.Models.Customers.ViewModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using YMS.Core.Enums;
 
 namespace YMS.Core.Services.UserServices
 {
@@ -33,13 +35,22 @@ namespace YMS.Core.Services.UserServices
 
         public async Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter)
         {
+            var apiResponse = new ApiResponse<PaginatedList<CustomerListDTO>>();
+            try
+            {
             var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey);
             var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
-            return new ApiResponse<PaginatedList<CustomerListDTO>>
+
+                apiResponse.StatusCode = HttpStatusCode.OK;
+                apiResponse.Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems, filter.Page, filter.Size);
+                apiResponse.Data.Items.ForEach(x => x.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), int.Parse(x.PaymentType)));
+            }
+            catch (Exception ex)
             {
-                StatusCode = HttpStatusCode.OK,
-                Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems, filter.Page, filter.Size)
-            };
+                apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                apiResponse.Errors = ex.Message;
+            }
+            return apiResponse;
         }
         public async Task<ApiResponse<bool>> CreateCustomer(CustomerViewModel model)
         {

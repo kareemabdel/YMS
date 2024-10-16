@@ -29,7 +29,7 @@ namespace YMS.Web.Controllers
 
             if (branchId != null)
             {
-                filter.BranchId = branchId;
+                filter!.BranchId = branchId;
             }
 
             var response = await _customerervice.GetAll(filter);

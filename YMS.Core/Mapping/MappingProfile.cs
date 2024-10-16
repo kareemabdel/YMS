@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using YMS.Core.Enums;
 using YMS.Core.Models.Customers;
 using YMS.Core.Models.Customers.ViewModels;
 using YMS.Core.Models.Users;
@@ -14,9 +15,9 @@ namespace YMS.Core.Mapping
             CreateMap<Customer, CustomerDTO>();
             CreateMap<CustomerDTO, Customer>();
             CreateMap<Customer, CustomerListDTO>()
-                  .ForMember(e => e.HasVat, e => e.MapFrom(e => e.HasVat ? "Yes" : "No"))
-                .ReverseMap();
-            
+                .ForMember(dest => dest.HasVat, opt => opt.MapFrom(src => src.HasVat ? "Yes" : "No"));
+                //.ForMember(dest => dest.PaymentType, opt => opt.MapFrom(src => Enum.GetName(typeof(PaymentTypeEnum), src.PaymentType)));
+
             CreateMap<Customer, CustomerViewModel>();
             CreateMap<CustomerViewModel, Customer>();
             

@@ -16,7 +16,7 @@ namespace YMS.Core.Models.Customers
         public string HasVat { get; set; }
         public string Phone1 { get; set; }
         public string? Email { get; set; }
-        public int PaymentType { get; set; }
+        public string PaymentType { get; set; }
         public string? ContactPerson { get; set; }
     }
 }
