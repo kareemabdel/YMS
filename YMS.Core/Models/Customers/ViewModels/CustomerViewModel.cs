@@ -59,9 +59,9 @@ namespace YMS.Core.Models.Customers.ViewModels
         [Required]
         public DateTime ValidTo { get; set; }
 
-        public EmptyStorageTariffViewModel? EmptyStorageTariffViewModel { get; set; }
-        public FullStorageTariffViewModel? FullStorageTariffViewModel { get; set; }
-        public ServicesTariffViewModel? ServicesTariffViewModel { get; set; }
-        public PackageServicesTariffViewModel? PackageServicesTariffViewModel { get; set; }
+        public EmptyStorageTariffViewModel? EmptyStorageTariff { get; set; }
+        public FullStorageTariffViewModel? FullStorageTariff { get; set; }
+        public ServicesTariffViewModel? ServicesTariff { get; set; }
+        public PackageServicesTariffViewModel? PackageServicesTariff { get; set; }
     }
 }

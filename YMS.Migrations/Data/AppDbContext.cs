@@ -55,6 +55,26 @@ namespace YMS.Migrations.Data
             .HasForeignKey(c => c.CityId)
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
 
+              modelBuilder.Entity<Customer>()
+             .HasOne(c => c.EmptyStorageTariff)
+             .WithOne(t => t.Customer)
+             .HasForeignKey<EmptyStorageTariff>(t => t.CustomerId);
+
+              modelBuilder.Entity<Customer>()
+             .HasOne(c => c.FullStorageTariff)
+             .WithOne(t => t.Customer)
+             .HasForeignKey<FullStorageTariff>(t => t.CustomerId);
+
+              modelBuilder.Entity<Customer>()
+             .HasOne(c => c.ServicesTariff)
+             .WithOne(t => t.Customer)
+             .HasForeignKey<ServicesTariff>(t => t.CustomerId);
+
+              modelBuilder.Entity<Customer>()
+             .HasOne(c => c.PackageServicesTariff)
+             .WithOne(t => t.Customer)
+             .HasForeignKey<PackageServicesTariff>(t => t.CustomerId);
+
             modelBuilder.Entity<EmptyStorageTariff>().Property(x => x.Active).HasDefaultValue(true);
             modelBuilder.Entity<FullStorageTariff>().Property(x => x.Active).HasDefaultValue(true);
             modelBuilder.Entity<ServicesTariff>().Property(x => x.Active).HasDefaultValue(true);

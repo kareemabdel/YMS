@@ -54,10 +54,10 @@ namespace YMS.Core.Services.UserServices
                     return apiResponse;
                 }
 
-                if (model.EmptyStorageTariffViewModel == null && 
-                    model.FullStorageTariffViewModel == null &&
-                    model.ServicesTariffViewModel == null &&
-                    model.PackageServicesTariffViewModel == null)
+                if (model.EmptyStorageTariff == null && 
+                    model.FullStorageTariff == null &&
+                    model.ServicesTariff == null &&
+                    model.PackageServicesTariff == null)
                 {
                     apiResponse.StatusCode = HttpStatusCode.BadRequest;
                     apiResponse.Errors = "Tarrif is required.";
@@ -102,40 +102,8 @@ namespace YMS.Core.Services.UserServices
 
                 var customer = _mapper.Map<Customer>(model);
                 customer.CreatedDate = DateTime.Now;
+
                 await _unitOfWork.CustomersRepo.Insert(customer);
-
-                if (model.EmptyStorageTariffViewModel != null)
-                {
-                    var emptyStorageTariff = _mapper.Map<EmptyStorageTariff>(model.EmptyStorageTariffViewModel);
-                    emptyStorageTariff.CustomerId = customer.Id;
-
-                    await _unitOfWork.EmptyStorageTariffsRepo.Insert(emptyStorageTariff);
-                }
-
-                if (model.FullStorageTariffViewModel != null)
-                {
-                    var fullStorageTariff = _mapper.Map<FullStorageTariff>(model.FullStorageTariffViewModel);
-                    fullStorageTariff.CustomerId = customer.Id;
-
-                    await _unitOfWork.FullStorageTariffsRepo.Insert(fullStorageTariff);
-                }
-
-                if (model.ServicesTariffViewModel != null)
-                {
-                    var servicesTariff = _mapper.Map<ServicesTariff>(model.ServicesTariffViewModel);
-                    servicesTariff.CustomerId = customer.Id;
-
-                    await _unitOfWork.ServicesTariffsRepo.Insert(servicesTariff);
-                }
-
-                if (model.PackageServicesTariffViewModel != null)
-                {
-                    var packageServicesTariff = _mapper.Map<PackageServicesTariff>(model.PackageServicesTariffViewModel);
-                    packageServicesTariff.CustomerId = customer.Id;
-
-                    await _unitOfWork.PackageServicesTariffsRepo.Insert(packageServicesTariff);
-                }
-
                 await _unitOfWork.Save();
 
                 apiResponse.StatusCode = HttpStatusCode.OK;
