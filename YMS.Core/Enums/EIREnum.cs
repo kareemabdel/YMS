@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Enums
 {
-    public enum PaymentTypeEnum
+    public enum EIREnum
     {
-        Cash = 1,
-        Check,
-        Credit
+        Sound=1,
+        Unclean,
+        Damaged
     }
 }

@@ -8,7 +8,7 @@ namespace YMS.Core.Enums
 {
     public enum DailyCountTimeBasedEnum
     {
-        DailyNumber,
+        DailyNumber=1,
         TimeSlices
     }
 }

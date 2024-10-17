@@ -8,7 +8,7 @@ namespace YMS.Core.Enums
 {
     public enum DepartmentEnum
     {
-        Accounting,
+        Accounting=1,
         HumanResources,
         InformationTechnology,
         Marketing,

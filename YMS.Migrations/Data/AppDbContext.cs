@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YMS.Migrations.Entities;
+using YMS.Migrations.Entities.Lookups;
 
 namespace YMS.Migrations.Data
 {
@@ -28,6 +29,12 @@ namespace YMS.Migrations.Data
         public DbSet<PackageType> PackageTypes { get; set; }
         public DbSet<Basis> Basises { get; set; }
         public DbSet<FullStorageDataType> FullStorageDataTypes { get; set; }
+        public DbSet<Vessel> Vessels { get; set; }
+        public DbSet<Transporter> Transporters { get; set; }
+        public DbSet<Block> Blocks { get; set; }
+        public DbSet<ContainerType> ContainerTypes { get; set; }
+        public DbSet<Container> Containers { get; set; }
+        public DbSet<ContainerTransaction> ContainerTransactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
