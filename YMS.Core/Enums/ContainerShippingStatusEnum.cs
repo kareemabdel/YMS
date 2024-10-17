@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Enums
 {
-    public enum ContainerStatusEnum
+    public enum ContainerShippingStatusEnum
     {
-        Prnding=1,
-        GateIn,
+        Empty= 1,
+        Full,
+        
     }
 }

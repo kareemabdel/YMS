@@ -24,8 +24,8 @@ namespace YMS.Migrations.Entities
         public int VesselId { get; set; }
         public string Voyage { get; set; }
         public DateTime ETA { get; set; }
-        public int EIR { get; set; }
-        public int ContainerStatus { get; set; }
+        public int EIR { get; set; } //EIREnum
+        public int ContainerShippingStatus { get; set; } //ContainerShippingStatusEnum
         public string InspectionRemarks { get; set; }
         public string BillNo { get; set; }
         public decimal CleanCost { get; set; }
@@ -39,6 +39,7 @@ namespace YMS.Migrations.Entities
 
         [Range(0, 9, ErrorMessage = "The Tier value must be a one-digit integer.")]
         public short Tier { get; set; }
+        public int Status { get; set; } //ContainerStatusEnum
 
         /// <summary>
         /// ref

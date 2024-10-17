@@ -13,6 +13,6 @@ namespace YMS.Migrations.Entities.Lookups
         public string NameEn { get; set; }
         public string? NameAr { get; set; }
         public string? Remarks { get; set; }
-        public int Type { get; set; }
+        public int Type { get; set; } //ContainerTypeEnum
     }
 }

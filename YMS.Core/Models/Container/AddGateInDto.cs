@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Core.Enums
+namespace YMS.Core.Models.Container
 {
-    public enum ContainerStatusEnum
+    public class AddGateInDto
     {
-        Prnding=1,
-        GateIn,
     }
 }

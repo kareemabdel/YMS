@@ -15,7 +15,7 @@ namespace YMS.Migrations.Entities
         public int VesselId { get; set; }
         public Guid CustomerId { get; set; }
         public int ContainerTypeId { get; set; }
-        public int Status { get; set; }
+        public int ShippingStatus { get; set; } //ContainerShippingStatusEnum
         public string LoadPosition { get; set; }
         public string BayCell { get; set; }
         public string TempRqd { get; set; }
@@ -28,6 +28,7 @@ namespace YMS.Migrations.Entities
         public string ISO { get; set; }
         public string Voyage { get; set; }
         public DateTime ETA { get; set; }
+        public int Status { get; set; } //ContainerStatusEnum
 
         /// <summary>
         /// ref
