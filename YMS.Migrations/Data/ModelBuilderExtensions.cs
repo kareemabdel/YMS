@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YMS.Migrations.Entities;
+using YMS.Migrations.Entities.Lookups;
 
 namespace YMS.Migrations.Data
 {
@@ -41,9 +42,9 @@ namespace YMS.Migrations.Data
                 new Service { Id = 2, Name = "Cleaning" }
             );
 
-            modelBuilder.Entity<FullStorageDataType>().HasData(
-                new FullStorageDataType { Id = 1, Name = "FullStorageDataType1" },
-                new FullStorageDataType { Id = 2, Name = "FullStorageDataType2" }
+            modelBuilder.Entity<StorageType>().HasData(
+                new StorageType { Id = 1, Name = "FullStorageDataType1" },
+                new StorageType { Id = 2, Name = "FullStorageDataType2" }
             );
 
             modelBuilder.Entity<Basis>().HasData(
@@ -55,6 +56,11 @@ namespace YMS.Migrations.Data
                 new PackageType { Id = 1, Name = "Box" },
                 new PackageType { Id = 2, Name = "Bags" }
             );
+
+            modelBuilder.Entity<Line>().HasData(
+               new Line { Id = 1, Name = "AYE" },
+               new Line { Id = 2, Name = "GMAC" }
+           );
 
             modelBuilder.Entity<User>().HasData(
                 new User { Id = new Guid("3b362655-5ade-4978-826e-0ec0edbfc31b"), Name = "test", Username = "test", Password = "123456", BranchId = branchId1 }

@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using YMS.Migrations.Entities.Lookups;
+using System.Collections;
 
 namespace YMS.Migrations.Entities
 {
@@ -50,19 +52,12 @@ namespace YMS.Migrations.Entities
         public Guid BranchId { get; set; }
         public Branch Branch { get; set; }
 
+        public Guid? LineId { get; set; }
+        public Line? Line { get; set; }
+
         [Required]
         public DateTime ValidTo { get; set; }
 
-        public Guid? EmptyStorageTariffId { get; set; }
-        public EmptyStorageTariff? EmptyStorageTariff { get; set; }
-
-        public Guid? FullStorageTariffId { get; set; }
-        public FullStorageTariff? FullStorageTariff { get; set; }
-
-        public Guid? ServicesTariffId { get; set; }
-        public ServicesTariff? ServicesTariff { get; set; }
-
-        public Guid? PackageServicesTariffId { get; set; }
-        public PackageServicesTariff? PackageServicesTariff { get; set; }
+        public ICollection<Tariff>? Tariffs { get; set; }
     }
 }

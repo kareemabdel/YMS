@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Migrations.Entities
+namespace YMS.Migrations.Entities.Lookups
 {
     public class Country : BaseEntity
     {

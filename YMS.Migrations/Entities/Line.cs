@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities
 {
-    public class ServicesTariff : ExtraTariffService
+    public class Line :Lookup
     {
-        public List<ServiceTariffData> ServiceTariffDataList { get; set; }
     }
 }

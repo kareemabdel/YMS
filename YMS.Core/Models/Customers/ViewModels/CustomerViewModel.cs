@@ -40,9 +40,6 @@ namespace YMS.Core.Models.Customers.ViewModels
         public string? Fax { get; set; }
         public string? Website { get; set; }
         public string? ContactInformation { get; set; }
-
-        [Required]
-        public bool IsShippingLine { get; set; }
         public string? ContactPerson { get; set; }
         public string? ContactPersonDetails { get; set; }
 
@@ -55,14 +52,13 @@ namespace YMS.Core.Models.Customers.ViewModels
         [Required]
         public int CityId { get; set; }
 
+        public Guid? LineId { get; set; }
+
         public Guid? BranchId { get; set; }
 
         [Required]
         public DateTime ValidTo { get; set; }
 
-        public EmptyStorageTariffViewModel? EmptyStorageTariff { get; set; }
-        public FullStorageTariffViewModel? FullStorageTariff { get; set; }
-        public ServicesTariffViewModel? ServicesTariff { get; set; }
-        public PackageServicesTariffViewModel? PackageServicesTariff { get; set; }
+        public ICollection<TariffViewModel>? Tariffs { get; set; }
     }
 }

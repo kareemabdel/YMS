@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities
 {
-    public class FullStorageDataType : Lookup
+    public class StorageType : Lookup
     {
     }
 }

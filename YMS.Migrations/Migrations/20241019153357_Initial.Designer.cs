@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YMS.Migrations.Data;
 
@@ -11,9 +12,11 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019153357_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,12 +291,6 @@ namespace YMS.Migrations.Migrations
                     b.Property<bool>("IsShippingLine")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("LineId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("LineId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
 
@@ -343,8 +340,6 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.HasIndex("LineId1");
-
                     b.ToTable("Customers");
                 });
 
@@ -386,35 +381,6 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("ContainerTransactionId");
 
                     b.ToTable("InspectionDetail");
-                });
-
-            modelBuilder.Entity("YMS.Migrations.Entities.Line", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Lines");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "AYE"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "GMAC"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Basis", b =>
@@ -1298,17 +1264,11 @@ namespace YMS.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YMS.Migrations.Entities.Line", "Line")
-                        .WithMany()
-                        .HasForeignKey("LineId1");
-
                     b.Navigation("Branch");
 
                     b.Navigation("City");
 
                     b.Navigation("Currency");
-
-                    b.Navigation("Line");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.InspectionDetail", b =>

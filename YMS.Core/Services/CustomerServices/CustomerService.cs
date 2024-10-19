@@ -65,16 +65,6 @@ namespace YMS.Core.Services.UserServices
                     return apiResponse;
                 }
 
-                if (model.EmptyStorageTariff == null && 
-                    model.FullStorageTariff == null &&
-                    model.ServicesTariff == null &&
-                    model.PackageServicesTariff == null)
-                {
-                    apiResponse.StatusCode = HttpStatusCode.BadRequest;
-                    apiResponse.Errors = "Tarrif is required.";
-                    return apiResponse;
-                }
-
                 var existedCustomer = await _unitOfWork.CustomersRepo.GetCustomerByCode(model.Code, model.BranchId.Value);
 
                 if (existedCustomer != null)
@@ -110,9 +100,19 @@ namespace YMS.Core.Services.UserServices
                     apiResponse.Errors = "Invalid CurrencyId. The currency does not exist.";
                     return apiResponse;
                 }
-
+                
+                var currentDate = DateTime.Now;
                 var customer = _mapper.Map<Customer>(model);
-                customer.CreatedDate = DateTime.Now;
+                customer.CreatedDate = currentDate;
+
+                if (customer.Tariffs != null && customer.Tariffs.Any())
+                {
+                    foreach (var tariff in customer.Tariffs)
+                    {
+                        tariff.ValidTo = customer.ValidTo;
+                        tariff.CreatedDate = currentDate;
+                    }
+                }
 
                 await _unitOfWork.CustomersRepo.Insert(customer);
                 await _unitOfWork.Save();

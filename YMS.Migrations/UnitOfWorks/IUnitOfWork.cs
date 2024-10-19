@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using YMS.Migrations.Entities;
+using YMS.Migrations.Entities.Lookups;
 using YMS.Migrations.Repositories;
 using YMS.Migrations.Repositories.Customers;
 using YMS.Migrations.Repositories.Users;
@@ -17,13 +18,9 @@ namespace YMS.Migrations.UnitOfWorks
         IRepository<Branch> BranchesRepo { get; }
         IRepository<Currency> CurrenciesRepo { get; }
         ICustomerRepository CustomersRepo { get; }
-        IRepository<EmptyStorageTariff> EmptyStorageTariffsRepo { get; }
-        IRepository<EmptyStorageTariffData> EmptyStorageTariffDataListRepo { get; }
-        IRepository<FullStorageTariff> FullStorageTariffsRepo { get; }
-        IRepository<FullStorageTariffData> FullStorageTariffDataListRepo { get; }
-
-        IRepository<ServicesTariff> ServicesTariffsRepo { get; }
-        IRepository<ServiceTariffData> ServicesTariffDataListRepo { get; }
+        IRepository<Tariff> TariffsRepo { get; }
+        IRepository<TariffData> TariffDataRepo { get; }
+        IRepository<TariffService> TariffServicesRepo { get; }
 
         IRepository<PackageServicesTariff> PackageServicesTariffsRepo { get; }
         IRepository<PackageServiceTariffData> PackageServiceTariffDataListRepo { get; }
