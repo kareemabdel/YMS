@@ -52,13 +52,13 @@ namespace YMS.Core.Models.Customers.ViewModels
         [Required]
         public int CityId { get; set; }
 
-        public Guid? LineId { get; set; }
+        public int? LineId { get; set; }
 
         public Guid? BranchId { get; set; }
 
         [Required]
         public DateTime ValidTo { get; set; }
 
-        public ICollection<TariffViewModel>? Tariffs { get; set; }
+        public List<TariffViewModel>? Tariffs { get; set; }
     }
 }

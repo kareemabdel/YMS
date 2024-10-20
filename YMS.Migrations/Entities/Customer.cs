@@ -32,8 +32,6 @@ namespace YMS.Migrations.Entities
         public string? Website { get; set; }
         public string? ContactInformation { get; set; }
 
-        [Required]
-        public bool IsShippingLine { get; set; }
         public string? ContactPerson { get; set; }
         public string? ContactPersonDetails { get; set; }
 
@@ -52,7 +50,7 @@ namespace YMS.Migrations.Entities
         public Guid BranchId { get; set; }
         public Branch Branch { get; set; }
 
-        public Guid? LineId { get; set; }
+        public int? LineId { get; set; }
         public Line? Line { get; set; }
 
         [Required]

@@ -38,8 +38,8 @@ namespace YMS.Core.Services.UserServices
             var apiResponse = new ApiResponse<PaginatedList<CustomerListDTO>>();
             try
             {
-            var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey);
-            var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
+                var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey);
+                var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
 
                 apiResponse.StatusCode = HttpStatusCode.OK;
                 apiResponse.Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems, filter.Page, filter.Size);
@@ -57,8 +57,8 @@ namespace YMS.Core.Services.UserServices
             var apiResponse = new ApiResponse<bool>();
             try
             {
-                if (model.BranchId == null) 
-                { 
+                if (model.BranchId == null)
+                {
                     apiResponse.StatusCode = HttpStatusCode.BadRequest;
                     apiResponse.Errors = "BranchId must be provided to create the customer.";
 
@@ -100,7 +100,30 @@ namespace YMS.Core.Services.UserServices
                     apiResponse.Errors = "Invalid CurrencyId. The currency does not exist.";
                     return apiResponse;
                 }
-                
+
+                if (model.Tariffs != null && model.Tariffs.Any())
+                {
+                    if (model.Tariffs.Count > 2)
+                    {
+                        apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                        apiResponse.Errors = "Invalid Tariffs Count. The customer has only two types of tarrifs.";
+                        return apiResponse;
+                    }
+
+                    var duplicateTariffTypes = model.Tariffs
+                                               .GroupBy(t => t.TariffType)
+                                               .Where(g => g.Count() > 1)
+                                               .Select(g => g.Key)
+                                               .ToList();
+
+                    if (duplicateTariffTypes.Any())
+                    {
+                        apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                        apiResponse.Errors = "Invalid Tariffs. Duplicate Tariff Types.";
+                        return apiResponse;
+                    }
+                }
+
                 var currentDate = DateTime.Now;
                 var customer = _mapper.Map<Customer>(model);
                 customer.CreatedDate = currentDate;
@@ -135,16 +158,12 @@ namespace YMS.Core.Services.UserServices
 
             try
             {
-                var customer = await _unitOfWork.CustomersRepo.GetById(model.CustomerId, "Branch,City,City.Country," +
-                    "Currency,EmptyStorageTariff,EmptyStorageTariff.EmptyStorageTariffDataList," +
-                    "FullStorageTariff,FullStorageTariff.FullStorageTariffDataList,FullStorageTariff.FullStorageTariffDataList.FulllStorageDataType," +
-                    "ServicesTariff,ServicesTariff.ServiceTariffDataList,ServicesTariff.ServiceTariffDataList.Services," +
-                    "ServicesTariff.ServiceTariffDataList.Basis,PackageServicesTariff," +
-                    "PackageServicesTariff.PackageServiceTariffDataList,PackageServicesTariff.PackageServiceTariffDataList.PackageType," +
-                    "PackageServicesTariff.PackageServiceTariffDataList.Services,PackageServicesTariff.PackageServiceTariffDataList.Basis");
+                var customer = await _unitOfWork.CustomersRepo.GetById(model.CustomerId, "Branch,City,City.Country,Line," +
+                    "Currency,Tariffs,Tariffs.TariffDataList,Tariffs.TariffDataList.StorageType,Tariffs.TariffServices," +
+                    "Tariffs.TariffServices.Service,Tariffs.TariffServices.Basis");
 
-                if (customer == null) 
-                { 
+                if (customer == null)
+                {
                     apiResponse.StatusCode = HttpStatusCode.BadRequest;
                     apiResponse.Errors = "Invalid CustomerId. The customer does not exist.";
 
@@ -164,6 +183,7 @@ namespace YMS.Core.Services.UserServices
                 response.Country = customer.City.Country.NameEn;
                 response.Currency = customer.Currency.NameEn;
                 response.Branch = customer.Branch.Name;
+                response.Line = customer.Line?.Name;
                 response.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), customer.PaymentType);
 
                 apiResponse.StatusCode = HttpStatusCode.OK;

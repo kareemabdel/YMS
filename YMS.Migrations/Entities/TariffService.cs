@@ -21,7 +21,7 @@ namespace YMS.Migrations.Entities
 
         [Required]
         public int ServiceId { get; set; }
-        public Service Services { get; set; }
+        public Service Service { get; set; }
 
         [Required]
         public int BasisId { get; set; }
