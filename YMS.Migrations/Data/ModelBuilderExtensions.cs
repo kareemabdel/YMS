@@ -62,6 +62,20 @@ namespace YMS.Migrations.Data
                new Line { Id = 2, Name = "GMAC" }
            );
 
+            modelBuilder.Entity<Transporter>().HasData(
+              new Transporter { Id = 1,Code="NOFOOD01",NameEn = "NOFOOD",NameAr="النفوذ" },
+             new Transporter { Id = 1, Code = "SHAFINA", NameEn = "ALSHAFINA", NameAr = "السفينة" }
+          );
+            modelBuilder.Entity<Vessel>().HasData(
+             new Vessel { Id = 1, Code = "23729", NameEn = "ALAHMED", NameAr = "ALAHMED" },
+            new Vessel { Id = 1, Code = "0018E", NameEn = "AS ALAXANDRIA"}
+         );
+
+            modelBuilder.Entity<Block>().HasData(
+            new Block { Id = 1, Code = "C1", NameEn = "C1", NameAr = "C1" },
+           new Block { Id = 1, Code = "C10", NameEn = "C10", NameAr = "C10" }
+        );
+
             modelBuilder.Entity<User>().HasData(
                 new User { Id = new Guid("3b362655-5ade-4978-826e-0ec0edbfc31b"), Name = "test", Username = "test", Password = "123456", BranchId = branchId1 }
             );
