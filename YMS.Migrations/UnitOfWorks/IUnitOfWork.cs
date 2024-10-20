@@ -18,6 +18,7 @@ namespace YMS.Migrations.UnitOfWorks
         IRepository<Branch> BranchesRepo { get; }
         IRepository<Currency> CurrenciesRepo { get; }
         ICustomerRepository CustomersRepo { get; }
+        IContainerTransactionRepository ContainerTransactionRepo { get; }
         IRepository<Tariff> TariffsRepo { get; }
         IRepository<TariffData> TariffDataRepo { get; }
         IRepository<TariffService> TariffServicesRepo { get; }

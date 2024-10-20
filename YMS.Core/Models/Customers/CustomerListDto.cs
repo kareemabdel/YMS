@@ -18,5 +18,6 @@ namespace YMS.Core.Models.Customers
         public string? Email { get; set; }
         public string PaymentType { get; set; }
         public string? ContactPerson { get; set; }
+        public DateTimeOffset? CreatedDate { get; set; }
     }
 }

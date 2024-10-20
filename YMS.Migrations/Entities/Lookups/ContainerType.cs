@@ -14,5 +14,6 @@ namespace YMS.Migrations.Entities.Lookups
         public string? NameAr { get; set; }
         public string? Remarks { get; set; }
         public int Type { get; set; } //ContainerTypeEnum
+        public string? Base64Img { get; set; }
     }
 }

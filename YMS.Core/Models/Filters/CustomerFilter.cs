@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Filters
 {
-    public class CustomerFilter
+    public class CustomerFilter:SortByModel
     {
         public Guid? BranchId { get; set; }
         public int Page { get; set; } = 1;
