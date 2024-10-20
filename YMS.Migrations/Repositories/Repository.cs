@@ -20,36 +20,46 @@ namespace YMS.Migrations.Repositories
             this.dbSet = context.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "", int? take = null)
+        public async Task<(IEnumerable<TEntity> items, int totalCount)> Get(
+        Func<IQueryable<TEntity>, IQueryable<TEntity>> filter = null,
+        string orderByField = null,
+        bool isDescending = false,
+        string includeProperties = "",
+        int pageNumber = 1,
+        int pageSize = 10)
         {
             IQueryable<TEntity> query = dbSet;
 
+            // Apply filter
             if (filter != null)
             {
-                query = query.Where(filter);
+                query = filter(query);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            // Include related entities
+            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
 
-            if (orderBy != null)
+            if (!string.IsNullOrEmpty(orderByField))
             {
-                if (take == null)
-                    return await orderBy(query).ToListAsync();
-                else
-                    return await orderBy(query).Take(take.Value).ToListAsync();
-            }
-            else
-            {
-                if (take == null)
+                var parameter = Expression.Parameter(typeof(TEntity), "x");
+                var property = Expression.Property(parameter, orderByField);
+                var lambda = Expression.Lambda(property, parameter);
 
-                    return await query.ToListAsync();
-                else
-                    return await query.Take(take.Value).ToListAsync();
+                var methodName = isDescending ? "OrderByDescending" : "OrderBy";
+                var resultExpression = Expression.Call(typeof(Queryable), methodName, new Type[] { typeof(TEntity), property.Type }, query.Expression, Expression.Quote(lambda));
+                query = query.Provider.CreateQuery<TEntity>(resultExpression);
             }
+
+            var totalCount = await query.CountAsync();
+
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            var items = await query.ToListAsync();
+
+            return (items, totalCount);
         }
 
         public async Task<TEntity> GetById(int id, string includeProperties = "")

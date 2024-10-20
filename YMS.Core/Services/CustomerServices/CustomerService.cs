@@ -38,12 +38,41 @@ namespace YMS.Core.Services.UserServices
             var apiResponse = new ApiResponse<PaginatedList<CustomerListDTO>>();
             try
             {
-            var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey,filter.SortField,filter.SortOrder);
-            var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
+                var (items, totalCount) = await _unitOfWork.CustomersRepo.Get(
+                filter: query =>
+                {
+                if ((filter?.BranchId != null))
+                {
+                    query = query.Where(c => c.BranchId == filter.BranchId);
+                }
+                if (!string.IsNullOrEmpty(filter?.SearchKey))
+                {
+                    query = query.Where(c => c.Code.Contains(filter.SearchKey) || c.NameEn.Contains(filter.SearchKey));
+                }
+
+                query = query.Where(c => !c.IsDeleted);
+
+                return query;
+                },
+                orderByField: filter?.SortField ?? "CreatedDate",                       
+                isDescending: filter.SortOrder == -1 ? true : false,                         
+                pageNumber: filter.Page,                      
+                pageSize: filter.Size                           
+                );
+
+                var customerList = _mapper.Map<List<CustomerListDTO>>(items);
 
                 apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems.OrderByDescending(e=>e.CreatedDate), filter.Page, filter.Size);
-                apiResponse.Data.Items.ForEach(x => x.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), int.Parse(x.PaymentType)));
+                apiResponse.Data = new PaginatedList<CustomerListDTO>(customerList, totalCount, filter.Page, filter.Size);
+
+
+
+                var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey,filter.SortField,filter.SortOrder);
+                //var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
+
+                //    apiResponse.StatusCode = HttpStatusCode.OK;
+                //    apiResponse.Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems.OrderByDescending(e=>e.CreatedDate), filter.Page, filter.Size);
+                //    apiResponse.Data.Items.ForEach(x => x.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), int.Parse(x.PaymentType)));
             }
             catch (Exception ex)
             {
