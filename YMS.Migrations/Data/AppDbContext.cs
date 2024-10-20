@@ -22,19 +22,19 @@ namespace YMS.Migrations.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<EmptyStorageTariff> EmptyStorageTariffs { get; set; }
-        public DbSet<EmptyStorageTariffData> EmptyStorageTariffDataList { get; set; }
-        public DbSet<FullStorageTariff> FullStorageTariffs { get; set; }
-        public DbSet<FullStorageTariffData> FullStorageTariffDataList { get; set; }
         public DbSet<PackageType> PackageTypes { get; set; }
         public DbSet<Basis> Basises { get; set; }
-        public DbSet<FullStorageDataType> FullStorageDataTypes { get; set; }
+        public DbSet<StorageType> StorageTypes { get; set; }
         public DbSet<Vessel> Vessels { get; set; }
         public DbSet<Transporter> Transporters { get; set; }
         public DbSet<Block> Blocks { get; set; }
         public DbSet<ContainerType> ContainerTypes { get; set; }
         public DbSet<Container> Containers { get; set; }
         public DbSet<ContainerTransaction> ContainerTransactions { get; set; }
+        public DbSet<Tariff> Tariffs { get; set; }
+        public DbSet<TariffService> TariffServices { get; set; }
+        public DbSet<TariffData> TariffData { get; set; }
+        public DbSet<Line> Lines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,34 +62,11 @@ namespace YMS.Migrations.Data
             .HasForeignKey(c => c.CityId)
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
 
-              modelBuilder.Entity<Customer>()
-             .HasOne(c => c.EmptyStorageTariff)
-             .WithOne(t => t.Customer)
-             .HasForeignKey<EmptyStorageTariff>(t => t.CustomerId);
 
-              modelBuilder.Entity<Customer>()
-             .HasOne(c => c.FullStorageTariff)
-             .WithOne(t => t.Customer)
-             .HasForeignKey<FullStorageTariff>(t => t.CustomerId);
-
-              modelBuilder.Entity<Customer>()
-             .HasOne(c => c.ServicesTariff)
-             .WithOne(t => t.Customer)
-             .HasForeignKey<ServicesTariff>(t => t.CustomerId);
-
-              modelBuilder.Entity<Customer>()
-             .HasOne(c => c.PackageServicesTariff)
-             .WithOne(t => t.Customer)
-             .HasForeignKey<PackageServicesTariff>(t => t.CustomerId);
-
-            modelBuilder.Entity<EmptyStorageTariff>().Property(x => x.Active).HasDefaultValue(true);
-            modelBuilder.Entity<FullStorageTariff>().Property(x => x.Active).HasDefaultValue(true);
-            modelBuilder.Entity<ServicesTariff>().Property(x => x.Active).HasDefaultValue(true);
-            modelBuilder.Entity<PackageServicesTariff>().Property(x => x.Active).HasDefaultValue(true);
+            modelBuilder.Entity<Tariff>().Property(x => x.Active).HasDefaultValue(true);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
         }
-
     }
 }

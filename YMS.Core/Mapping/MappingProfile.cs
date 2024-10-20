@@ -4,6 +4,7 @@ using YMS.Core.Models.Customers;
 using YMS.Core.Models.Customers.ViewModels;
 using YMS.Core.Models.Users;
 using YMS.Migrations.Entities;
+using YMS.Migrations.Entities.Lookups;
 
 namespace YMS.Core.Mapping
 {
@@ -23,24 +24,6 @@ namespace YMS.Core.Mapping
             
             CreateMap<User, UserCredentialsDTO>();
             CreateMap<UserCredentialsDTO, User>();
-            
-            CreateMap<EmptyStorageTariff, EmptyStorageTariffDTO>();
-            CreateMap<EmptyStorageTariffDTO, EmptyStorageTariff>();
-
-            CreateMap<EmptyStorageTariffData, EmptyStorageTariffDataDTO>();
-            CreateMap<EmptyStorageTariffDataDTO, EmptyStorageTariffData>();
-
-            CreateMap<FullStorageTariff, FullStorageTariffDTO>();
-            CreateMap<FullStorageTariffDTO, FullStorageTariff>();
-
-            CreateMap<FullStorageTariffData, FullStorageTariffDataDTO>();
-            CreateMap<FullStorageTariffDataDTO, FullStorageTariffData>();
-
-            CreateMap<ServicesTariff, ServicesTariffDTO>();
-            CreateMap<ServicesTariffDTO, ServicesTariff>();
-
-            CreateMap<ServiceTariffData, ServiceTariffDataDTO>();
-            CreateMap<ServiceTariffDataDTO, ServiceTariffData>();
 
             CreateMap<PackageServicesTariff, PackageServicesTariffDTO>();
             CreateMap<PackageServicesTariffDTO, PackageServicesTariff>();
@@ -60,8 +43,8 @@ namespace YMS.Core.Mapping
             CreateMap<Branch, BranchDTO>();
             CreateMap<BranchDTO, Branch>();
             
-            CreateMap<FullStorageDataType, FullStorageDataTypeDTO>();
-            CreateMap<FullStorageDataTypeDTO, FullStorageDataType>(); 
+            CreateMap<StorageType, FullStorageDataTypeDTO>();
+            CreateMap<FullStorageDataTypeDTO, StorageType>(); 
             
             CreateMap<PackageType, PackageTypeDTO>();
             CreateMap<PackageTypeDTO, PackageType>(); 
@@ -73,26 +56,18 @@ namespace YMS.Core.Mapping
             CreateMap<BasisDTO, Basis>();
 
             ////////////
-            CreateMap<EmptyStorageTariff, EmptyStorageTariffViewModel>();
-            CreateMap<EmptyStorageTariffViewModel, EmptyStorageTariff>();
 
-            CreateMap<EmptyStorageTariffData, EmptyStorageTariffDataViewModel>();
-            CreateMap<EmptyStorageTariffDataViewModel, EmptyStorageTariffData>();
+            CreateMap<Tariff, TariffViewModel>();
+            CreateMap<TariffViewModel, Tariff>();
 
-            CreateMap<FullStorageTariff, FullStorageTariffViewModel>();
-            CreateMap<FullStorageTariffViewModel, FullStorageTariff>();
+            CreateMap<TariffData, TariffDataViewModel>();
+            CreateMap<TariffDataViewModel, TariffData>();
 
-            CreateMap<FullStorageTariffData, FullStorageTariffDataViewModel>();
-            CreateMap<FullStorageTariffDataViewModel, FullStorageTariffData>();
-
-            CreateMap<ServicesTariff, ServicesTariffViewModel>();
-            CreateMap<ServicesTariffViewModel, ServicesTariff>();
+            CreateMap<TariffService, TariffServiceViewModel>();
+            CreateMap<TariffServiceViewModel, TariffService>();
 
             CreateMap<PackageServicesTariff, PackageServicesTariffViewModel>();
             CreateMap<PackageServicesTariffViewModel, PackageServicesTariff>();
-
-            CreateMap<ServiceTariffData, ServiceTariffDataViewModel>();
-            CreateMap<ServiceTariffDataViewModel, ServiceTariffData>();
 
             CreateMap<PackageServiceTariffData, PackageServiceTariffDataViewModel>();
             CreateMap<PackageServiceTariffDataViewModel, PackageServiceTariffData>();

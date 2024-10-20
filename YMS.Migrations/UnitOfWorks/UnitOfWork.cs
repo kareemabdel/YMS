@@ -2,6 +2,7 @@
 using System;
 using YMS.Migrations.Data;
 using YMS.Migrations.Entities;
+using YMS.Migrations.Entities.Lookups;
 using YMS.Migrations.Repositories;
 using YMS.Migrations.Repositories.Customers;
 using YMS.Migrations.Repositories.Users;
@@ -88,57 +89,30 @@ namespace YMS.Migrations.UnitOfWorks
             }
         }
 
-        private IRepository<EmptyStorageTariff> _EmptyStorageTariffsRepo;
-        public IRepository<EmptyStorageTariff> EmptyStorageTariffsRepo
+        private IRepository<Tariff> _TariffsRepo;
+        public IRepository<Tariff> TariffsRepo
         {
             get
             {
-                return this._EmptyStorageTariffsRepo = this._EmptyStorageTariffsRepo ?? new Repository<EmptyStorageTariff>(context);
+                return this._TariffsRepo = this._TariffsRepo ?? new Repository<Tariff>(context);
             }
         }
 
-        private IRepository<EmptyStorageTariffData> _EmptyStorageTariffDataListRepo;
-        public IRepository<EmptyStorageTariffData> EmptyStorageTariffDataListRepo
+        private IRepository<TariffData> _TariffDataRepo;
+        public IRepository<TariffData> TariffDataRepo
         {
             get
             {
-                return this._EmptyStorageTariffDataListRepo = this._EmptyStorageTariffDataListRepo ?? new Repository<EmptyStorageTariffData>(context);
+                return this._TariffDataRepo = this._TariffDataRepo ?? new Repository<TariffData>(context);
             }
         }
 
-        private IRepository<FullStorageTariff> _FullStorageTariffsRepo;
-        public IRepository<FullStorageTariff> FullStorageTariffsRepo
+        private IRepository<TariffService> _TariffServicesRepo;
+        public IRepository<TariffService> TariffServicesRepo
         {
             get
             {
-                return this._FullStorageTariffsRepo = this._FullStorageTariffsRepo ?? new Repository<FullStorageTariff>(context);
-            }
-        }
-
-        private IRepository<FullStorageTariffData> _FullStorageTariffDataListRepo;
-        public IRepository<FullStorageTariffData> FullStorageTariffDataListRepo
-        {
-            get
-            {
-                return this._FullStorageTariffDataListRepo = this._FullStorageTariffDataListRepo ?? new Repository<FullStorageTariffData>(context);
-            }
-        }
-
-        private IRepository<ServicesTariff> _ServicesTariffsRepo;
-        public IRepository<ServicesTariff> ServicesTariffsRepo
-        {
-            get
-            {
-                return this._ServicesTariffsRepo = this._ServicesTariffsRepo ?? new Repository<ServicesTariff>(context);
-            }
-        }
-
-        private IRepository<ServiceTariffData> _ServicesTariffDataListRepo;
-        public IRepository<ServiceTariffData> ServicesTariffDataListRepo
-        {
-            get
-            {
-                return this._ServicesTariffDataListRepo = this._ServicesTariffDataListRepo ?? new Repository<ServiceTariffData>(context);
+                return this._TariffServicesRepo = this._TariffServicesRepo ?? new Repository<TariffService>(context);
             }
         }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YMS.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,53 @@ namespace YMS.Migrations.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Basises", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Blocks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameEn = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlockType = table.Column<int>(type: "int", nullable: false),
+                    Full = table.Column<bool>(type: "bit", nullable: false),
+                    IMO = table.Column<bool>(type: "bit", nullable: false),
+                    NonSlot = table.Column<bool>(type: "bit", nullable: false),
+                    Bay = table.Column<short>(type: "smallint", nullable: false),
+                    Rows = table.Column<short>(type: "smallint", nullable: false),
+                    Tier = table.Column<short>(type: "smallint", nullable: false),
+                    StartingRow = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CellDimension = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Blocks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContainerTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameEn = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContainerTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,33 +117,6 @@ namespace YMS.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FullStorageDataTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FullStorageDataTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PackageServicesTariff",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StorageFreeDays = table.Column<int>(type: "int", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PackageServicesTariff", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PackageTypes",
                 columns: table => new
                 {
@@ -137,16 +157,58 @@ namespace YMS.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServicesTariff",
+                name: "StorageTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServicesTariff", x => x.Id);
+                    table.PrimaryKey("PK_StorageTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transporters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameEn = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transporters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vessels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameEn = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vessels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,85 +233,6 @@ namespace YMS.Migrations.Migrations
                         name: "FK_Cities_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PackageServiceTariffData",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PackageServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PackageTypeId = table.Column<int>(type: "int", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    BasisId = table.Column<int>(type: "int", nullable: false),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PackageServiceTariffData", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PackageServiceTariffData_Basises_BasisId",
-                        column: x => x.BasisId,
-                        principalTable: "Basises",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PackageServiceTariffData_PackageServicesTariff_PackageServicesTariffId",
-                        column: x => x.PackageServicesTariffId,
-                        principalTable: "PackageServicesTariff",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PackageServiceTariffData_PackageTypes_PackageTypeId",
-                        column: x => x.PackageTypeId,
-                        principalTable: "PackageTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PackageServiceTariffData_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServiceTariffData",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Amount20 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Amount40 = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Full = table.Column<bool>(type: "bit", nullable: false),
-                    Empty = table.Column<bool>(type: "bit", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    BasisId = table.Column<int>(type: "int", nullable: false),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceTariffData", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServiceTariffData_Basises_BasisId",
-                        column: x => x.BasisId,
-                        principalTable: "Basises",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ServiceTariffData_ServicesTariff_ServicesTariffId",
-                        column: x => x.ServicesTariffId,
-                        principalTable: "ServicesTariff",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ServiceTariffData_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -306,7 +289,7 @@ namespace YMS.Migrations.Migrations
                     Fax = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<int>(type: "int", nullable: false),
+                    IsShippingLine = table.Column<bool>(type: "bit", nullable: false),
                     ContactPerson = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactPersonDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PaymentType = table.Column<int>(type: "int", nullable: false),
@@ -314,8 +297,6 @@ namespace YMS.Migrations.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false),
                     BranchId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    PackageServicesTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -343,16 +324,6 @@ namespace YMS.Migrations.Migrations
                         principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Customers_PackageServicesTariff_PackageServicesTariffId",
-                        column: x => x.PackageServicesTariffId,
-                        principalTable: "PackageServicesTariff",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Customers_ServicesTariff_ServicesTariffId",
-                        column: x => x.ServicesTariffId,
-                        principalTable: "ServicesTariff",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -393,26 +364,155 @@ namespace YMS.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmptyStorageTariffs",
+                name: "Containers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ContainerNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ref = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VesselId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ContainerTypeId = table.Column<int>(type: "int", nullable: false),
+                    ShippingStatus = table.Column<int>(type: "int", nullable: false),
+                    LoadPosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BayCell = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TempRqd = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IMOClass = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OOG = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DMG = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BillNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Weight = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ISO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Voyage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ETA = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Containers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Containers_ContainerTypes_ContainerTypeId",
+                        column: x => x.ContainerTypeId,
+                        principalTable: "ContainerTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Containers_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Containers_Vessels_VesselId",
+                        column: x => x.VesselId,
+                        principalTable: "Vessels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContainerTransactions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ContainerNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContainerTypeId = table.Column<int>(type: "int", nullable: false),
+                    IsRORO = table.Column<bool>(type: "bit", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TransporterId = table.Column<int>(type: "int", nullable: false),
+                    GateInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TruckNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DriverMobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeliveryCardNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VesselId = table.Column<int>(type: "int", nullable: false),
+                    Voyage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ETA = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EIR = table.Column<int>(type: "int", nullable: false),
+                    ContainerShippingStatus = table.Column<int>(type: "int", nullable: false),
+                    InspectionRemarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BillNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CleanCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RepairCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BlockId = table.Column<int>(type: "int", nullable: false),
+                    Bay = table.Column<short>(type: "smallint", nullable: false),
+                    Rows = table.Column<short>(type: "smallint", nullable: false),
+                    Tier = table.Column<short>(type: "smallint", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContainerTransactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ContainerTransactions_Blocks_BlockId",
+                        column: x => x.BlockId,
+                        principalTable: "Blocks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContainerTransactions_ContainerTypes_ContainerTypeId",
+                        column: x => x.ContainerTypeId,
+                        principalTable: "ContainerTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContainerTransactions_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContainerTransactions_Transporters_TransporterId",
+                        column: x => x.TransporterId,
+                        principalTable: "Transporters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContainerTransactions_Vessels_VesselId",
+                        column: x => x.VesselId,
+                        principalTable: "Vessels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tariffs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TariffType = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DailyCountTimeBase = table.Column<int>(type: "int", nullable: false),
                     FreeTeus = table.Column<int>(type: "int", nullable: true),
                     TeuRateDay = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     On20 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Off20 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Off40 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     On40 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    DailyCount = table.Column<int>(type: "int", nullable: false)
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmptyStorageTariffs", x => x.Id);
+                    table.PrimaryKey("PK_Tariffs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmptyStorageTariffs_Customers_CustomerId",
+                        name: "FK_Tariffs_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
@@ -420,77 +520,100 @@ namespace YMS.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FullStorageTariffs",
+                name: "InspectionDetail",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FreeTeus = table.Column<int>(type: "int", nullable: true),
-                    TeuRateDay = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    On20 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Off20 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Off40 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    On40 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    DailyCount = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<int>(type: "int", nullable: false),
+                    ContainerTransactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FullStorageTariffs", x => x.Id);
+                    table.PrimaryKey("PK_InspectionDetail", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FullStorageTariffs_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        name: "FK_InspectionDetail_ContainerTransactions_ContainerTransactionId",
+                        column: x => x.ContainerTransactionId,
+                        principalTable: "ContainerTransactions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmptyStorageTariffDataList",
+                name: "TariffData",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmptyStorageTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DaysNum = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StorageTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmptyStorageTariffDataList", x => x.Id);
+                    table.PrimaryKey("PK_TariffData", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmptyStorageTariffDataList_EmptyStorageTariffs_EmptyStorageTariffId",
-                        column: x => x.EmptyStorageTariffId,
-                        principalTable: "EmptyStorageTariffs",
+                        name: "FK_TariffData_StorageTypes_StorageTypeId",
+                        column: x => x.StorageTypeId,
+                        principalTable: "StorageTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TariffData_Tariffs_TariffId",
+                        column: x => x.TariffId,
+                        principalTable: "Tariffs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FullStorageTariffDataList",
+                name: "TariffServices",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FulllStorageDataTypeId = table.Column<int>(type: "int", nullable: false),
-                    FullStorageTariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DaysNum = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    TariffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    BasisId = table.Column<int>(type: "int", nullable: false),
+                    Amount20 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Amount40 = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FullStorageTariffDataList", x => x.Id);
+                    table.PrimaryKey("PK_TariffServices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FullStorageTariffDataList_FullStorageDataTypes_FulllStorageDataTypeId",
-                        column: x => x.FulllStorageDataTypeId,
-                        principalTable: "FullStorageDataTypes",
+                        name: "FK_TariffServices_Basises_BasisId",
+                        column: x => x.BasisId,
+                        principalTable: "Basises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FullStorageTariffDataList_FullStorageTariffs_FullStorageTariffId",
-                        column: x => x.FullStorageTariffId,
-                        principalTable: "FullStorageTariffs",
+                        name: "FK_TariffServices_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TariffServices_Tariffs_TariffId",
+                        column: x => x.TariffId,
+                        principalTable: "Tariffs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Basises",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Per Size" },
+                    { 2, "Per Unit" }
                 });
 
             migrationBuilder.InsertData(
@@ -504,12 +627,30 @@ namespace YMS.Migrations.Migrations
                 values: new object[] { 1, "SAR", null, null, null, 3.75, false, "ريال سعودي", "Saudi Riyal", null, null });
 
             migrationBuilder.InsertData(
+                table: "PackageTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Box" },
+                    { 2, "Bags" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Services",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Clean Unit" },
                     { 2, "Cleaning" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StorageTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "FullStorageDataType1" },
+                    { 2, "FullStorageDataType2" }
                 });
 
             migrationBuilder.InsertData(
@@ -546,6 +687,46 @@ namespace YMS.Migrations.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Containers_ContainerTypeId",
+                table: "Containers",
+                column: "ContainerTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Containers_CustomerId",
+                table: "Containers",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Containers_VesselId",
+                table: "Containers",
+                column: "VesselId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContainerTransactions_BlockId",
+                table: "ContainerTransactions",
+                column: "BlockId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContainerTransactions_ContainerTypeId",
+                table: "ContainerTransactions",
+                column: "ContainerTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContainerTransactions_CustomerId",
+                table: "ContainerTransactions",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContainerTransactions_TransporterId",
+                table: "ContainerTransactions",
+                column: "TransporterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContainerTransactions_VesselId",
+                table: "ContainerTransactions",
+                column: "VesselId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_BranchId",
                 table: "Customers",
                 column: "BranchId");
@@ -561,76 +742,39 @@ namespace YMS.Migrations.Migrations
                 column: "CurrencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_PackageServicesTariffId",
-                table: "Customers",
-                column: "PackageServicesTariffId");
+                name: "IX_InspectionDetail_ContainerTransactionId",
+                table: "InspectionDetail",
+                column: "ContainerTransactionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_ServicesTariffId",
-                table: "Customers",
-                column: "ServicesTariffId");
+                name: "IX_TariffData_StorageTypeId",
+                table: "TariffData",
+                column: "StorageTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmptyStorageTariffDataList_EmptyStorageTariffId",
-                table: "EmptyStorageTariffDataList",
-                column: "EmptyStorageTariffId");
+                name: "IX_TariffData_TariffId",
+                table: "TariffData",
+                column: "TariffId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmptyStorageTariffs_CustomerId",
-                table: "EmptyStorageTariffs",
-                column: "CustomerId",
-                unique: true);
+                name: "IX_Tariffs_CustomerId",
+                table: "Tariffs",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FullStorageTariffDataList_FulllStorageDataTypeId",
-                table: "FullStorageTariffDataList",
-                column: "FulllStorageDataTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FullStorageTariffDataList_FullStorageTariffId",
-                table: "FullStorageTariffDataList",
-                column: "FullStorageTariffId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FullStorageTariffs_CustomerId",
-                table: "FullStorageTariffs",
-                column: "CustomerId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PackageServiceTariffData_BasisId",
-                table: "PackageServiceTariffData",
+                name: "IX_TariffServices_BasisId",
+                table: "TariffServices",
                 column: "BasisId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PackageServiceTariffData_PackageServicesTariffId",
-                table: "PackageServiceTariffData",
-                column: "PackageServicesTariffId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PackageServiceTariffData_PackageTypeId",
-                table: "PackageServiceTariffData",
-                column: "PackageTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PackageServiceTariffData_ServiceId",
-                table: "PackageServiceTariffData",
+                name: "IX_TariffServices_ServiceId",
+                table: "TariffServices",
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceTariffData_BasisId",
-                table: "ServiceTariffData",
-                column: "BasisId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceTariffData_ServiceId",
-                table: "ServiceTariffData",
-                column: "ServiceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceTariffData_ServicesTariffId",
-                table: "ServiceTariffData",
-                column: "ServicesTariffId");
+                name: "IX_TariffServices_TariffId",
+                table: "TariffServices",
+                column: "TariffId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_BranchId",
@@ -648,40 +792,52 @@ namespace YMS.Migrations.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EmptyStorageTariffDataList");
+                name: "Containers");
 
             migrationBuilder.DropTable(
-                name: "FullStorageTariffDataList");
+                name: "InspectionDetail");
 
             migrationBuilder.DropTable(
-                name: "PackageServiceTariffData");
+                name: "PackageTypes");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
-                name: "ServiceTariffData");
+                name: "TariffData");
+
+            migrationBuilder.DropTable(
+                name: "TariffServices");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "EmptyStorageTariffs");
+                name: "ContainerTransactions");
 
             migrationBuilder.DropTable(
-                name: "FullStorageDataTypes");
-
-            migrationBuilder.DropTable(
-                name: "FullStorageTariffs");
-
-            migrationBuilder.DropTable(
-                name: "PackageTypes");
+                name: "StorageTypes");
 
             migrationBuilder.DropTable(
                 name: "Basises");
 
             migrationBuilder.DropTable(
                 name: "Services");
+
+            migrationBuilder.DropTable(
+                name: "Tariffs");
+
+            migrationBuilder.DropTable(
+                name: "Blocks");
+
+            migrationBuilder.DropTable(
+                name: "ContainerTypes");
+
+            migrationBuilder.DropTable(
+                name: "Transporters");
+
+            migrationBuilder.DropTable(
+                name: "Vessels");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -691,12 +847,6 @@ namespace YMS.Migrations.Migrations
 
             migrationBuilder.DropTable(
                 name: "Currencies");
-
-            migrationBuilder.DropTable(
-                name: "PackageServicesTariff");
-
-            migrationBuilder.DropTable(
-                name: "ServicesTariff");
 
             migrationBuilder.DropTable(
                 name: "Cities");

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YMS.Migrations.Data;
 
@@ -11,9 +12,11 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019170012_Add-line-tbl")]
+    partial class Addlinetbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -403,18 +406,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Lines");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "AYE"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "GMAC"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Basis", b =>
