@@ -12,8 +12,8 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241019170130_Add-line-seeds")]
-    partial class Addlineseeds
+    [Migration("20241020100813_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -288,13 +288,7 @@ namespace YMS.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsShippingLine")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("LineId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("LineId1")
+                    b.Property<int?>("LineId")
                         .HasColumnType("int");
 
                     b.Property<string>("Mobile")
@@ -346,7 +340,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.HasIndex("LineId1");
+                    b.HasIndex("LineId");
 
                     b.ToTable("Customers");
                 });
@@ -1303,7 +1297,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasOne("YMS.Migrations.Entities.Line", "Line")
                         .WithMany()
-                        .HasForeignKey("LineId1");
+                        .HasForeignKey("LineId");
 
                     b.Navigation("Branch");
 
@@ -1383,7 +1377,7 @@ namespace YMS.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YMS.Migrations.Entities.Service", "Services")
+                    b.HasOne("YMS.Migrations.Entities.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1397,7 +1391,7 @@ namespace YMS.Migrations.Migrations
 
                     b.Navigation("Basis");
 
-                    b.Navigation("Services");
+                    b.Navigation("Service");
 
                     b.Navigation("Tariff");
                 });

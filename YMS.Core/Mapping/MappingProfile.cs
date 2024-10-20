@@ -43,8 +43,8 @@ namespace YMS.Core.Mapping
             CreateMap<Branch, BranchDTO>();
             CreateMap<BranchDTO, Branch>();
             
-            CreateMap<StorageType, FullStorageDataTypeDTO>();
-            CreateMap<FullStorageDataTypeDTO, StorageType>(); 
+            CreateMap<StorageType, StorageTypeDTO>();
+            CreateMap<StorageTypeDTO, StorageType>(); 
             
             CreateMap<PackageType, PackageTypeDTO>();
             CreateMap<PackageTypeDTO, PackageType>(); 
@@ -55,6 +55,17 @@ namespace YMS.Core.Mapping
             CreateMap<Basis, BasisDTO>();
             CreateMap<BasisDTO, Basis>();
 
+            CreateMap<Tariff, TariffDTO>();
+            CreateMap<TariffDTO, Tariff>();
+
+            CreateMap<TariffData, TariffDataDTO>();
+            CreateMap<TariffDataDTO, TariffData>();
+
+            CreateMap<TariffService, TariffServiceDTO>();
+            CreateMap<TariffServiceDTO, TariffService>();
+
+            CreateMap<Basis, BasisDTO>();
+            CreateMap<BasisDTO, Basis>();
             ////////////
 
             CreateMap<Tariff, TariffViewModel>();

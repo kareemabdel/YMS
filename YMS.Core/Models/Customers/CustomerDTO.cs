@@ -32,7 +32,7 @@ namespace YMS.Core.Models.Customers
         public string? Fax { get; set; }
         public string? Website { get; set; }
         public string? ContactInformation { get; set; }
-        public bool IsShippingLine { get; set; }
+        public string? Line { get; set; }
         public string? ContactPerson { get; set; }
         public string? ContactPersonDetails { get; set; }
         public string PaymentType { get; set; }
@@ -42,9 +42,6 @@ namespace YMS.Core.Models.Customers
         public string Branch { get; set; }
         public DateTime ValidTo { get; set; }
 
-        public EmptyStorageTariffDTO? EmptyStorageTariff { get; set; }
-        public FullStorageTariffDTO? FullStorageTariff { get; set; }
-        public ServicesTariffDTO? ServicesTariff { get; set; }
-        public PackageServicesTariffDTO? PackageServicesTariff { get; set; }
+        public List<TariffDTO>? Tariffs { get; set; }
     }
 }
