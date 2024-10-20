@@ -35,11 +35,13 @@ namespace YMS.Web.IoC
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IContainerTransactionRepository, ContainerTransactionRepository>();
             services.AddScoped<AppConfigurations>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IContainerTransactionService, ContainerTransactionService>();
 
             services.AddHttpContextAccessor();
             // services.AddApplicationInsightsTelemetry();

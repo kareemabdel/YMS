@@ -16,11 +16,13 @@ namespace YMS.Migrations.Entities
         public int ContainerTypeId { get; set; }
         public bool IsRORO { get; set; }
         public Guid CustomerId { get; set; }
+        public int LineId { get; set; }
         public int TransporterId { get; set; }
         public DateTime GateInDate { get; set; }
         public string TruckNo { get; set; }
-        public string DriverMobile { get; set; }
+        public string DriverMobileNumber { get; set; }
         public string DeliveryCardNo { get; set; }
+        public string DriverID { get; set; }
         public int VesselId { get; set; }
         public string Voyage { get; set; }
         public DateTime ETA { get; set; }
@@ -49,6 +51,7 @@ namespace YMS.Migrations.Entities
         public Transporter Transporter { get; set; }
         public Vessel Vessel { get; set; }
         public Block Block { get; set; }
+        public Line Line { get; set; }
         public ICollection<InspectionDetail> InspectionDetails { get; set; } = new List<InspectionDetail>();
     }
 }

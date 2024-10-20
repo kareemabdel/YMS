@@ -38,11 +38,11 @@ namespace YMS.Core.Services.UserServices
             var apiResponse = new ApiResponse<PaginatedList<CustomerListDTO>>();
             try
             {
-                var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey);
-                var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
+            var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey,filter.SortField,filter.SortOrder);
+            var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
 
                 apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems, filter.Page, filter.Size);
+                apiResponse.Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems.OrderByDescending(e=>e.CreatedDate), filter.Page, filter.Size);
                 apiResponse.Data.Items.ForEach(x => x.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), int.Parse(x.PaymentType)));
             }
             catch (Exception ex)

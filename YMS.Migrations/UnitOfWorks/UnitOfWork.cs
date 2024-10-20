@@ -43,6 +43,14 @@ namespace YMS.Migrations.UnitOfWorks
             }
         }
 
+        private IContainerTransactionRepository _ContainerTransactionRepo;
+        public IContainerTransactionRepository ContainerTransactionRepo
+        {
+            get
+            {
+                return this._ContainerTransactionRepo = this._ContainerTransactionRepo ?? new ContainerTransactionRepository(context);
+            }
+        }
 
         private IRefreshTokenRepository _RefreshTokensRepo;
         public IRefreshTokenRepository RefreshTokensRepo
