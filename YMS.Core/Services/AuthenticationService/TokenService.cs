@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -19,12 +20,14 @@ namespace YMS.Core.Services.AuthenticationService
         private readonly IUserService _userService;
         private readonly IRefreshTokenService _refreshTokenService;
         private readonly AppConfigurations _configurations;
+        ILogger<TokenService> _logger;
         public TokenService(IUserService userService, AppConfigurations configurations,
-            IRefreshTokenService refreshTokenService)
+            IRefreshTokenService refreshTokenService, ILogger<TokenService> logger)
         {
             _userService = userService;
             _configurations = configurations;
             _refreshTokenService = refreshTokenService;
+            _logger = logger;
         }
 
         public async Task<ApiResponse<LoginResponseDTO>> Authenticate([FromBody] LoginDTO DTO)
@@ -36,6 +39,7 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (user == null || DTO.Password != user.Password)
                 {
+                    _logger.LogError("Invalid username or password");
                     apiResponse.StatusCode = HttpStatusCode.BadRequest;
                     apiResponse.Errors = "Invalid username or password";
                     return apiResponse;
@@ -64,6 +68,7 @@ namespace YMS.Core.Services.AuthenticationService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Error in Authenticate: {ex.Message}", ex);
                 apiResponse.StatusCode = HttpStatusCode.BadRequest;
                 apiResponse.Errors = ex.Message;
             }
@@ -81,6 +86,7 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (storedRefreshToken == null || storedRefreshToken.ExpirationDate < DateTime.Now)
                 {
+                    _logger.LogError("Invalid or expired refresh token");
                     apiResponse.StatusCode = HttpStatusCode.NotFound;
                     apiResponse.Errors = "Invalid or expired refresh token.";
                     return apiResponse;
@@ -107,6 +113,8 @@ namespace YMS.Core.Services.AuthenticationService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Error in GenerateToken: {ex.Message}", ex);
+
                 apiResponse.StatusCode = HttpStatusCode.BadRequest;
                 apiResponse.Errors = ex.Message;
             }
@@ -124,8 +132,9 @@ namespace YMS.Core.Services.AuthenticationService
 
                 if (!isDeleted)
                 {
+                    _logger.LogError("RefreshToken is invalid or something went wrong during process.");
                     apiResponse.StatusCode = HttpStatusCode.BadRequest;
-                    apiResponse.Errors = "RefreshToken is invalid or something went wrong during process.";
+                    apiResponse.Errors = "RefreshToken is invalid or something went wrong during process";
                     return apiResponse;
                 }
 
@@ -134,6 +143,8 @@ namespace YMS.Core.Services.AuthenticationService
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Error in Logout: {ex.Message}", ex);
+
                 apiResponse.StatusCode = HttpStatusCode.BadRequest;
                 apiResponse.Errors = ex.Message;
             }
