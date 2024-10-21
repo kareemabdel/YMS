@@ -41,5 +41,46 @@ namespace YMS.Core.Services.UserServices
             return apiResponse;
         }
 
+        public async Task<ApiResponse<PaginatedList<GateInDTO>>> GetAll(GateInFilter filter)
+        {
+            return null;
+            //var apiResponse = new ApiResponse<PaginatedList<GateInDTO>>();
+            //try
+            //{
+            //    var (items, totalCount) = await _unitOfWork.ContainerTransactionRepo.Get(
+            //    filter: query =>
+            //    {
+            //        if ((filter?.BranchId != null))
+            //        {
+            //            query = query.Where(c => c.BranchId == filter.BranchId);
+            //        }
+            //        if (!string.IsNullOrEmpty(filter?.SearchKey))
+            //        {
+            //            query = query.Where(c => c.Code.Contains(filter.SearchKey) || c.NameEn.Contains(filter.SearchKey));
+            //        }
+
+            //        query = query.Where(c => !c.IsDeleted);
+
+            //        return query;
+            //    },
+            //    orderByField: filter?.SortField ?? "CreatedDate",
+            //    isDescending: filter.SortOrder == -1 ? true : false,
+            //    pageNumber: filter.Page,
+            //    pageSize: filter.Size
+            //    );
+
+            //    var customerList = _mapper.Map<List<GateInDTO>>(items);
+
+            //    apiResponse.StatusCode = HttpStatusCode.OK;
+            //    apiResponse.Data = new PaginatedList<GateInDTO>(customerList, totalCount, filter.Page, filter.Size);
+            //}
+            //catch (Exception ex)
+            //{
+            //    apiResponse.StatusCode = HttpStatusCode.BadRequest;
+            //    apiResponse.Errors = ex.Message;
+            //}
+
+            //return apiResponse;
+        }
     }
 }

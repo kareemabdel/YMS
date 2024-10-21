@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Filters
 {
-    public class CustomerFilter:Filter
+    public class GateInFilter : Filter
     {
+        public DateTime? GateInDateFrom { get; set; }
+        public DateTime? GateInDateTo { get; set; }
     }
 }

@@ -8,11 +8,13 @@ namespace YMS.Migrations.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        Task<IEnumerable<TEntity>> Get(
-           Expression<Func<TEntity, bool>> filter = null,
-           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-           string includeProperties = "",
-           int? take = null);
+        Task<(IEnumerable<TEntity> items, int totalCount)> Get(
+        Func<IQueryable<TEntity>, IQueryable<TEntity>> filter = null,
+        string orderByField = null,
+        bool isDescending = false,
+        string includeProperties = "",
+        int pageNumber = 1,
+        int pageSize = 10);
 
         Task<TEntity> GetById(int id, string includeProperties = "");
         Task<TEntity> GetById(Guid id, string includeProperties = "");

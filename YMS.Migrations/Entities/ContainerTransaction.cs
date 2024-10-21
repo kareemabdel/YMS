@@ -12,24 +12,16 @@ namespace YMS.Migrations.Entities
     public class ContainerTransaction:BaseEntity
     {
         public Guid Id { get; set; }
-        public string ContainerNo { get; set; }
-        public int ContainerTypeId { get; set; }
         public bool IsRORO { get; set; }
+        public Guid ContainerId { get; set; }
         public Guid CustomerId { get; set; }
-        public int LineId { get; set; }
+        public int? LineId { get; set; }
         public int TransporterId { get; set; }
         public DateTime GateInDate { get; set; }
         public string TruckNo { get; set; }
         public string DriverMobileNumber { get; set; }
         public string DeliveryCardNo { get; set; }
         public string DriverID { get; set; }
-        public int VesselId { get; set; }
-        public string Voyage { get; set; }
-        public DateTime ETA { get; set; }
-        public int EIR { get; set; } //EIREnum
-        public int ContainerShippingStatus { get; set; } //ContainerShippingStatusEnum
-        public string InspectionRemarks { get; set; }
-        public string BillNo { get; set; }
         public decimal CleanCost { get; set; }
         public decimal RepairCost { get; set; }
         public int BlockId { get; set; }
@@ -49,9 +41,8 @@ namespace YMS.Migrations.Entities
         public ContainerType ContainerType { get; set; }
         public Customer Customer { get; set; }
         public Transporter Transporter { get; set; }
-        public Vessel Vessel { get; set; }
         public Block Block { get; set; }
         public Line Line { get; set; }
-        public ICollection<InspectionDetail> InspectionDetails { get; set; } = new List<InspectionDetail>();
+        public Container Container { get; set; }
     }
 }

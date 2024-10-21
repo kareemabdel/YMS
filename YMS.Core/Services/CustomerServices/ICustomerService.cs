@@ -14,7 +14,7 @@ namespace YMS.Core.Services.UserServices
 {
     public interface ICustomerService
     {
-        Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter);
+        Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter filter);
         Task<ApiResponse<bool>> CreateCustomer(CustomerViewModel model);
 
         Task<ApiResponse<CustomerDTO>> GetCustomerById(GetCustomerRequestModel model);

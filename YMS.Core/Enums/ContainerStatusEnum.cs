@@ -8,7 +8,10 @@ namespace YMS.Core.Enums
 {
     public enum ContainerStatusEnum
     {
-        Prnding=1,
+        Pending=1,
+        Ready,
+        Rejected,
         GateIn,
+        GateOut
     }
 }
