@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities.Lookups
 {
-    public class Basis : Lookup
+    public class Basis : LookupBase
     {
         
     }

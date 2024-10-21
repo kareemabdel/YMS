@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace YMS.Core.Models.Customers
 {
-    public class ServiceDTO : LookupDTO
+    public class ServiceDTO : LookupDto
     {
     }
 }

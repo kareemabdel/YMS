@@ -38,6 +38,7 @@ namespace YMS.Migrations.Entities
         public ContainerType ContainerType { get; set; }
 
         public ICollection<InspectionDetail> InspectionDetails { get; set; }
+        public ICollection<ContainerTransaction> ContainerTransactions { get; set; }
 
     }
 }

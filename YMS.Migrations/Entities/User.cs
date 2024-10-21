@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YMS.Migrations.Entities.Lookups;
 
 namespace YMS.Migrations.Entities
 {

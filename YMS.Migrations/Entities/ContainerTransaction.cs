@@ -37,7 +37,6 @@ namespace YMS.Migrations.Entities
         /// <summary>
         /// ref
         /// </summary>
-        public ContainerType ContainerType { get; set; }
         public Customer Customer { get; set; }
         public Transporter Transporter { get; set; }
         public Block Block { get; set; }

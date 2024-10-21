@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities.Lookups
 {
-    public class Vessel:BaseEntity
+    public class Vessel:LookupBase
     {
-        public int Id { get; set; }
-        public string Code { get; set; }
-        public string NameEn { get; set; }
-        public string? NameAr { get; set; }
-        public string? Remarks { get; set; }
+       
     }
 }

@@ -6,15 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Migrations.Entities
+namespace YMS.Core.Models
 {
-    public class Lookup
+    public class LookupDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string NameEn { get; set; }
     }
 }

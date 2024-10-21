@@ -8,18 +8,8 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities.Lookups
 {
-    public class City : BaseEntity
+    public class City : LookupBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Required]
-        public string Code { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
         [Required]
         public int CountryId { get; set; }
         public Country Country { get; set; }

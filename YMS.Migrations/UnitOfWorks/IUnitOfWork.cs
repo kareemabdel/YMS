@@ -25,6 +25,7 @@ namespace YMS.Migrations.UnitOfWorks
 
         IRepository<PackageServicesTariff> PackageServicesTariffsRepo { get; }
         IRepository<PackageServiceTariffData> PackageServiceTariffDataListRepo { get; }
+        ILookupRepository LookupsRepo { get; }
 
         DbContext contextForTransaction { get; }
 
