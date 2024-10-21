@@ -17,5 +17,6 @@ namespace YMS.Core.Services.UserServices
     {
         Task<ApiResponse<bool>> GateIn(AddGateInDto obj);
 
+        Task<ApiResponse<PaginatedList<GateInDTO>>> GetAll(GateInFilter filter);
     }
 }

@@ -23,6 +23,19 @@ namespace YMS.Web.Controllers
             _containerTransactionService = containerTransactionService;
         }
 
+        [HttpPost("get-gate-in")]
+        public async Task<ActionResult<PaginatedList<GateInDTO>>> GetAll(GateInFilter filter)
+        {
+            var branchId = GetBranchId();
+
+            if (branchId != null)
+            {
+                filter!.BranchId = branchId;
+            }
+
+            var response = await _containerTransactionService.GetAll(filter);
+            return GetAPIResponse(response);
+        }
 
         [HttpPost("GateIn")]
         public async Task<ActionResult<bool>> GateIn([FromBody] AddGateInDto model)

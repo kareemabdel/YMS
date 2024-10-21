@@ -67,7 +67,7 @@ namespace YMS.Core.Services.UserServices
 
 
 
-                var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey,filter.SortField,filter.SortOrder);
+               // var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey,filter.SortField,filter.SortOrder);
                 //var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
 
                 //    apiResponse.StatusCode = HttpStatusCode.OK;
