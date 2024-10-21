@@ -37,5 +37,7 @@ namespace YMS.Migrations.Entities
         public Vessel Vessel { get; set; }
         public ContainerType ContainerType { get; set; }
 
+        public ICollection<InspectionDetail> InspectionDetails { get; set; }
+
     }
 }

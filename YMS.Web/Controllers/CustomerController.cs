@@ -23,7 +23,7 @@ namespace YMS.Web.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<PaginatedList<CustomerListDTO>>> GetAll([FromQuery] CustomerFilter? filter)
+        public async Task<ActionResult<PaginatedList<CustomerListDTO>>> GetAll([FromQuery] CustomerFilter filter)
         {
             var branchId = GetBranchId();
 

@@ -33,7 +33,7 @@ namespace YMS.Core.Services.UserServices
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter? filter)
+        public async Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter filter)
         {
             var apiResponse = new ApiResponse<PaginatedList<CustomerListDTO>>();
             try
@@ -54,8 +54,8 @@ namespace YMS.Core.Services.UserServices
 
                 return query;
                 },
-                orderByField: filter?.SortField ?? "CreatedDate",                       
-                isDescending: filter.SortOrder == -1 ? true : false,                         
+                orderByField: filter.SortField ?? "CreatedDate",                       
+                isDescending: filter.IsDescending,                         
                 pageNumber: filter.Page,                      
                 pageSize: filter.Size                           
                 );

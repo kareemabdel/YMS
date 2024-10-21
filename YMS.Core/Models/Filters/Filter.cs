@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Core.Models
+namespace YMS.Core.Models.Filters
 {
-    public class Filter 
+    public class Filter
     {
         public Guid? BranchId { get; set; }
         public int Page { get; set; } = 1;
