@@ -14,16 +14,8 @@ using YMS.Migrations.Repositories.Users;
 using YMS.Migrations.UnitOfWorks;
 using YMS.Web.Filters;
 using YMS.Web.IoC;
-using Serilog;
-using Serilog.Sinks.MSSqlServer;
-
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Host.UseSerilog((context, services, configuration) =>
-{
-    configuration.ReadFrom.Configuration(context.Configuration);
-});
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -37,7 +29,7 @@ builder.Services.AddControllers();
 await builder.Services.AddApiServices(builder.Configuration);
 
 
-
+//builder.Services.AddAuthorization();
 
 
 var app = builder.Build();

@@ -19,7 +19,6 @@ using YMS.Core.Models.Authentications;
 using YMS.Core.Models.Customers.ViewModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using YMS.Core.Enums;
-using Microsoft.Extensions.Logging;
 
 namespace YMS.Core.Services.UserServices
 {
@@ -27,13 +26,11 @@ namespace YMS.Core.Services.UserServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<CustomerService> _logger;
 
-        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CustomerService> logger)
+        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async Task<ApiResponse<PaginatedList<CustomerListDTO>>> GetAll(CustomerFilter filter)
@@ -177,7 +174,6 @@ namespace YMS.Core.Services.UserServices
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in CreateCustomer: {ex.Message}", ex);
                 apiResponse.StatusCode = HttpStatusCode.BadRequest;
                 apiResponse.Errors = ex.Message;
             }
@@ -226,7 +222,6 @@ namespace YMS.Core.Services.UserServices
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in GetCustomerById: {ex.Message}", ex);
                 apiResponse.StatusCode = HttpStatusCode.BadRequest;
                 apiResponse.Errors = ex.Message;
             }
