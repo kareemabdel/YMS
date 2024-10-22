@@ -34,9 +34,9 @@ namespace YMS.Core.Services.UserServices
             _mapper = mapper;
         }
 
-        public async Task<ApiResponse<bool>> GateIn(AddGateInDto obj)
+        public async Task<ApiResponse<Guid>> GateIn(AddGateInDto obj)
         {
-            var apiResponse = new ApiResponse<bool>();
+            var apiResponse = new ApiResponse<Guid>();
             
             return apiResponse;
         }

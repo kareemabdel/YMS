@@ -42,6 +42,7 @@ namespace YMS.Core.Services.UserServices
             try
             {
                 var res =new List<LookupDto>();
+                var x = 1;
                 switch (filter)
                 {
                     case LookupEnum.Countries:
