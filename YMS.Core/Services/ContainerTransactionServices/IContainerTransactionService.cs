@@ -15,7 +15,7 @@ namespace YMS.Core.Services.UserServices
 {
     public interface IContainerTransactionService
     {
-        Task<ApiResponse<bool>> GateIn(AddGateInDto obj);
+        Task<ApiResponse<Guid>> GateIn(AddGateInDto obj);
 
         Task<ApiResponse<PaginatedList<GateInDTO>>> GetAll(GateInFilter filter);
     }

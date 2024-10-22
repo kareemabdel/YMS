@@ -38,9 +38,10 @@ namespace YMS.Web.Controllers
         }
 
         [HttpPost("GateIn")]
-        public async Task<ActionResult<bool>> GateIn([FromBody] AddGateInDto model)
+        public async Task<ActionResult<Guid>> GateIn([FromBody] AddGateInDto model)
         {
-            return null;
+            var response = await _containerTransactionService.GateIn(model);
+            return GetAPIResponse(response);
         }
 
     }
