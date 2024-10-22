@@ -8,19 +8,8 @@ using System.Threading.Tasks;
 
 namespace YMS.Migrations.Entities.Lookups
 {
-    public class Currency : BaseEntity
+    public class Currency : LookupBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Required]
-        public string Code { get; set; }
-
-        [Required]
-        public string NameEn { get; set; }
-        public string? NameAr { get; set; }
-        public string? Remarks { get; set; }
         public double? ExchangeRate { get; set; }
     }
 }

@@ -5,22 +5,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YMS.Migrations.Entities.Lookups;
 
-namespace YMS.Migrations.Entities.Lookups
+namespace YMS.Migrations.Entities
 {
-    public class Branch: BaseEntity
+    public class Branch : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-
-        [Required]
         public string Code { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
+        public string NameEn { get; set; }
+        public string? NameAr { get; set; }
+        public string? Remarks { get; set; }
         public int CityId { get; set; }
         public City City { get; set; }
 

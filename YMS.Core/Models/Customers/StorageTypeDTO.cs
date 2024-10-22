@@ -7,7 +7,7 @@ using YMS.Migrations.Entities;
 
 namespace YMS.Core.Models.Customers
 {
-    public class StorageTypeDTO : LookupDTO
+    public class StorageTypeDTO : LookupDto
     {
     }
 }

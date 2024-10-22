@@ -212,11 +212,11 @@ namespace YMS.Core.Services.UserServices
                 }
 
                 var response = _mapper.Map<CustomerDTO>(customer);
-                response.City = customer.City.Name;
+                response.City = customer.City.NameEn;
                 response.Country = customer.City.Country.NameEn;
                 response.Currency = customer.Currency.NameEn;
-                response.Branch = customer.Branch.Name;
-                response.Line = customer.Line?.Name;
+                response.Branch = customer.Branch.NameEn;
+                response.Line = customer.Line?.NameEn;
                 response.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), customer.PaymentType);
 
                 apiResponse.StatusCode = HttpStatusCode.OK;

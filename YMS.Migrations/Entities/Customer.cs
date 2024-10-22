@@ -57,5 +57,6 @@ namespace YMS.Migrations.Entities
         public DateTime ValidTo { get; set; }
 
         public ICollection<Tariff>? Tariffs { get; set; }
+        public ICollection<ContainerTransaction>? ContainerTransactions { get; set; }
     }
 }

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMS.Migrations.Entities
+namespace YMS.Core.Enums
 {
-    public class Line :Lookup
+    public enum AllocationStatusEnum
     {
+        Pending=1,
+        Confirmed,
     }
 }

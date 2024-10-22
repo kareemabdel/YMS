@@ -12,8 +12,8 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241020100813_Init")]
-    partial class Init
+    [Migration("20241021182524_add-init")]
+    partial class addinit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,90 @@ namespace YMS.Migrations.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("YMS.Migrations.Entities.Branch", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Fax")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Mobile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Zip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Branches");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0a534cad-cce7-422b-b79b-b38f3ea1a918"),
+                            CityId = 1,
+                            Code = "JEDDAH",
+                            IsDeleted = false,
+                            NameEn = "JEDDAH"
+                        },
+                        new
+                        {
+                            Id = new Guid("1dffb2d6-88ac-4ecd-901e-f9e3cd44633c"),
+                            CityId = 2,
+                            Code = "DAMMAM",
+                            IsDeleted = false,
+                            NameEn = "DAMMAM"
+                        });
+                });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Container", b =>
                 {
@@ -133,28 +217,17 @@ namespace YMS.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<short>("Bay")
+                    b.Property<short?>("Bay")
                         .HasColumnType("smallint");
 
-                    b.Property<string>("BillNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BlockId")
+                    b.Property<int?>("BlockId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("CleanCost")
+                    b.Property<decimal?>("CleanCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("ContainerNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ContainerShippingStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContainerTypeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ContainerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -169,24 +242,12 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeliveryCardNo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DriverMobile")
-                        .IsRequired()
+                    b.Property<string>("DriverID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EIR")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ETA")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("GateInDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InspectionRemarks")
-                        .IsRequired()
+                    b.Property<string>("DriverMobileNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -195,16 +256,19 @@ namespace YMS.Migrations.Migrations
                     b.Property<bool>("IsRORO")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("RepairCost")
+                    b.Property<int?>("LineId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("RepairCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<short>("Rows")
+                    b.Property<short?>("Rows")
                         .HasColumnType("smallint");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<short>("Tier")
+                    b.Property<short?>("Tier")
                         .HasColumnType("smallint");
 
                     b.Property<int>("TransporterId")
@@ -217,24 +281,17 @@ namespace YMS.Migrations.Migrations
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("VesselId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Voyage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BlockId");
 
-                    b.HasIndex("ContainerTypeId");
+                    b.HasIndex("ContainerId");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("TransporterId");
+                    b.HasIndex("LineId");
 
-                    b.HasIndex("VesselId");
+                    b.HasIndex("TransporterId");
 
                     b.ToTable("ContainerTransactions");
                 });
@@ -354,6 +411,9 @@ namespace YMS.Migrations.Migrations
                     b.Property<int>("Code")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("ContainerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("ContainerTransactionId")
                         .HasColumnType("uniqueidentifier");
 
@@ -380,38 +440,11 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ContainerId");
+
                     b.HasIndex("ContainerTransactionId");
 
                     b.ToTable("InspectionDetail");
-                });
-
-            modelBuilder.Entity("YMS.Migrations.Entities.Line", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Lines");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "AYE"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "GMAC"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Basis", b =>
@@ -422,9 +455,33 @@ namespace YMS.Migrations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
 
@@ -434,12 +491,14 @@ namespace YMS.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Per Size"
+                            IsDeleted = false,
+                            NameEn = "Per Size"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Per Unit"
+                            IsDeleted = false,
+                            NameEn = "Per Unit"
                         });
                 });
 
@@ -451,18 +510,16 @@ namespace YMS.Migrations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<short>("Bay")
+                    b.Property<short?>("Bay")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("BlockType")
+                    b.Property<int?>("BlockType")
                         .HasColumnType("int");
 
                     b.Property<string>("CellDimension")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedById")
@@ -496,14 +553,13 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short>("Rows")
+                    b.Property<short?>("Rows")
                         .HasColumnType("smallint");
 
                     b.Property<string>("StartingRow")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short>("Tier")
+                    b.Property<short?>("Tier")
                         .HasColumnType("smallint");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
@@ -512,83 +568,29 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Blocks");
-                });
-
-            modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Branch", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Fax")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Mobile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("UpdatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Zip")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("Branches");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0a534cad-cce7-422b-b79b-b38f3ea1a918"),
-                            CityId = 1,
-                            Code = "JEDDAH",
+                            Id = 1,
+                            Code = "C1",
+                            Full = false,
+                            IMO = false,
                             IsDeleted = false,
-                            Name = "JEDDAH"
+                            NameAr = "C1",
+                            NameEn = "C1",
+                            NonSlot = false
                         },
                         new
                         {
-                            Id = new Guid("1dffb2d6-88ac-4ecd-901e-f9e3cd44633c"),
-                            CityId = 2,
-                            Code = "DAMMAM",
+                            Id = 2,
+                            Code = "C10",
+                            Full = false,
+                            IMO = false,
                             IsDeleted = false,
-                            Name = "DAMMAM"
+                            NameAr = "C10",
+                            NameEn = "C10",
+                            NonSlot = false
                         });
                 });
 
@@ -601,7 +603,6 @@ namespace YMS.Migrations.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CountryId")
@@ -619,8 +620,14 @@ namespace YMS.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
@@ -639,7 +646,7 @@ namespace YMS.Migrations.Migrations
                             Code = "JEDDA",
                             CountryId = 1,
                             IsDeleted = false,
-                            Name = "JEDDAH PLANT"
+                            NameEn = "JEDDAH PLANT"
                         },
                         new
                         {
@@ -647,7 +654,7 @@ namespace YMS.Migrations.Migrations
                             Code = "JUBAI",
                             CountryId = 1,
                             IsDeleted = false,
-                            Name = "JUBAIL PLANT"
+                            NameEn = "JUBAIL PLANT"
                         });
                 });
 
@@ -659,9 +666,23 @@ namespace YMS.Migrations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Code")
-                        .IsRequired()
+                    b.Property<string>("Base64Img")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("NameAr")
                         .HasColumnType("nvarchar(max)");
@@ -675,6 +696,9 @@ namespace YMS.Migrations.Migrations
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
 
@@ -690,7 +714,6 @@ namespace YMS.Migrations.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedById")
@@ -742,7 +765,6 @@ namespace YMS.Migrations.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedById")
@@ -789,6 +811,226 @@ namespace YMS.Migrations.Migrations
                         });
                 });
 
+            modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Line", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lines");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            NameEn = "AYE"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            NameEn = "GMAC"
+                        });
+                });
+
+            modelBuilder.Entity("YMS.Migrations.Entities.Lookups.PackageType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PackageTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            NameEn = "Box"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            NameEn = "Bags"
+                        });
+                });
+
+            modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            NameEn = "Clean Unit"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            NameEn = "Cleaning"
+                        });
+                });
+
+            modelBuilder.Entity("YMS.Migrations.Entities.Lookups.StorageType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StorageTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            NameEn = "FullStorageDataType1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            NameEn = "FullStorageDataType2"
+                        });
+                });
+
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Transporter", b =>
                 {
                     b.Property<int>("Id")
@@ -798,7 +1040,6 @@ namespace YMS.Migrations.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedById")
@@ -829,6 +1070,24 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Transporters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "NOFOOD01",
+                            IsDeleted = false,
+                            NameAr = "النفوذ",
+                            NameEn = "NOFOOD"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = "SHAFINA",
+                            IsDeleted = false,
+                            NameAr = "السفينة",
+                            NameEn = "ALSHAFINA"
+                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Vessel", b =>
@@ -840,7 +1099,6 @@ namespace YMS.Migrations.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedById")
@@ -871,34 +1129,22 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vessels");
-                });
-
-            modelBuilder.Entity("YMS.Migrations.Entities.PackageType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PackageTypes");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Name = "Box"
+                            Code = "23729",
+                            IsDeleted = false,
+                            NameAr = "ALAHMED",
+                            NameEn = "ALAHMED"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Bags"
+                            Code = "0018E",
+                            IsDeleted = false,
+                            NameEn = "AS ALAXANDRIA"
                         });
                 });
 
@@ -922,64 +1168,6 @@ namespace YMS.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RefreshTokens");
-                });
-
-            modelBuilder.Entity("YMS.Migrations.Entities.Service", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Services");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Clean Unit"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Cleaning"
-                        });
-                });
-
-            modelBuilder.Entity("YMS.Migrations.Entities.StorageType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StorageTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "FullStorageDataType1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "FullStorageDataType2"
-                        });
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Tariff", b =>
@@ -1205,6 +1393,17 @@ namespace YMS.Migrations.Migrations
                         });
                 });
 
+            modelBuilder.Entity("YMS.Migrations.Entities.Branch", b =>
+                {
+                    b.HasOne("YMS.Migrations.Entities.Lookups.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+                });
+
             modelBuilder.Entity("YMS.Migrations.Entities.Container", b =>
                 {
                     b.HasOne("YMS.Migrations.Entities.Lookups.ContainerType", "ContainerType")
@@ -1236,21 +1435,23 @@ namespace YMS.Migrations.Migrations
                 {
                     b.HasOne("YMS.Migrations.Entities.Lookups.Block", "Block")
                         .WithMany()
-                        .HasForeignKey("BlockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BlockId");
 
-                    b.HasOne("YMS.Migrations.Entities.Lookups.ContainerType", "ContainerType")
-                        .WithMany()
-                        .HasForeignKey("ContainerTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("YMS.Migrations.Entities.Container", "Container")
+                        .WithMany("ContainerTransactions")
+                        .HasForeignKey("ContainerId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("YMS.Migrations.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("ContainerTransactions")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("YMS.Migrations.Entities.Lookups.Line", "Line")
+                        .WithMany()
+                        .HasForeignKey("LineId");
 
                     b.HasOne("YMS.Migrations.Entities.Lookups.Transporter", "Transporter")
                         .WithMany()
@@ -1258,26 +1459,20 @@ namespace YMS.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YMS.Migrations.Entities.Lookups.Vessel", "Vessel")
-                        .WithMany()
-                        .HasForeignKey("VesselId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Block");
 
-                    b.Navigation("ContainerType");
+                    b.Navigation("Container");
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Transporter");
+                    b.Navigation("Line");
 
-                    b.Navigation("Vessel");
+                    b.Navigation("Transporter");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Customer", b =>
                 {
-                    b.HasOne("YMS.Migrations.Entities.Lookups.Branch", "Branch")
+                    b.HasOne("YMS.Migrations.Entities.Branch", "Branch")
                         .WithMany()
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1295,7 +1490,7 @@ namespace YMS.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YMS.Migrations.Entities.Line", "Line")
+                    b.HasOne("YMS.Migrations.Entities.Lookups.Line", "Line")
                         .WithMany()
                         .HasForeignKey("LineId");
 
@@ -1310,24 +1505,17 @@ namespace YMS.Migrations.Migrations
 
             modelBuilder.Entity("YMS.Migrations.Entities.InspectionDetail", b =>
                 {
-                    b.HasOne("YMS.Migrations.Entities.ContainerTransaction", "ContainerTransaction")
+                    b.HasOne("YMS.Migrations.Entities.Container", null)
                         .WithMany("InspectionDetails")
+                        .HasForeignKey("ContainerId");
+
+                    b.HasOne("YMS.Migrations.Entities.ContainerTransaction", "ContainerTransaction")
+                        .WithMany()
                         .HasForeignKey("ContainerTransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ContainerTransaction");
-                });
-
-            modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Branch", b =>
-                {
-                    b.HasOne("YMS.Migrations.Entities.Lookups.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.City", b =>
@@ -1354,7 +1542,7 @@ namespace YMS.Migrations.Migrations
 
             modelBuilder.Entity("YMS.Migrations.Entities.TariffData", b =>
                 {
-                    b.HasOne("YMS.Migrations.Entities.StorageType", "StorageType")
+                    b.HasOne("YMS.Migrations.Entities.Lookups.StorageType", "StorageType")
                         .WithMany()
                         .HasForeignKey("StorageTypeId");
 
@@ -1377,7 +1565,7 @@ namespace YMS.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YMS.Migrations.Entities.Service", "Service")
+                    b.HasOne("YMS.Migrations.Entities.Lookups.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1398,20 +1586,24 @@ namespace YMS.Migrations.Migrations
 
             modelBuilder.Entity("YMS.Migrations.Entities.User", b =>
                 {
-                    b.HasOne("YMS.Migrations.Entities.Lookups.Branch", "Branch")
+                    b.HasOne("YMS.Migrations.Entities.Branch", "Branch")
                         .WithMany()
                         .HasForeignKey("BranchId");
 
                     b.Navigation("Branch");
                 });
 
-            modelBuilder.Entity("YMS.Migrations.Entities.ContainerTransaction", b =>
+            modelBuilder.Entity("YMS.Migrations.Entities.Container", b =>
                 {
+                    b.Navigation("ContainerTransactions");
+
                     b.Navigation("InspectionDetails");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Customer", b =>
                 {
+                    b.Navigation("ContainerTransactions");
+
                     b.Navigation("Tariffs");
                 });
 

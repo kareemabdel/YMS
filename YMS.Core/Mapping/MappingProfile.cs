@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using YMS.Core.Enums;
+using YMS.Core.Models;
 using YMS.Core.Models.Customers;
 using YMS.Core.Models.Customers.ViewModels;
 using YMS.Core.Models.Users;
@@ -31,29 +32,19 @@ namespace YMS.Core.Mapping
             CreateMap<PackageServiceTariffData, PackageServiceTariffDataDTO>();
             CreateMap<PackageServiceTariffDataDTO, PackageServiceTariffData>();
 
-            CreateMap<Currency, CurrencyDTO>();
-            CreateMap<CurrencyDTO, Currency>();
 
-            CreateMap<City, CityDTO>();
-            CreateMap<CityDTO, City>();
-
-            CreateMap<Country, CountryDTO>();
-            CreateMap<CountryDTO, Country>();
 
             CreateMap<Branch, BranchDTO>();
             CreateMap<BranchDTO, Branch>();
-            
-            CreateMap<StorageType, StorageTypeDTO>();
-            CreateMap<StorageTypeDTO, StorageType>(); 
-            
-            CreateMap<PackageType, PackageTypeDTO>();
-            CreateMap<PackageTypeDTO, PackageType>(); 
-            
-            CreateMap<Service, ServiceDTO>();
-            CreateMap<ServiceDTO, Service>();
 
-            CreateMap<Basis, BasisDTO>();
-            CreateMap<BasisDTO, Basis>();
+            CreateMap<LookupDto, Country>();
+            CreateMap<LookupDto, City>();
+            CreateMap<Line , LookupDto>();
+            CreateMap<LookupDto, Currency>();
+            CreateMap<LookupDto, Service>();
+            CreateMap<LookupDto, Basis>();
+            CreateMap<LookupDto, ContainerType>();
+
 
             CreateMap<Tariff, TariffDTO>();
             CreateMap<TariffDTO, Tariff>();
@@ -63,9 +54,6 @@ namespace YMS.Core.Mapping
 
             CreateMap<TariffService, TariffServiceDTO>();
             CreateMap<TariffServiceDTO, TariffService>();
-
-            CreateMap<Basis, BasisDTO>();
-            CreateMap<BasisDTO, Basis>();
             ////////////
 
             CreateMap<Tariff, TariffViewModel>();

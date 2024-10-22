@@ -142,6 +142,14 @@ namespace YMS.Migrations.UnitOfWorks
             }
         }
 
+        private ILookupRepository _LookupsRepo;
+        public ILookupRepository LookupsRepo
+        {
+            get
+            {
+                return this._LookupsRepo = this._LookupsRepo ?? new LookupRepository(context);
+            }
+        }
         public async Task<bool> Save()
         {
             try
