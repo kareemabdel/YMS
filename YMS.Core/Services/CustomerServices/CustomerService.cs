@@ -84,9 +84,9 @@ namespace YMS.Core.Services.UserServices
             }
             return apiResponse;
         }
-        public async Task<ApiResponse<bool>> CreateCustomer(CustomerViewModel model)
+        public async Task<ApiResponse<Guid>> CreateCustomer(CustomerViewModel model)
         {
-            var apiResponse = new ApiResponse<bool>();
+            var apiResponse = new ApiResponse<Guid>();
             try
             {
                 if (model.BranchId == null)
@@ -173,7 +173,7 @@ namespace YMS.Core.Services.UserServices
                 await _unitOfWork.Save();
 
                 apiResponse.StatusCode = HttpStatusCode.OK;
-                apiResponse.Data = true;
+                apiResponse.Data = customer.Id;
             }
             catch (Exception ex)
             {

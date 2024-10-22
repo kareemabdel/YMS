@@ -37,7 +37,7 @@ namespace YMS.Web.Controllers
         }
 
         [HttpPost("create-customer")]
-        public async Task<ActionResult<bool>> CreateCustomer([FromBody] CustomerViewModel model)
+        public async Task<ActionResult<Guid>> CreateCustomer([FromBody] CustomerViewModel model)
         {
             var branchId = GetBranchId();
 
