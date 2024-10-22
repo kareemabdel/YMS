@@ -57,7 +57,7 @@ namespace YMS.Core.Services.UserServices
 
                 return query;
                 },
-                orderByField: filter.SortField ?? "CreatedDate",                       
+                orderByField: filter.SortField,                       
                 isDescending: filter.IsDescending,                         
                 pageNumber: filter.Page,                      
                 pageSize: filter.Size                           
@@ -67,15 +67,6 @@ namespace YMS.Core.Services.UserServices
 
                 apiResponse.StatusCode = HttpStatusCode.OK;
                 apiResponse.Data = new PaginatedList<CustomerListDTO>(customerList, totalCount, filter.Page, filter.Size);
-
-
-
-               // var res = await _unitOfWork.CustomersRepo.GetAllCustomersByBranchId(filter!.BranchId, filter!.SearchKey,filter.SortField,filter.SortOrder);
-                //var mappedItems = res.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider);
-
-                //    apiResponse.StatusCode = HttpStatusCode.OK;
-                //    apiResponse.Data = await PaginatedList<CustomerListDTO>.CreateAsync(mappedItems.OrderByDescending(e=>e.CreatedDate), filter.Page, filter.Size);
-                //    apiResponse.Data.Items.ForEach(x => x.PaymentType = Enum.GetName(typeof(PaymentTypeEnum), int.Parse(x.PaymentType)));
             }
             catch (Exception ex)
             {

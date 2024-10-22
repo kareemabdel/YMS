@@ -13,16 +13,14 @@ namespace YMS.Core.Mapping
     {
         public MappingProfile()
         {
-            // Create your mappings here
             CreateMap<Customer, CustomerDTO>();
             CreateMap<CustomerDTO, Customer>();
             CreateMap<Customer, CustomerListDTO>()
-                .ForMember(dest => dest.HasVat, opt => opt.MapFrom(src => src.HasVat ? "Yes" : "No"));
-                //.ForMember(dest => dest.PaymentType, opt => opt.MapFrom(src => Enum.GetName(typeof(PaymentTypeEnum), src.PaymentType)));
+                 .ForMember(dest => dest.HasVat, opt => opt.MapFrom(src => src.HasVat ? "Yes" : "No"));
+            //.ForMember(dest => dest.PaymentType, opt => opt.MapFrom(src => Enum.GetName(typeof(PaymentTypeEnum), src.PaymentType)));
 
             CreateMap<Customer, CustomerViewModel>();
             CreateMap<CustomerViewModel, Customer>();
-            
             CreateMap<User, UserCredentialsDTO>();
             CreateMap<UserCredentialsDTO, User>();
 
@@ -32,19 +30,26 @@ namespace YMS.Core.Mapping
             CreateMap<PackageServiceTariffData, PackageServiceTariffDataDTO>();
             CreateMap<PackageServiceTariffDataDTO, PackageServiceTariffData>();
 
+            CreateMap<Currency, CurrencyDTO>();
+            CreateMap<CurrencyDTO, Currency>();
 
+            CreateMap<City, CityDTO>();
+            CreateMap<CityDTO, City>();
+
+            CreateMap<Country, CountryDTO>();
+            CreateMap<CountryDTO, Country>();
 
             CreateMap<Branch, BranchDTO>();
             CreateMap<BranchDTO, Branch>();
+            CreateMap<StorageType, StorageTypeDTO>();
+            CreateMap<StorageTypeDTO, StorageType>();
+            CreateMap<PackageType, PackageTypeDTO>();
+            CreateMap<PackageTypeDTO, PackageType>();
+            CreateMap<Service, ServiceDTO>();
+            CreateMap<ServiceDTO, Service>();
 
-            CreateMap<LookupDto, Country>();
-            CreateMap<LookupDto, City>();
-            CreateMap<Line , LookupDto>();
-            CreateMap<LookupDto, Currency>();
-            CreateMap<LookupDto, Service>();
-            CreateMap<LookupDto, Basis>();
-            CreateMap<LookupDto, ContainerType>();
-
+            CreateMap<Basis, BasisDTO>();
+            CreateMap<BasisDTO, Basis>();
 
             CreateMap<Tariff, TariffDTO>();
             CreateMap<TariffDTO, Tariff>();
@@ -54,7 +59,16 @@ namespace YMS.Core.Mapping
 
             CreateMap<TariffService, TariffServiceDTO>();
             CreateMap<TariffServiceDTO, TariffService>();
+
             ////////////
+            CreateMap<LookupDto, Country>().ReverseMap();
+            CreateMap<LookupDto, City>().ReverseMap();
+            CreateMap<Line, LookupDto>().ReverseMap();
+            CreateMap<LookupDto, Currency>().ReverseMap();
+            CreateMap<LookupDto, Service>().ReverseMap();
+            CreateMap<LookupDto, Basis>().ReverseMap();
+            CreateMap<LookupDto, ContainerType>().ReverseMap();
+
 
             CreateMap<Tariff, TariffViewModel>();
             CreateMap<TariffViewModel, Tariff>();

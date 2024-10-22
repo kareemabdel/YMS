@@ -22,8 +22,8 @@ namespace YMS.Migrations.Repositories
 
         public async Task<(IEnumerable<TEntity> items, int totalCount)> Get(
         Func<IQueryable<TEntity>, IQueryable<TEntity>> filter = null,
-        string orderByField = null,
-        bool isDescending = false,
+        string orderByField=null,
+        bool isDescending=true,
         string includeProperties = "",
         int pageNumber = 1,
         int pageSize = 10)

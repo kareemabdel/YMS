@@ -12,7 +12,7 @@ namespace YMS.Core.Models.Filters
         public int Page { get; set; } = 1;
         public int Size { get; set; } = 10;
         public string? SearchKey { get; set; }
-        public bool IsDescending { get; set; }
-        public string? SortField { get; set; }
+        public bool IsDescending { get; set; } = true;
+        public string? SortField { get; set; } = "CreatedDate";
     }
 }
