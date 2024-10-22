@@ -63,7 +63,6 @@ namespace YMS.Migrations.Data
             .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
 
             modelBuilder.Entity<ContainerTransaction>().HasOne(g => g.Container).WithMany(p => p.ContainerTransactions).HasForeignKey(p => p.ContainerId).OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<ContainerTransaction>().HasOne(g => g.Customer).WithMany(p => p.ContainerTransactions).HasForeignKey(p => p.CustomerId).OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Tariff>().Property(x => x.Active).HasDefaultValue(true);
 
