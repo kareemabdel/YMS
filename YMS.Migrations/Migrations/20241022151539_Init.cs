@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YMS.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class addinit : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -437,24 +437,31 @@ namespace YMS.Migrations.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ContainerNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Ref = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VesselId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Ref = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VesselId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LineId = table.Column<int>(type: "int", nullable: true),
                     ContainerTypeId = table.Column<int>(type: "int", nullable: false),
-                    ShippingStatus = table.Column<int>(type: "int", nullable: false),
-                    LoadPosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BayCell = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TempRqd = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IMOClass = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OOG = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DMG = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BillNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Weight = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ISO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Voyage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ETA = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShippingStatus = table.Column<int>(type: "int", nullable: true),
+                    LoadPosition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BayCell = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TempRqd = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IMOClass = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OOG = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DMG = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BillNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Weight = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ISO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Voyage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ETA = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    IsRORO = table.Column<bool>(type: "bit", nullable: true),
+                    TruckNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SealNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContainerCondition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EIR = table.Column<int>(type: "int", nullable: false),
+                    EIRRemarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -474,14 +481,17 @@ namespace YMS.Migrations.Migrations
                         name: "FK_Containers_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Containers_Lines_LineId",
+                        column: x => x.LineId,
+                        principalTable: "Lines",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Containers_Vessels_VesselId",
                         column: x => x.VesselId,
                         principalTable: "Vessels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -523,22 +533,24 @@ namespace YMS.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IsRORO = table.Column<bool>(type: "bit", nullable: false),
                     ContainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LineId = table.Column<int>(type: "int", nullable: true),
                     TransporterId = table.Column<int>(type: "int", nullable: false),
-                    TruckNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DriverMobileNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeliveryCardNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DriverID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CleanCost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     RepairCost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    BlockId = table.Column<int>(type: "int", nullable: true),
-                    Bay = table.Column<short>(type: "smallint", nullable: true),
-                    Rows = table.Column<short>(type: "smallint", nullable: true),
-                    Tier = table.Column<short>(type: "smallint", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    GateInBlockId = table.Column<int>(type: "int", nullable: false),
+                    GateInBay = table.Column<short>(type: "smallint", nullable: false),
+                    GateInRows = table.Column<short>(type: "smallint", nullable: false),
+                    GateInTier = table.Column<short>(type: "smallint", nullable: false),
+                    ActualBlockId = table.Column<int>(type: "int", nullable: true),
+                    ActualBay = table.Column<short>(type: "smallint", nullable: true),
+                    ActualRows = table.Column<short>(type: "smallint", nullable: true),
+                    ActualTier = table.Column<short>(type: "smallint", nullable: true),
+                    AllocationStatus = table.Column<int>(type: "int", nullable: false),
+                    BlockId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -552,7 +564,8 @@ namespace YMS.Migrations.Migrations
                         name: "FK_ContainerTransactions_Blocks_BlockId",
                         column: x => x.BlockId,
                         principalTable: "Blocks",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ContainerTransactions_Containers_ContainerId",
                         column: x => x.ContainerId,
@@ -562,11 +575,6 @@ namespace YMS.Migrations.Migrations
                         name: "FK_ContainerTransactions_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ContainerTransactions_Lines_LineId",
-                        column: x => x.LineId,
-                        principalTable: "Lines",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ContainerTransactions_Transporters_TransporterId",
@@ -796,6 +804,11 @@ namespace YMS.Migrations.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Containers_LineId",
+                table: "Containers",
+                column: "LineId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Containers_VesselId",
                 table: "Containers",
                 column: "VesselId");
@@ -814,11 +827,6 @@ namespace YMS.Migrations.Migrations
                 name: "IX_ContainerTransactions_CustomerId",
                 table: "ContainerTransactions",
                 column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContainerTransactions_LineId",
-                table: "ContainerTransactions",
-                column: "LineId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ContainerTransactions_TransporterId",

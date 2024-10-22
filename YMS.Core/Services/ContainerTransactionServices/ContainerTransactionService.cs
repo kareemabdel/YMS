@@ -43,44 +43,99 @@ namespace YMS.Core.Services.UserServices
 
         public async Task<ApiResponse<PaginatedList<GateInDTO>>> GetAll(GateInFilter filter)
         {
-            return null;
-            //var apiResponse = new ApiResponse<PaginatedList<GateInDTO>>();
-            //try
-            //{
-            //    var (items, totalCount) = await _unitOfWork.ContainerTransactionRepo.Get(
-            //    filter: query =>
-            //    {
-            //        if ((filter?.BranchId != null))
-            //        {
-            //            query = query.Where(c => c.BranchId == filter.BranchId);
-            //        }
-            //        if (!string.IsNullOrEmpty(filter?.SearchKey))
-            //        {
-            //            query = query.Where(c => c.Code.Contains(filter.SearchKey) || c.NameEn.Contains(filter.SearchKey));
-            //        }
+            var apiResponse = new ApiResponse<PaginatedList<GateInDTO>>();
+            try
+            {
+                //sort
+                switch(filter.SortField)
+                {
+                    case "Customer":
+                        filter.SortField = "Container.Customer.NameEn";
+                        break;
 
-            //        query = query.Where(c => !c.IsDeleted);
+                    case "ContainerNo":
+                        filter.SortField = "Container.ContainerNo";
+                        break;
 
-            //        return query;
-            //    },
-            //    orderByField: filter?.SortField ?? "CreatedDate",
-            //    isDescending: filter.SortOrder == -1 ? true : false,
-            //    pageNumber: filter.Page,
-            //    pageSize: filter.Size
-            //    );
+                    case "Type":
+                        filter.SortField = "Container.ContainerType.NameEn";
+                        break;
 
-            //    var customerList = _mapper.Map<List<GateInDTO>>(items);
+                    case "Status":
+                        filter.SortField = "Container.ShippingStatus";
+                        break;
 
-            //    apiResponse.StatusCode = HttpStatusCode.OK;
-            //    apiResponse.Data = new PaginatedList<GateInDTO>(customerList, totalCount, filter.Page, filter.Size);
-            //}
-            //catch (Exception ex)
-            //{
-            //    apiResponse.StatusCode = HttpStatusCode.BadRequest;
-            //    apiResponse.Errors = ex.Message;
-            //}
+                    case "Line":
+                        filter.SortField = "Container.Line.NameEn";
+                        break;
 
-            //return apiResponse;
+                    case "EIRRemark":
+                        filter.SortField = "Container.EIRRemarks";
+                        break;
+                }
+
+                var (items, totalCount) = await _unitOfWork.ContainerTransactionRepo.Get(
+                filter: query =>
+                {
+                    if (filter.BranchId != null)
+                    {
+                        query = query.Where(c => c.Container.Customer.BranchId == filter.BranchId);
+                    }
+
+                    if (!string.IsNullOrEmpty(filter.SearchKey))
+                    {
+                        query = query.Where(c => c.Container.ContainerNo.Contains(filter.SearchKey) || c.Container.Customer.NameEn.Contains(filter.SearchKey));
+                    }
+
+                    if (filter.GateInDateFrom != null)
+                    {
+                        query = query.Where(c => c.CreatedDate >= filter.GateInDateFrom);
+                    }
+
+                    if (filter.GateInDateTo != null)
+                    {
+                        query = query.Where(c => c.CreatedDate <= filter.GateInDateTo);
+                    }
+
+                    query = query.Where(c => !c.IsDeleted);
+
+                    return query;
+                },
+                orderByField: filter.SortField,
+                isDescending: filter.IsDescending,
+                includeProperties: "Container,Container.Customer,Container.ContainerType,Container.Line",
+                pageNumber: filter.Page,
+                pageSize: filter.Size
+                );
+
+                var list = new List<GateInDTO>();
+
+                foreach (var item in items) 
+                {
+                    list.Add(new GateInDTO
+                    {
+                        Id = item.Id,
+                        ContainerNo = item.Container.ContainerNo,
+                        Customer = item.Container.Customer.NameEn,
+                        Line = item.Container.Line?.NameEn,
+                        Type = item.Container.ContainerType.NameEn,
+                        CreatedDate = item.CreatedDate.ToString(),
+                        EIRRemark = item.Container.EIRRemarks,
+                        Status = Enum.GetName(typeof(ContainerShippingStatusEnum), item.Container.ShippingStatus),
+                        AllocationStatus = Enum.GetName(typeof(AllocationStatusEnum), item.AllocationStatus)
+                    });
+                }
+
+                apiResponse.StatusCode = HttpStatusCode.OK;
+                apiResponse.Data = new PaginatedList<GateInDTO>(list, totalCount, filter.Page, filter.Size);
+            }
+            catch (Exception ex)
+            {
+                apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                apiResponse.Errors = ex.Message;
+            }
+
+            return apiResponse;
         }
     }
 }

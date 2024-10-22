@@ -22,7 +22,7 @@ namespace YMS.Migrations.Repositories
 
         public async Task<(IEnumerable<TEntity> items, int totalCount)> Get(
         Func<IQueryable<TEntity>, IQueryable<TEntity>> filter = null,
-        string orderByField=null,
+        string orderByField= "CreatedDate",
         bool isDescending=true,
         string includeProperties = "",
         int pageNumber = 1,
@@ -42,14 +42,28 @@ namespace YMS.Migrations.Repositories
                 query = query.Include(includeProperty);
             }
 
+            // Apply sorting
             if (!string.IsNullOrEmpty(orderByField))
             {
+                var fields = orderByField.Split('.');
                 var parameter = Expression.Parameter(typeof(TEntity), "x");
-                var property = Expression.Property(parameter, orderByField);
+                Expression property = parameter;
+
+                foreach (var field in fields)
+                {
+                    property = Expression.PropertyOrField(property, field);
+                }
+
                 var lambda = Expression.Lambda(property, parameter);
 
                 var methodName = isDescending ? "OrderByDescending" : "OrderBy";
-                var resultExpression = Expression.Call(typeof(Queryable), methodName, new Type[] { typeof(TEntity), property.Type }, query.Expression, Expression.Quote(lambda));
+                var resultExpression = Expression.Call(
+                    typeof(Queryable),
+                    methodName,
+                    new Type[] { typeof(TEntity), property.Type },
+                    query.Expression,
+                    Expression.Quote(lambda));
+
                 query = query.Provider.CreateQuery<TEntity>(resultExpression);
             }
 

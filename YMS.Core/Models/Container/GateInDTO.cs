@@ -10,13 +10,13 @@ namespace YMS.Core.Models.Container
 {
     public class GateInDTO
     {
-        public Guid OperationNo { get; set; }
+        public Guid Id { get; set; }
         public string ContainerNo { get; set; }
         public string Customer { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
         public string? Line { get; set; }
-        public DateTime GateInDate { get; set; }
+        public string CreatedDate { get; set; }
         public string? EIRRemark { get; set; }
         public string AllocationStatus { get; set; }
     }

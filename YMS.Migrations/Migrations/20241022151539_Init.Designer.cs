@@ -12,8 +12,8 @@ using YMS.Migrations.Data;
 namespace YMS.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241021182524_add-init")]
-    partial class addinit
+    [Migration("20241022151539_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,10 +116,12 @@ namespace YMS.Migrations.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BayCell")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BillNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContainerCondition")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -136,68 +138,78 @@ namespace YMS.Migrations.Migrations
                     b.Property<DateTimeOffset?>("CreatedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DMG")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ETA")
+                    b.Property<int>("EIR")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EIRRemarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ETA")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IMOClass")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISO")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsRORO")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("LineId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LoadPosition")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OOG")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ref")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SealNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ShippingStatus")
+                    b.Property<int?>("ShippingStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("TempRqd")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TruckNo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("VesselId")
+                    b.Property<int?>("VesselId")
                         .HasColumnType("int");
 
                     b.Property<string>("Voyage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Weight")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -205,6 +217,8 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("ContainerTypeId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("LineId");
 
                     b.HasIndex("VesselId");
 
@@ -217,10 +231,22 @@ namespace YMS.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<short?>("Bay")
+                    b.Property<short?>("ActualBay")
                         .HasColumnType("smallint");
 
-                    b.Property<int?>("BlockId")
+                    b.Property<int?>("ActualBlockId")
+                        .HasColumnType("int");
+
+                    b.Property<short?>("ActualRows")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("ActualTier")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("AllocationStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlockId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("CleanCost")
@@ -235,7 +261,7 @@ namespace YMS.Migrations.Migrations
                     b.Property<DateTimeOffset?>("CreatedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DeletedDate")
@@ -250,33 +276,26 @@ namespace YMS.Migrations.Migrations
                     b.Property<string>("DriverMobileNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<short>("GateInBay")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("GateInBlockId")
+                        .HasColumnType("int");
+
+                    b.Property<short>("GateInRows")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("GateInTier")
+                        .HasColumnType("smallint");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<bool>("IsRORO")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("LineId")
-                        .HasColumnType("int");
 
                     b.Property<decimal?>("RepairCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<short?>("Rows")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<short?>("Tier")
-                        .HasColumnType("smallint");
-
                     b.Property<int>("TransporterId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TruckNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetimeoffset");
@@ -288,8 +307,6 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("ContainerId");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("LineId");
 
                     b.HasIndex("TransporterId");
 
@@ -1414,19 +1431,21 @@ namespace YMS.Migrations.Migrations
 
                     b.HasOne("YMS.Migrations.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("YMS.Migrations.Entities.Lookups.Line", "Line")
+                        .WithMany()
+                        .HasForeignKey("LineId");
 
                     b.HasOne("YMS.Migrations.Entities.Lookups.Vessel", "Vessel")
                         .WithMany()
-                        .HasForeignKey("VesselId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VesselId");
 
                     b.Navigation("ContainerType");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Line");
 
                     b.Navigation("Vessel");
                 });
@@ -1435,7 +1454,9 @@ namespace YMS.Migrations.Migrations
                 {
                     b.HasOne("YMS.Migrations.Entities.Lookups.Block", "Block")
                         .WithMany()
-                        .HasForeignKey("BlockId");
+                        .HasForeignKey("BlockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("YMS.Migrations.Entities.Container", "Container")
                         .WithMany("ContainerTransactions")
@@ -1443,15 +1464,9 @@ namespace YMS.Migrations.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("YMS.Migrations.Entities.Customer", "Customer")
+                    b.HasOne("YMS.Migrations.Entities.Customer", null)
                         .WithMany("ContainerTransactions")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("YMS.Migrations.Entities.Lookups.Line", "Line")
-                        .WithMany()
-                        .HasForeignKey("LineId");
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("YMS.Migrations.Entities.Lookups.Transporter", "Transporter")
                         .WithMany()
@@ -1462,10 +1477,6 @@ namespace YMS.Migrations.Migrations
                     b.Navigation("Block");
 
                     b.Navigation("Container");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Line");
 
                     b.Navigation("Transporter");
                 });

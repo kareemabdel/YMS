@@ -24,7 +24,7 @@ namespace YMS.Web.Controllers
         }
 
         [HttpPost("get-gate-in")]
-        public async Task<ActionResult<PaginatedList<GateInDTO>>> GetAll(GateInFilter filter)
+        public async Task<ActionResult<PaginatedList<GateInDTO>>> GetAll([FromQuery] GateInFilter filter)
         {
             var branchId = GetBranchId();
 

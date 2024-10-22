@@ -85,7 +85,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Branches", (string)null);
+                    b.ToTable("Branches");
 
                     b.HasData(
                         new
@@ -165,6 +165,9 @@ namespace YMS.Migrations.Migrations
                     b.Property<bool?>("IsRORO")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("LineId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LoadPosition")
                         .HasColumnType("nvarchar(max)");
 
@@ -212,9 +215,11 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("LineId");
+
                     b.HasIndex("VesselId");
 
-                    b.ToTable("Containers", (string)null);
+                    b.ToTable("Containers");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.ContainerTransaction", b =>
@@ -302,7 +307,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("TransporterId");
 
-                    b.ToTable("ContainerTransactions", (string)null);
+                    b.ToTable("ContainerTransactions");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Customer", b =>
@@ -408,7 +413,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("LineId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.InspectionDetail", b =>
@@ -453,7 +458,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("ContainerTransactionId");
 
-                    b.ToTable("InspectionDetail", (string)null);
+                    b.ToTable("InspectionDetail");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Basis", b =>
@@ -494,7 +499,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Basises", (string)null);
+                    b.ToTable("Basises");
 
                     b.HasData(
                         new
@@ -576,7 +581,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blocks", (string)null);
+                    b.ToTable("Blocks");
 
                     b.HasData(
                         new
@@ -646,7 +651,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
@@ -711,7 +716,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContainerTypes", (string)null);
+                    b.ToTable("ContainerTypes");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Lookups.Country", b =>
@@ -752,7 +757,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new
@@ -806,7 +811,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Currencies", (string)null);
+                    b.ToTable("Currencies");
 
                     b.HasData(
                         new
@@ -858,7 +863,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lines", (string)null);
+                    b.ToTable("Lines");
 
                     b.HasData(
                         new
@@ -913,7 +918,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageTypes", (string)null);
+                    b.ToTable("PackageTypes");
 
                     b.HasData(
                         new
@@ -968,7 +973,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
 
                     b.HasData(
                         new
@@ -1023,7 +1028,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StorageTypes", (string)null);
+                    b.ToTable("StorageTypes");
 
                     b.HasData(
                         new
@@ -1078,7 +1083,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transporters", (string)null);
+                    b.ToTable("Transporters");
 
                     b.HasData(
                         new
@@ -1137,7 +1142,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vessels", (string)null);
+                    b.ToTable("Vessels");
 
                     b.HasData(
                         new
@@ -1176,7 +1181,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.Tariff", b =>
@@ -1242,7 +1247,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Tariffs", (string)null);
+                    b.ToTable("Tariffs");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.TariffData", b =>
@@ -1269,7 +1274,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("TariffId");
 
-                    b.ToTable("TariffData", (string)null);
+                    b.ToTable("TariffData");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.TariffService", b =>
@@ -1307,7 +1312,7 @@ namespace YMS.Migrations.Migrations
 
                     b.HasIndex("TariffId");
 
-                    b.ToTable("TariffServices", (string)null);
+                    b.ToTable("TariffServices");
                 });
 
             modelBuilder.Entity("YMS.Migrations.Entities.User", b =>
@@ -1377,7 +1382,7 @@ namespace YMS.Migrations.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users", null, t =>
+                    b.ToTable("Users", t =>
                         {
                             t.HasCheckConstraint("CHK_Email", "(Email IS NULL OR Email LIKE '%_@__%.__%')");
 
@@ -1425,6 +1430,10 @@ namespace YMS.Migrations.Migrations
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("YMS.Migrations.Entities.Lookups.Line", "Line")
+                        .WithMany()
+                        .HasForeignKey("LineId");
+
                     b.HasOne("YMS.Migrations.Entities.Lookups.Vessel", "Vessel")
                         .WithMany()
                         .HasForeignKey("VesselId");
@@ -1432,6 +1441,8 @@ namespace YMS.Migrations.Migrations
                     b.Navigation("ContainerType");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Line");
 
                     b.Navigation("Vessel");
                 });

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YMS.Migrations.Entities.Lookups;
-using YMS.Migrations.Migrations;
 
 namespace YMS.Migrations.Entities
 {
@@ -16,6 +15,9 @@ namespace YMS.Migrations.Entities
         public string? Ref { get; set; }
         public int? VesselId { get; set; }
         public Guid? CustomerId { get; set; }
+        
+        public int? LineId { get; set; }
+        public Line? Line { get; set; }
         public int ContainerTypeId { get; set; }
         public int? ShippingStatus { get; set; } //ContainerShippingStatusEnum
         public string? LoadPosition { get; set; }
