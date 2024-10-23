@@ -43,6 +43,5 @@ namespace YMS.Web.Controllers
             var response = await _containerTransactionService.GateIn(model);
             return GetAPIResponse(response);
         }
-
     }
 }

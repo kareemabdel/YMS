@@ -89,12 +89,12 @@ namespace YMS.Core.Services.UserServices
 
                     if (filter.GateInDateFrom != null)
                     {
-                        query = query.Where(c => c.CreatedDate >= filter.GateInDateFrom);
+                        query = query.Where(c => c.CreatedDate.Value.Date >= filter.GateInDateFrom.Value.Date);
                     }
 
                     if (filter.GateInDateTo != null)
                     {
-                        query = query.Where(c => c.CreatedDate <= filter.GateInDateTo);
+                        query = query.Where(c => c.CreatedDate.Value.Date <= filter.GateInDateTo.Value.Date);
                     }
 
                     query = query.Where(c => !c.IsDeleted);
